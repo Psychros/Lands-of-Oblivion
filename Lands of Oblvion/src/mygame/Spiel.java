@@ -13,10 +13,18 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.FlyByCamera;
+import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -32,10 +40,11 @@ import com.jme3.texture.Texture.WrapMode;
  *
  * @author To
  */
-public class Spiel extends AbstractAppState {
+public class Spiel extends AbstractAppState implements ActionListener, AnalogListener{
     //Standart variablen, die von der SimpleApplicaton kommen
     private SimpleApplication app;
     private AssetManager assetManager;
+    private InputManager inputManager;
     private Camera cam;
     private FlyByCamera flyCam;
     private Node rootNode;
@@ -45,9 +54,25 @@ public class Spiel extends AbstractAppState {
     private Node playerNode;
     private BetterCharacterControl playerControl;
     private CameraNode camNode;
+    private Vector3f walkDirection;
+    private Vector3f viewDirection;
+    private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false;
+    private float speed = 8;
     
     //Physik
     BulletAppState bulletAppState;
+    
+    //Mappings
+    public static final String LINKS         = "Links";
+    public static final String RECHTS        = "Rechts";
+    public static final String VORWÄRTS      = "Vorwärts";
+    public static final String RÜCKWÄRTS     = "Rückwärts";
+    public static final String SPRINGEN      = "Springen";
+    public static final String KAMERA_LINKS  = "Kamera nach links";
+    public static final String KAMERA_RECHTS = "Kamera nach rechts";
+    public static final String KAMERA_UNTEN  = "Kamera nach unten";
+    public static final String KAMERA_OBEN   = "Kamera nach oben";
+    
     
     
     @Override
@@ -60,6 +85,7 @@ public class Spiel extends AbstractAppState {
         this.rootNode     = this.app.getRootNode();
         this.guiNode      = this.app.getGuiNode();
         this.assetManager = this.app.getAssetManager();
+        this.inputManager = this.app.getInputManager();
         
         this.app.getViewPort().setBackgroundColor(ColorRGBA.Cyan);
         
@@ -71,6 +97,21 @@ public class Spiel extends AbstractAppState {
         initPlayer();
         initLight();
     }
+    
+    
+    /*
+     * Aktionen, die bei einem Tastendruck ausgeführt werden
+     */
+    @Override
+    public void onAction(String binding, boolean isPressed, float tpf){
+        
+    }
+    
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
+        
+    }
+    
     
     /*
      * Initialisieren des Bodens der Welt, bei dem es sich um eine flache Ebene handelt
@@ -92,6 +133,7 @@ public class Spiel extends AbstractAppState {
         
         rootNode.attachChild(geom);
     }
+    
     
     /*
      * Initialisieren des Spielers und das ersetzen der FlyCam durch eine eigene Kamera
@@ -120,6 +162,30 @@ public class Spiel extends AbstractAppState {
         camNode.setEnabled(true);
         flyCam.setEnabled(false);
     }
+    
+    
+    /*
+     * Initialisiere alle Tastendrücke
+     */
+    public void initMappings(){
+        //Bewegen
+        inputManager.addMapping(LINKS, new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping(RECHTS, new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping(VORWÄRTS, new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping(RÜCKWÄRTS, new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
+        
+        //Kamera rotieren
+        inputManager.addMapping("FLYCAM_Left", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping("FLYCAM_Right", new MouseAxisTrigger(MouseInput.AXIS_X, false));
+        inputManager.addMapping("FLYCAM_Up", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+        inputManager.addMapping("FLYCAM_Down", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+        
+        //Listener registrieren
+        inputManager.addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
+        inputManager.addListener(this, KAMERA_LINKS, KAMERA_RECHTS, KAMERA_OBEN, KAMERA_UNTEN);
+    }
+    
     
     /*
      * Lichter intialisieren
