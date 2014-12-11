@@ -102,30 +102,6 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     
     
     /*
-     * Aktionen, die bei einem Tastendruck ausgeführt werden
-     */
-    @Override
-    public void onAction(String name, boolean isPressed, float tpf){
-        switch(name){
-            case VORWÄRTS     : vorwärts    = isPressed; break;
-            case RÜCKWÄRTS    : rückwärts   = isPressed; break;
-            case LINKS        : links       = isPressed; break;
-            case RECHTS       : rechts      = isPressed; break;
-            case KAMERA_LINKS : rotateLeft  = isPressed; break;
-            case KAMERA_OBEN  : rotateUp    = isPressed; break;
-            case KAMERA_RECHTS: rotateRight = isPressed; break;
-            case KAMERA_UNTEN : rotateDown  = isPressed; break;
-            case SPRINGEN     : playerControl.jump()   ; break;
-        }
-    }
-    
-    @Override
-    public void onAnalog(String name, float value, float tpf) {
-        
-    }
-    
-    
-    /*
      * Initialisieren des Bodens der Welt, bei dem es sich um eine flache Ebene handelt
      */
     public void initBoden(){
@@ -173,6 +149,9 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         playerNode.attachChild(camNode);
         camNode.setEnabled(true);
         flyCam.setEnabled(false);
+        
+        walkDirection = new Vector3f(0, 0, 0);
+        viewDirection = new Vector3f(0, 0, 0);
     }
     
     
@@ -212,6 +191,51 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     
     @Override
     public void update(float tpf){
+        /*
+         * Spieler bewegen oder rotieren
+         */
+        //Bestimmen, wo vorne und wo links liegt
+        Vector3f vorwärtsRichtung = playerNode.getWorldRotation().mult(Vector3f.UNIT_Z);
+        Vector3f linksRichtung = playerNode.getWorldRotation().mult(Vector3f.UNIT_X);
+        
+        //Spieler nach vorne, hinten, links, oder rechts bewegen
+        walkDirection.set(0, 0, 0);
+        if(vorwärts){
+            walkDirection.addLocal(vorwärtsRichtung.mult(speed));
+        } 
+        if(rückwärts){
+            walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
+        } 
+        if(links){
+            walkDirection.addLocal(linksRichtung.mult(speed));
+        } 
+        if(rechts){
+            walkDirection.addLocal(linksRichtung.mult(speed).negate());
+        }
+        playerControl.setWalkDirection(walkDirection);
+    }
+    
+    
+     /*
+     * Aktionen, die bei einem Tastendruck ausgeführt werden
+     */
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf){
+        switch(name){
+            case VORWÄRTS     : vorwärts    = isPressed; break;
+            case RÜCKWÄRTS    : rückwärts   = isPressed; break;
+            case LINKS        : links       = isPressed; break;
+            case RECHTS       : rechts      = isPressed; break;
+            case KAMERA_LINKS : rotateLeft  = isPressed; break;
+            case KAMERA_OBEN  : rotateUp    = isPressed; break;
+            case KAMERA_RECHTS: rotateRight = isPressed; break;
+            case KAMERA_UNTEN : rotateDown  = isPressed; break;
+            case SPRINGEN     : playerControl.jump()   ; break;
+        }
+    }
+    
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
         
     }
 }
