@@ -56,7 +56,8 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     private CameraNode camNode;
     private Vector3f walkDirection;
     private Vector3f viewDirection;
-    private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false;
+    private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false,
+                    vorwärts = false, rückwärts = false, links = false, rechts = false;
     private float speed = 8;
     
     //Physik
@@ -95,6 +96,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         
         initBoden();
         initPlayer();
+        initMappings();
         initLight();
     }
     
@@ -103,8 +105,18 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
      * Aktionen, die bei einem Tastendruck ausgeführt werden
      */
     @Override
-    public void onAction(String binding, boolean isPressed, float tpf){
-        
+    public void onAction(String name, boolean isPressed, float tpf){
+        switch(name){
+            case VORWÄRTS     : vorwärts    = isPressed; break;
+            case RÜCKWÄRTS    : rückwärts   = isPressed; break;
+            case LINKS        : links       = isPressed; break;
+            case RECHTS       : rechts      = isPressed; break;
+            case KAMERA_LINKS : rotateLeft  = isPressed; break;
+            case KAMERA_OBEN  : rotateUp    = isPressed; break;
+            case KAMERA_RECHTS: rotateRight = isPressed; break;
+            case KAMERA_UNTEN : rotateDown  = isPressed; break;
+            case SPRINGEN     : playerControl.jump()   ; break;
+        }
     }
     
     @Override
@@ -176,10 +188,10 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         inputManager.addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
         
         //Kamera rotieren
-        inputManager.addMapping("FLYCAM_Left", new MouseAxisTrigger(MouseInput.AXIS_X, true));
-        inputManager.addMapping("FLYCAM_Right", new MouseAxisTrigger(MouseInput.AXIS_X, false));
-        inputManager.addMapping("FLYCAM_Up", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
-        inputManager.addMapping("FLYCAM_Down", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+        inputManager.addMapping(KAMERA_LINKS , new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping(KAMERA_RECHTS, new MouseAxisTrigger(MouseInput.AXIS_X, false));
+        inputManager.addMapping(KAMERA_OBEN  , new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+        inputManager.addMapping(KAMERA_UNTEN , new MouseAxisTrigger(MouseInput.AXIS_Y, true));
         
         //Listener registrieren
         inputManager.addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
