@@ -59,6 +59,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false,
                     vorwärts = false, rückwärts = false, links = false, rechts = false;
     private float speed = 8;
+    private float rotationSpeed = 3;
     
     //Physik
     BulletAppState bulletAppState;
@@ -216,6 +217,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     }
     
     
+    
      /*
      * Aktionen, die bei einem Tastendruck ausgeführt werden
      */
@@ -226,16 +228,37 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
             case RÜCKWÄRTS    : rückwärts   = isPressed; break;
             case LINKS        : links       = isPressed; break;
             case RECHTS       : rechts      = isPressed; break;
-            case KAMERA_LINKS : rotateLeft  = isPressed; break;
-            case KAMERA_OBEN  : rotateUp    = isPressed; break;
-            case KAMERA_RECHTS: rotateRight = isPressed; break;
-            case KAMERA_UNTEN : rotateDown  = isPressed; break;
             case SPRINGEN     : playerControl.jump()   ; break;
         }
     }
     
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        
+        switch(name){
+            case KAMERA_LINKS : rotateCamera(value, cam.getUp()); break;
+            case KAMERA_OBEN  : rotateCamera(-value * 1, cam.getLeft()); break;
+            case KAMERA_RECHTS: rotateCamera(-value, cam.getUp()); break;
+            case KAMERA_UNTEN : rotateCamera(value * -1, cam.getLeft()); break;
+        }
+    }
+    
+    
+    protected void rotateCamera(float value, Vector3f axis){
+        Matrix3f mat = new Matrix3f();
+        mat.fromAngleNormalAxis(rotationSpeed * value, axis);
+
+        Vector3f up = cam.getUp();
+        Vector3f left = cam.getLeft();
+        Vector3f dir = cam.getDirection();
+
+        mat.mult(up, up);
+        mat.mult(left, left);
+        mat.mult(dir, dir);
+
+        Quaternion q = new Quaternion();
+        q.fromAxes(left, up, dir);
+        q.normalizeLocal();
+
+        cam.setAxes(q);
     }
 }
