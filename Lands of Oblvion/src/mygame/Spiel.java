@@ -59,7 +59,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false,
                     vorwärts = false, rückwärts = false, links = false, rechts = false;
     private float speed = 8;
-    private float rotationSpeed = 3;
+    private float rotationSpeed = 0.8f;
     
     //Physik
     BulletAppState bulletAppState;
@@ -99,6 +99,8 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         initPlayer();
         initMappings();
         initLight();
+        
+        inputManager.setCursorVisible(false);
     }
     
     
@@ -152,7 +154,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         flyCam.setEnabled(false);
         
         walkDirection = new Vector3f(0, 0, 0);
-        viewDirection = new Vector3f(0, 0, 0);
+        viewDirection = new Vector3f(0, 0, 1);
     }
     
     
@@ -214,6 +216,29 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
             walkDirection.addLocal(linksRichtung.mult(speed).negate());
         }
         playerControl.setWalkDirection(walkDirection);
+        
+        //Spieler rotieren
+        if(rotateDown){
+            Quaternion rotate = new Quaternion().fromAngleAxis(FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_X);
+            camNode.rotate(rotate);
+        }
+        if(rotateUp){
+            Quaternion rotate = new Quaternion().fromAngleAxis(-FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_X);
+            camNode.rotate(rotate);
+        }
+        if(rotateLeft){
+            Quaternion rotate = new Quaternion().fromAngleAxis(FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_Y);
+            viewDirection = rotate.multLocal(viewDirection);
+        }
+        if(rotateRight){
+            Quaternion rotate = new Quaternion().fromAngleAxis(-FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_Y);
+            viewDirection = rotate.multLocal(viewDirection);
+        }
+        rotateDown  = false;
+        rotateLeft  = false;
+        rotateRight = false;
+        rotateUp    = false;
+        playerControl.setViewDirection(viewDirection);
     }
     
     
@@ -233,32 +258,13 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     }
     
     @Override
-    public void onAnalog(String name, float value, float tpf) {
+    public void onAnalog(String name, float value, float tpf) {      
+        //Testen, in welche Richtung die Kamera sich drehen muss
         switch(name){
-            case KAMERA_LINKS : rotateCamera(value, cam.getUp()); break;
-            case KAMERA_OBEN  : rotateCamera(-value * 1, cam.getLeft()); break;
-            case KAMERA_RECHTS: rotateCamera(-value, cam.getUp()); break;
-            case KAMERA_UNTEN : rotateCamera(value * -1, cam.getLeft()); break;
+            case KAMERA_LINKS : rotateLeft = true ; break;
+            case KAMERA_OBEN  : rotateUp = true   ; break;
+            case KAMERA_RECHTS: rotateRight = true; break;
+            case KAMERA_UNTEN : rotateDown = true ; break;
         }
-    }
-    
-    
-    protected void rotateCamera(float value, Vector3f axis){
-        Matrix3f mat = new Matrix3f();
-        mat.fromAngleNormalAxis(rotationSpeed * value, axis);
-
-        Vector3f up = cam.getUp();
-        Vector3f left = cam.getLeft();
-        Vector3f dir = cam.getDirection();
-
-        mat.mult(up, up);
-        mat.mult(left, left);
-        mat.mult(dir, dir);
-
-        Quaternion q = new Quaternion();
-        q.fromAxes(left, up, dir);
-        q.normalizeLocal();
-
-        cam.setAxes(q);
     }
 }
