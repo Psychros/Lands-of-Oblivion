@@ -40,7 +40,7 @@ import com.jme3.texture.Texture.WrapMode;
  *
  * @author To
  */
-public class Spiel extends AbstractAppState implements ActionListener, AnalogListener{
+public class Spiel extends AbstractAppState implements ActionListener{
     //Standart variablen, die von der SimpleApplicaton kommen
     private SimpleApplication app;
     private AssetManager assetManager;
@@ -53,13 +53,9 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     //Spieler
     private Node playerNode;
     private BetterCharacterControl playerControl;
-    private CameraNode camNode;
     private Vector3f walkDirection;
-    private Vector3f viewDirection;
-    private boolean rotateLeft = false, rotateRight = false, rotateUp = false, rotateDown = false,
-                    vorwärts = false, rückwärts = false, links = false, rechts = false;
+    private boolean vorwärts = false, rückwärts = false, links = false, rechts = false;
     private float speed = 8;
-    private float rotationSpeed = 0.8f;
     
     //Physik
     BulletAppState bulletAppState;
@@ -70,10 +66,6 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     public static final String VORWÄRTS      = "Vorwärts";
     public static final String RÜCKWÄRTS     = "Rückwärts";
     public static final String SPRINGEN      = "Springen";
-    public static final String KAMERA_LINKS  = "Kamera nach links";
-    public static final String KAMERA_RECHTS = "Kamera nach rechts";
-    public static final String KAMERA_UNTEN  = "Kamera nach unten";
-    public static final String KAMERA_OBEN   = "Kamera nach oben";
     
     
     
@@ -132,29 +124,18 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
     public void initPlayer(){
         //Der eigentliche Spieler
         playerNode = new Node("Player");
-        playerNode.setLocalTranslation(0, 5, 0);
+        playerNode.setLocalTranslation(0, 3, 0);
         rootNode.attachChild(playerNode);
         
         //Initialisierung des BetterPlayerControls
-        playerControl = new BetterCharacterControl(1.5f, 4, 80);
+        playerControl = new BetterCharacterControl(1, 3, 80);
         playerControl.setJumpForce(new Vector3f(0, 600, 0));
         playerControl.setGravity(new Vector3f(9, -9.81f, 0));
         playerNode.addControl(playerControl);
         bulletAppState.getPhysicsSpace().add(playerControl);
         
-        //Kamera initialisieren
-        camNode = new CameraNode("CamNode", cam);
-        camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
-        camNode.setLocalTranslation(0, 4, 0);
-        Quaternion quat = new Quaternion();
-        quat.lookAt(Vector3f.UNIT_Z, Vector3f.UNIT_Z);
-        camNode.setLocalRotation(quat);
-        playerNode.attachChild(camNode);
-        camNode.setEnabled(true);
-        flyCam.setEnabled(false);
-        
+        //Laufrichtung
         walkDirection = new Vector3f(0, 0, 0);
-        viewDirection = new Vector3f(0, 0, 1);
     }
     
     
@@ -169,15 +150,8 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         inputManager.addMapping(RÜCKWÄRTS, new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
         
-        //Kamera rotieren
-        inputManager.addMapping(KAMERA_LINKS , new MouseAxisTrigger(MouseInput.AXIS_X, true));
-        inputManager.addMapping(KAMERA_RECHTS, new MouseAxisTrigger(MouseInput.AXIS_X, false));
-        inputManager.addMapping(KAMERA_OBEN  , new MouseAxisTrigger(MouseInput.AXIS_Y, false));
-        inputManager.addMapping(KAMERA_UNTEN , new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-        
         //Listener registrieren
         inputManager.addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
-        inputManager.addListener(this, KAMERA_LINKS, KAMERA_RECHTS, KAMERA_OBEN, KAMERA_UNTEN);
     }
     
     
@@ -198,8 +172,8 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
          * Spieler bewegen oder rotieren
          */
         //Bestimmen, wo vorne und wo links liegt
-        Vector3f vorwärtsRichtung = playerNode.getWorldRotation().mult(Vector3f.UNIT_Z);
-        Vector3f linksRichtung = playerNode.getWorldRotation().mult(Vector3f.UNIT_X);
+        Vector3f vorwärtsRichtung = new Vector3f(cam.getDirection().getX(), 0, cam.getDirection().getZ());
+        Vector3f linksRichtung = new Vector3f(cam.getLeft().getX(), 0, cam.getLeft().getZ());
         
         //Spieler nach vorne, hinten, links, oder rechts bewegen
         walkDirection.set(0, 0, 0);
@@ -218,27 +192,7 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
         playerControl.setWalkDirection(walkDirection);
         
         //Spieler rotieren
-        if(rotateDown){
-            Quaternion rotate = new Quaternion().fromAngleAxis(FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_X);
-            camNode.rotate(rotate);
-        }
-        if(rotateUp){
-            Quaternion rotate = new Quaternion().fromAngleAxis(-FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_X);
-            camNode.rotate(rotate);
-        }
-        if(rotateLeft){
-            Quaternion rotate = new Quaternion().fromAngleAxis(FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_Y);
-            viewDirection = rotate.multLocal(viewDirection);
-        }
-        if(rotateRight){
-            Quaternion rotate = new Quaternion().fromAngleAxis(-FastMath.PI*rotationSpeed*tpf, Vector3f.UNIT_Y);
-            viewDirection = rotate.multLocal(viewDirection);
-        }
-        rotateDown  = false;
-        rotateLeft  = false;
-        rotateRight = false;
-        rotateUp    = false;
-        playerControl.setViewDirection(viewDirection);
+        cam.setLocation(new Vector3f(playerNode.getLocalTranslation().getX(), playerNode.getLocalTranslation().getY()+3, playerNode.getLocalTranslation().getZ()));
     }
     
     
@@ -254,17 +208,6 @@ public class Spiel extends AbstractAppState implements ActionListener, AnalogLis
             case LINKS        : links       = isPressed; break;
             case RECHTS       : rechts      = isPressed; break;
             case SPRINGEN     : playerControl.jump()   ; break;
-        }
-    }
-    
-    @Override
-    public void onAnalog(String name, float value, float tpf) {      
-        //Testen, in welche Richtung die Kamera sich drehen muss
-        switch(name){
-            case KAMERA_LINKS : rotateLeft = true ; break;
-            case KAMERA_OBEN  : rotateUp = true   ; break;
-            case KAMERA_RECHTS: rotateRight = true; break;
-            case KAMERA_UNTEN : rotateDown = true ; break;
         }
     }
 }
