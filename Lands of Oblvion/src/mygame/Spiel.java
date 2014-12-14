@@ -15,24 +15,17 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
-import com.jme3.math.Matrix3f;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.CameraNode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture.WrapMode;
 
@@ -56,9 +49,11 @@ public class Spiel extends AbstractAppState implements ActionListener{
     private Vector3f walkDirection;
     private boolean vorwärts = false, rückwärts = false, links = false, rechts = false;
     private float speed = 8;
+    Inventar inventar;
     
     //Physik
     BulletAppState bulletAppState;
+    
     
     //Mappings
     public static final String LINKS         = "Links";
@@ -66,6 +61,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     public static final String VORWÄRTS      = "Vorwärts";
     public static final String RÜCKWÄRTS     = "Rückwärts";
     public static final String SPRINGEN      = "Springen";
+    public static final String INVENTAR      = "Inventar öffnen oder schließen";
     
     
     
@@ -80,7 +76,9 @@ public class Spiel extends AbstractAppState implements ActionListener{
         this.guiNode      = this.app.getGuiNode();
         this.assetManager = this.app.getAssetManager();
         this.inputManager = this.app.getInputManager();
+        this.app.setDisplayStatView(false);
         
+        //Farbe des Himmels einstellen
         this.app.getViewPort().setBackgroundColor(ColorRGBA.Cyan);
         
         //Physik
@@ -92,6 +90,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
         initMappings();
         initLight();
         
+        //Den Mauszeiger unsichtbar machen
         inputManager.setCursorVisible(false);
     }
     
@@ -134,8 +133,11 @@ public class Spiel extends AbstractAppState implements ActionListener{
         playerNode.addControl(playerControl);
         bulletAppState.getPhysicsSpace().add(playerControl);
         
-        //Laufrichtung
+        //Laufrichtung initialisieren
         walkDirection = new Vector3f(0, 0, 0);
+        
+        //Inventar initialisieren
+        inventar = new Inventar(app);
     }
     
     
@@ -143,15 +145,19 @@ public class Spiel extends AbstractAppState implements ActionListener{
      * Initialisiere alle Tastendrücke
      */
     public void initMappings(){
-        //Bewegen
+        //Spieler bewegen
         inputManager.addMapping(LINKS, new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping(RECHTS, new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping(VORWÄRTS, new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping(RÜCKWÄRTS, new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
         
+        //Menüs
+        inputManager.addMapping(INVENTAR, new KeyTrigger(KeyInput.KEY_E));
+        
         //Listener registrieren
         inputManager.addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
+        inputManager.addListener(this, INVENTAR);
     }
     
     
@@ -208,6 +214,9 @@ public class Spiel extends AbstractAppState implements ActionListener{
             case LINKS        : links       = isPressed; break;
             case RECHTS       : rechts      = isPressed; break;
             case SPRINGEN     : playerControl.jump()   ; break;
+            case INVENTAR     : if(!inventar.isOffen())inventar.öffnen(); 
+                                else inventar.schließen();
+                                break;
         }
     }
 }

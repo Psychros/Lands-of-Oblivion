@@ -2,15 +2,18 @@ package mygame;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
+import com.jme3.system.AppSettings;
 
 /**
  * test
  * @author normenhansen
  */
 public class Main extends SimpleApplication {
+    
+    public static Main main;
 
     public static void main(String[] args) {
-        Main main = new Main();
+        main = new Main();
         main.start();
     }
 
@@ -30,5 +33,9 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
+    }
+    
+    public AppSettings getSettings(){
+        return main.settings;
     }
 }
