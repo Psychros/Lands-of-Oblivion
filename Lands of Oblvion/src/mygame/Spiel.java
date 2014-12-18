@@ -4,6 +4,8 @@
  */
 package mygame;
 
+import blöcke.Block;
+import blöcke.Eichenstamm;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -52,7 +54,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     Inventar inventar;
     
     //Physik
-    BulletAppState bulletAppState;
+    private BulletAppState bulletAppState;
     
     
     //Mappings
@@ -62,7 +64,16 @@ public class Spiel extends AbstractAppState implements ActionListener{
     public static final String RÜCKWÄRTS     = "Rückwärts";
     public static final String SPRINGEN      = "Springen";
     public static final String INVENTAR      = "Inventar öffnen oder schließen";
+
     
+    
+    public BulletAppState getBulletAppState() {
+        return bulletAppState;
+    }
+
+    public void setBulletAppState(BulletAppState bulletAppState) {
+        this.bulletAppState = bulletAppState;
+    }
     
     
     @Override
@@ -114,6 +125,11 @@ public class Spiel extends AbstractAppState implements ActionListener{
         bulletAppState.getPhysicsSpace().add(bodenPhy);
         
         rootNode.attachChild(geom);
+        
+        Eichenstamm block = new Eichenstamm();
+        block.setLocalTranslation(0, 2, 0);
+        bulletAppState.getPhysicsSpace().add(block.getControl(0));
+        rootNode.attachChild(block);
     }
     
     

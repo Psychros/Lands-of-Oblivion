@@ -11,6 +11,7 @@ import com.jme3.system.AppSettings;
 public class Main extends SimpleApplication {
     
     public static Main main;
+    public static Spiel spiel;
 
     public static void main(String[] args) {
         main = new Main();

@@ -10,4 +10,10 @@ package blöcke;
  */
 public class Eichenstamm extends Block{
     
+    public Eichenstamm(){
+        setMesh(BLOCK.getMesh()); 
+        scale(0.5f);
+        setMaterial(EICHENSTAMM);
+        addControl(Block.blockPhy);
+    }
 }
