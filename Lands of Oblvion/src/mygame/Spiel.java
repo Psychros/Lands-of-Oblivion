@@ -4,7 +4,7 @@
  */
 package mygame;
 
-import blöcke.Block;
+import blöcke.Eichenbretter;
 import blöcke.Eichenstamm;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -26,9 +26,12 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.texture.Texture.WrapMode;
 
 /**
@@ -54,7 +57,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     Inventar inventar;
     
     //Physik
-    private BulletAppState bulletAppState;
+    public static BulletAppState bulletAppState;
     
     
     //Mappings
@@ -126,10 +129,12 @@ public class Spiel extends AbstractAppState implements ActionListener{
         
         rootNode.attachChild(geom);
         
-        Eichenstamm block = new Eichenstamm();
-        block.setLocalTranslation(0, 2, 0);
-        bulletAppState.getPhysicsSpace().add(block.getControl(0));
+        Eichenstamm block = new Eichenstamm(0, 1, 0);
         rootNode.attachChild(block);
+        Eichenbretter block2 = new Eichenbretter(0, 2, 0);
+        rootNode.attachChild(block2);
+        Eichenstamm block3 = new Eichenstamm(1, 1, 0);
+        rootNode.attachChild(block3);
     }
     
     
@@ -181,10 +186,17 @@ public class Spiel extends AbstractAppState implements ActionListener{
      * Lichter intialisieren
      */
     public void initLight(){
+        //Licht
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun); 
+        
+        //Schatten
+        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 2048, 2);
+        dlsr.setLight(sun);
+        app.getViewPort().addProcessor(dlsr);
+        rootNode.setShadowMode(ShadowMode.CastAndReceive);
     }
     
     

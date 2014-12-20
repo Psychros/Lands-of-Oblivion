@@ -7,7 +7,6 @@ package blöcke;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
 import mygame.Main;
 
 /**
@@ -32,7 +31,7 @@ public class Block extends Geometry{
     /*
      * Physic für alle Blöcke
      */
-    public static RigidBodyControl blockPhy = new RigidBodyControl(0);
+    public RigidBodyControl blockPhy = new RigidBodyControl(0);
     
     public Block(){
         
