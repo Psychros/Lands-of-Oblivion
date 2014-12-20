@@ -58,6 +58,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     
     //Physik
     public static BulletAppState bulletAppState;
+    public DirectionalLightShadowRenderer dlsr;
     
     
     //Mappings
@@ -202,7 +203,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
         rootNode.addLight(sun); 
         
         //Schatten
-        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 10000, 1);
+        dlsr = new DirectionalLightShadowRenderer(assetManager, 10000, 1);
         dlsr.setLight(sun);
         app.getViewPort().addProcessor(dlsr);
         rootNode.setShadowMode(ShadowMode.CastAndReceive);
