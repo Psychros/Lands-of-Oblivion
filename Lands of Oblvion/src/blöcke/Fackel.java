@@ -4,10 +4,21 @@
  */
 package blöcke;
 
+import static blöcke.Block.BLOCK;
+import static blöcke.Block.EICHENSTAMM;
+import static mygame.Spiel.bulletAppState;
+
 /**
  *
  * @author To
  */
 public class Fackel extends Block{
-    
+    public Fackel(int x, int y, int z){
+        super(x, y, z);
+        setMesh(BLOCK.getMesh()); 
+        scale(0.5f);
+        setMaterial(EICHENSTAMM);
+        addControl(blockPhy);
+        bulletAppState.getPhysicsSpace().add(getControl(0));
+    }
 }

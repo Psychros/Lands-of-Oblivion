@@ -13,10 +13,8 @@ import static mygame.Spiel.bulletAppState;
 public class Eichenstamm extends Block{
     
     public Eichenstamm(int x, int y, int z){
-        setMesh(BLOCK.getMesh()); 
-        scale(0.5f);
+        super(x, y, z);
         setMaterial(EICHENSTAMM);
-        setLocalTranslation(x+0.5f, y-0.3f, z+0.5f);
         addControl(blockPhy);
         bulletAppState.getPhysicsSpace().add(getControl(0));
     }

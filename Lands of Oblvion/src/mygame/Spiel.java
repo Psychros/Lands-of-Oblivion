@@ -26,13 +26,13 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.texture.Texture.WrapMode;
+import strukturen.Lagerhaus_Stufe1;
 
 /**
  *
@@ -106,6 +106,9 @@ public class Spiel extends AbstractAppState implements ActionListener{
         
         //Den Mauszeiger unsichtbar machen
         inputManager.setCursorVisible(false);
+        
+        Lagerhaus_Stufe1 lager = new Lagerhaus_Stufe1();
+        lager.buildStructure(rootNode, 0, 0);
     }
     
     
@@ -129,12 +132,18 @@ public class Spiel extends AbstractAppState implements ActionListener{
         
         rootNode.attachChild(geom);
         
-        Eichenstamm block = new Eichenstamm(0, 1, 0);
+        /*Eichenstamm block = new Eichenstamm(0, 1, 0);
         rootNode.attachChild(block);
         Eichenbretter block2 = new Eichenbretter(0, 2, 0);
         rootNode.attachChild(block2);
         Eichenstamm block3 = new Eichenstamm(1, 1, 0);
         rootNode.attachChild(block3);
+        Eichenstamm block4 = new Eichenstamm(0, 3, 0);
+        rootNode.attachChild(block4);
+        Eichenstamm block5 = new Eichenstamm(0, 4, 0);
+        rootNode.attachChild(block5);
+        Eichenstamm block6 = new Eichenstamm(0, 5, 0);
+        rootNode.attachChild(block6);*/
     }
     
     
@@ -148,7 +157,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
         rootNode.attachChild(playerNode);
         
         //Initialisierung des BetterPlayerControls
-        playerControl = new BetterCharacterControl(1, 3, 80);
+        playerControl = new BetterCharacterControl(1.5f, 3, 80);
         playerControl.setJumpForce(new Vector3f(0, 600, 0));
         playerControl.setGravity(new Vector3f(9, -9.81f, 0));
         playerNode.addControl(playerControl);
@@ -193,7 +202,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
         rootNode.addLight(sun); 
         
         //Schatten
-        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 2048, 2);
+        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 10000, 1);
         dlsr.setLight(sun);
         app.getViewPort().addProcessor(dlsr);
         rootNode.setShadowMode(ShadowMode.CastAndReceive);
