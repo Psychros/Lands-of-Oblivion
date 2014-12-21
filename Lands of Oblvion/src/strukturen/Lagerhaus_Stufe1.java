@@ -8,6 +8,7 @@ import blöcke.Eichenbretter;
 import blöcke.Eichenbrettschräge;
 import blöcke.Eichenstamm;
 import blöcke.Fackel;
+import com.jme3.math.FastMath;
 import com.jme3.scene.Node;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -72,8 +73,9 @@ public class Lagerhaus_Stufe1 extends Struktur{
                      switch(blöcke[y][z][x]){
                          case 1: Eichenstamm eichenStamm = new Eichenstamm(posX+x, y+1, posZ+z); rootNode.attachChild(eichenStamm); break;
                          case 2: Eichenbretter eichenBretter = new Eichenbretter(posX+x, y+1, posZ+z); rootNode.attachChild(eichenBretter); break;
-                         case 3: Eichenbrettschräge eichenBretterSchräge = new Eichenbrettschräge(posX+x, y+1, posZ+z); rootNode.attachChild(eichenBretterSchräge); break;  
-                         case 4: Fackel fackel = new Fackel(posX+x, y+1, posZ+z); rootNode.attachChild(fackel); break;
+                         case 3: Fackel fackel = new Fackel(posX+x, y+1, posZ+z); rootNode.attachChild(fackel); break;
+                         case 4: Eichenbrettschräge eichenBretterSchräge = new Eichenbrettschräge(posX+x, y+1, posZ+z, 0); rootNode.attachChild(eichenBretterSchräge); break;
+                         case 5: Eichenbrettschräge eichenBretterSchräge2 = new Eichenbrettschräge(posX+x, y+1, posZ+z, 2); rootNode.attachChild(eichenBretterSchräge2); break;   
                      }
                  }
              }
