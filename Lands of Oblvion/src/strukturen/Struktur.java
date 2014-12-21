@@ -5,7 +5,6 @@
 package strukturen;
 
 import com.jme3.scene.Node;
-import java.awt.Point;
 import java.io.File;
 
 /**

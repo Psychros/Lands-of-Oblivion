@@ -8,7 +8,6 @@ import blöcke.Eichenbretter;
 import blöcke.Eichenbrettschräge;
 import blöcke.Eichenstamm;
 import blöcke.Fackel;
-import com.jme3.math.FastMath;
 import com.jme3.scene.Node;
 import java.io.BufferedReader;
 import java.io.FileReader;

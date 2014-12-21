@@ -12,15 +12,19 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.collision.CollisionResults;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -66,6 +70,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     public static final String RÜCKWÄRTS     = "Rückwärts";
     public static final String SPRINGEN      = "Springen";
     public static final String INVENTAR      = "Inventar öffnen oder schließen";
+    public static final String BAUEN         = "Baue Gebäude";
 
     
     
@@ -184,9 +189,13 @@ public class Spiel extends AbstractAppState implements ActionListener{
         //Menüs
         inputManager.addMapping(INVENTAR, new KeyTrigger(KeyInput.KEY_E));
         
+        //Bauen
+        inputManager.addMapping(BAUEN, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        
         //Listener registrieren
         inputManager.addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
         inputManager.addListener(this, INVENTAR);
+        inputManager.addListener(this, BAUEN);
     }
     
     
@@ -253,6 +262,13 @@ public class Spiel extends AbstractAppState implements ActionListener{
             case INVENTAR     : if(!inventar.isOffen())inventar.öffnen(); 
                                 else inventar.schließen();
                                 break;
+            case BAUEN        : CollisionResults results = new CollisionResults();
+                                Ray ray = new Ray(cam.getLocation(), cam.getDirection());
+                                rootNode.collideWith(ray, results);
+                                if(results.size() != 0){
+                                    Lagerhaus_Stufe1 lager = new Lagerhaus_Stufe1();
+                                    lager.buildStructure(rootNode, (int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
+                                }
         }
     }
 }
