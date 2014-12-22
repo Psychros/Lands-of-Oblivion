@@ -55,6 +55,7 @@ public class Spiel extends AbstractAppState implements ActionListener{
     private BetterCharacterControl playerControl;
     private Vector3f walkDirection;
     private boolean vorwärts = false, rückwärts = false, links = false, rechts = false;
+    private boolean kannBauen = true;   //Wird gebraucht, damit keine 2 Gebäude pro Mausklick enstehen
     private float speed = 8;
     Inventar inventar;
     
@@ -157,13 +158,14 @@ public class Spiel extends AbstractAppState implements ActionListener{
     public void initPlayer(){
         //Der eigentliche Spieler
         playerNode = new Node("Player");
-        playerNode.setLocalTranslation(0, 3, 0);
+        playerNode.setLocalTranslation(0, 0, 0);
         rootNode.attachChild(playerNode);
         
         //Initialisierung des BetterPlayerControls
-        playerControl = new BetterCharacterControl(1.5f, 3, 80);
-        playerControl.setJumpForce(new Vector3f(0, 600, 0));
-        playerControl.setGravity(new Vector3f(9, -9.81f, 0));
+        playerControl = new BetterCharacterControl(1f, 2, 80);
+        playerControl.setJumpForce(new Vector3f(0, 500, 0));
+        playerControl.setGravity(new Vector3f(0, -9.81f, 0));
+    //   playerControl.set
         playerNode.addControl(playerControl);
         bulletAppState.getPhysicsSpace().add(playerControl);
         
@@ -262,12 +264,17 @@ public class Spiel extends AbstractAppState implements ActionListener{
             case INVENTAR     : if(!inventar.isOffen())inventar.öffnen(); 
                                 else inventar.schließen();
                                 break;
-            case BAUEN        : CollisionResults results = new CollisionResults();
-                                Ray ray = new Ray(cam.getLocation(), cam.getDirection());
-                                rootNode.collideWith(ray, results);
-                                if(results.size() != 0){
-                                    Lagerhaus_Stufe1 lager = new Lagerhaus_Stufe1();
-                                    lager.buildStructure(rootNode, (int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
+            case BAUEN        : if(kannBauen){
+                                    CollisionResults results = new CollisionResults();
+                                    Ray ray = new Ray(cam.getLocation(), cam.getDirection());
+                                    rootNode.collideWith(ray, results);
+                                    if(results.size() != 0){
+                                        Lagerhaus_Stufe1 lager = new Lagerhaus_Stufe1();
+                                        lager.buildStructure(rootNode, (int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
+                                    }
+                                    kannBauen = false;
+                                } else{
+                                    kannBauen = true;
                                 }
         }
     }
