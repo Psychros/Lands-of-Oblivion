@@ -220,6 +220,7 @@ public class Map extends Node{
     }
     
     public Player getPlayer() {
+        System.out.println(player);
         return player;
     }
     
