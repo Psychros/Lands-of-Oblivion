@@ -15,6 +15,8 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
+import com.jme3.post.filters.BloomFilter.GlowMode;
 import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
@@ -44,8 +46,9 @@ public class MapState extends AbstractAppState implements ActionListener{
     
     //Filter
     private FilterPostProcessor fpp;
-    private DepthOfFieldFilter dofFilter;   //FokussierungsFilter, der die Fokussierung der Kamera auf ein Objekt simuliert
-    private SSAOFilter ssaoFilter;
+    private DepthOfFieldFilter dofFilter;   //Fokussierung der Kamera
+    private SSAOFilter ssaoFilter;          //weiche Schatten
+    private BloomFilter bloomFilter;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -173,6 +176,13 @@ public class MapState extends AbstractAppState implements ActionListener{
         }
     }
     
+    public void activateDepthOfFieldFilter(DepthOfFieldFilter dofFilter){
+        if(this.dofFilter == null){
+            this.dofFilter = dofFilter;
+            fpp.addFilter(this.dofFilter);
+        }
+    }
+    
     /*
      * Aktiviert weiche Schatten
      */
@@ -194,6 +204,44 @@ public class MapState extends AbstractAppState implements ActionListener{
         if(ssaoFilter == null){
             ssaoFilter = new SSAOFilter(sampleRadius, intensity, scale, bias);
             fpp.addFilter(ssaoFilter);
+        }
+    }
+    
+    public void activateSSAOFilter(SSAOFilter ssaoFilter){
+        if(this.ssaoFilter == null){
+            this.ssaoFilter = ssaoFilter;
+            fpp.addFilter(this.ssaoFilter);
+        }
+    }
+    
+    /*
+     * Lässt die Szene leuchten
+     */
+    public void activateBloomFilter(boolean value){
+        if(value){
+            if(bloomFilter == null){
+                bloomFilter = new BloomFilter();
+                fpp.addFilter(bloomFilter);
+            }
+        } else{
+            if(bloomFilter != null){
+                fpp.removeFilter(bloomFilter);
+                bloomFilter = null;
+            }
+        }
+    }
+    
+    public void activateBloomFilter(GlowMode glowMode){
+        if(bloomFilter == null){
+            bloomFilter = new BloomFilter(glowMode);
+            fpp.addFilter(bloomFilter);
+        }
+    }
+    
+    public void activateBloomFilter(BloomFilter bloomFilter){
+        if(this.bloomFilter == null){
+            this.bloomFilter = bloomFilter;
+            fpp.addFilter(this.bloomFilter);
         }
     }
     
@@ -222,7 +270,7 @@ public class MapState extends AbstractAppState implements ActionListener{
         if(cursor == null){
             cursor = new Picture("Cursor");
             cursor.setImage(Game.game.getAssetManager(), path, true);
-            cursor.move(Game.game.getSettings().getWidth()/2-320, 0, Game.game.getSettings().getHeight()/2-30);
+            cursor.move(Game.game.getSettings().getWidth()/2-30, 0, Game.game.getSettings().getHeight()/2-30);
             cursor.setWidth(60);
             cursor.setHeight(60);
             Game.game.getGuiNode().attachChild(cursor);

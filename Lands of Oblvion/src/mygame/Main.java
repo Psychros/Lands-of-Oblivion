@@ -1,5 +1,6 @@
 package mygame;
 
+import com.jme3.post.filters.BloomFilter;
 import com.jme3.renderer.RenderManager;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState;
@@ -32,7 +33,7 @@ public class Main extends Game {
         MapState mapState = new MapState();
         mapState.activateKeys(true);
         mapState.activateDepthOfFieldFilter(true);
-        mapState.activateSSAOFilter(true);
+        mapState.activateBloomFilter(true);
         mapState.activateCursor(true);
         initMapState(mapState);
     }
