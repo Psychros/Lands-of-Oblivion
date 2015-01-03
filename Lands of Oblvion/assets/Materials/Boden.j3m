@@ -1,9 +1,8 @@
 Material My Material : Common/MatDefs/Light/Lighting.j3md {
      MaterialParameters {
-        Specular : 0.9411765 0.9411765 0.9411765 1.0
-        UseMaterialColors : false
-        Diffuse : 0.4 0.2 0.0 1.0
         DiffuseMap : Textures/Gras.png
+        UseMaterialColors : true
+        Diffuse : 0.4 0.4 0.4 0.5
      }
     AdditionalRenderState {
     }

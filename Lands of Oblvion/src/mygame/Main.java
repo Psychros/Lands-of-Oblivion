@@ -1,42 +1,47 @@
 package mygame;
 
-import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
-import com.jme3.system.AppSettings;
+import oblivionengine.Game;
+import oblivionengine.appstates.MapState;
 
 /**
  * test
  * @author normenhansen
  */
-public class Main extends SimpleApplication {
+public class Main extends Game {
     
-    public static Main main;
-    public static Spiel spiel;
+    //Objektvariablen
+    
+    //--------------------------------------------------------------------------
+    //Konstruktoren
+    
+    //--------------------------------------------------------------------------
+    //Getter und Setter
+    
+    //--------------------------------------------------------------------------
+    //Klasseninterne Methoden
 
     public static void main(String[] args) {
-        main = new Main();
-        main.start();
+       Main game = new Main();
+       game.start();
     }
 
     @Override
-    public void simpleInitApp() {
-        Spiel spiel = new Spiel();
-        stateManager.attach(spiel);
-        
-        flyCam.setMoveSpeed(20);
+    public void simpleInitApp() { 
+        //Den MapState initialisieren und Tastendrücke aktivieren
+        MapState mapState = new MapState();
+        mapState.activateKeys(true);
+        mapState.activateFocussingOfEye(true);
+        initMapState(mapState);
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        //TODO: add update code
+        
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
-    }
-    
-    public AppSettings getSettings(){
-        return main.settings;
     }
 }
