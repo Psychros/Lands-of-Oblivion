@@ -8,7 +8,6 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
@@ -57,17 +56,6 @@ public class Map extends Node{
         setSunLight(true);
         setSkyColor(ColorRGBA.Cyan);
         setGravity(-9.81f);
-        
-        Geometry block = (Geometry)Game.game.getAssetManager().loadModel("Models/block.j3o"); 
-        Material eichenstamm = Game.game.getAssetManager().loadMaterial("Materials/Eichenstamm.j3m");
-        block.setMaterial(eichenstamm);
-        block.setLocalTranslation(0, 0.5f, 0);
-        attachChild(block);
-        
-        Geometry block2 = (Geometry)Game.game.getAssetManager().loadModel("Models/block.j3o"); 
-        block2.setMaterial(eichenstamm);
-        block2.setLocalTranslation(10, 0.5f, 10);
-        attachChild(block2);
     }
     
     public Map(Geometry underground) {

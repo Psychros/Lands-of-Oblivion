@@ -16,6 +16,7 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.DepthOfFieldFilter;
+import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.ui.Picture;
 import oblivionengine.Game;
@@ -44,11 +45,14 @@ public class MapState extends AbstractAppState implements ActionListener{
     //Filter
     private FilterPostProcessor fpp;
     private DepthOfFieldFilter dofFilter;   //FokussierungsFilter, der die Fokussierung der Kamera auf ein Objekt simuliert
+    private SSAOFilter ssaoFilter;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
     public MapState() {
-        
+        //FilterPostProcessor initialisieren
+        fpp = new FilterPostProcessor(Game.game.getAssetManager());
+        Game.game.getViewPort().addProcessor(fpp);
     }
     
     //--------------------------------------------------------------------------
@@ -73,10 +77,6 @@ public class MapState extends AbstractAppState implements ActionListener{
         map = new Map(1000, 1000, "Materials/Boden.j3m", "Testboden");
         Game.game.setActiveMap(map);
         map.setUndergroundTextureRepetition(true);
-        
-        //FilterPostProcessor initialisieren
-        fpp = new FilterPostProcessor(Game.game.getAssetManager());
-        Game.game.getViewPort().addProcessor(fpp);
     }
     
     @Override
@@ -133,6 +133,9 @@ public class MapState extends AbstractAppState implements ActionListener{
         }
     }
     
+    /*
+     * wichtige Tasten aktivieren und deaktivieren
+     */
     public void activateKeys(boolean value){
         if(value){
             //Generiere Mappings
@@ -153,13 +156,10 @@ public class MapState extends AbstractAppState implements ActionListener{
         }
     }
     
-    //Fokussierung der Kamera auf ein Objekt aktivieren
-    public void activateFocussingOfEye(boolean value){
-        if(fpp == null){
-            fpp = new FilterPostProcessor(Game.game.getAssetManager());
-            Game.game.getViewPort().addProcessor(fpp);
-        }
-        
+    /*
+     * Fokussierung der Kamera auf ein Objekt aktivieren
+     */
+    public void activateDepthOfFieldFilter(boolean value){
         if(value){
             if(dofFilter == null){
                 dofFilter = new DepthOfFieldFilter();
@@ -173,6 +173,33 @@ public class MapState extends AbstractAppState implements ActionListener{
         }
     }
     
+    /*
+     * Aktiviert weiche Schatten
+     */
+    public void activateSSAOFilter(boolean value){
+        if(value){
+            if(ssaoFilter == null){
+                ssaoFilter = new SSAOFilter(1f, 1.5f, 0.1f, 0.1f);
+                fpp.addFilter(ssaoFilter);
+            }
+        } else{
+            if(ssaoFilter != null){
+                fpp.removeFilter(ssaoFilter);
+                ssaoFilter = null;
+            }
+        }
+    }
+    
+    public void activateSSAOFilter(float sampleRadius, float intensity, float scale, float bias){
+        if(ssaoFilter == null){
+            ssaoFilter = new SSAOFilter(sampleRadius, intensity, scale, bias);
+            fpp.addFilter(ssaoFilter);
+        }
+    }
+    
+    /*
+     * Fadenkreuz anzeigen
+     */
     public void activateCursor(boolean value) {
         if(value){
             if(cursor == null){

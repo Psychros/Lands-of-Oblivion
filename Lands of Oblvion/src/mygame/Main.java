@@ -31,7 +31,8 @@ public class Main extends Game {
         //Den MapState initialisieren und Tastendrücke aktivieren
         MapState mapState = new MapState();
         mapState.activateKeys(true);
-        mapState.activateFocussingOfEye(true);
+        mapState.activateDepthOfFieldFilter(true);
+        mapState.activateSSAOFilter(true);
         mapState.activateCursor(true);
         initMapState(mapState);
     }
