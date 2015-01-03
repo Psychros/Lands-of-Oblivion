@@ -17,6 +17,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.ui.Picture;
 import oblivionengine.Game;
 import oblivionengine.Map;
 
@@ -38,6 +39,7 @@ public class MapState extends AbstractAppState implements ActionListener{
     private Map map;    //Ist eine Referenz auf activeMap in der Klasse Game
     private boolean vorwärts = false, rückwärts = false, links = false, rechts = false; //Laufrichtungen
     private Vector3f walkDirection = new Vector3f(0, 0, 0);
+    private Picture cursor;
     
     //Filter
     private FilterPostProcessor fpp;
@@ -168,6 +170,35 @@ public class MapState extends AbstractAppState implements ActionListener{
                 fpp.removeFilter(dofFilter);
                 dofFilter = null;
             }
+        }
+    }
+    
+    public void activateCursor(boolean value) {
+        if(value){
+            if(cursor == null){
+                cursor = new Picture("Cursor");
+                cursor.setImage(Game.game.getAssetManager(), "Interface/Cursor.png", true);
+                cursor.move(Game.game.getSettings().getWidth()/2-30, Game.game.getSettings().getHeight()/2-30, 0);
+                cursor.setWidth(60);
+                cursor.setHeight(60);
+                Game.game.getGuiNode().attachChild(cursor);
+            }
+        } else{
+            if(cursor != null){
+                Game.game.getGuiNode().detachChild(cursor);
+                cursor = null;
+            }
+        }
+    }
+    
+    public void activateCursor(String path) {
+        if(cursor == null){
+            cursor = new Picture("Cursor");
+            cursor.setImage(Game.game.getAssetManager(), path, true);
+            cursor.move(Game.game.getSettings().getWidth()/2-320, 0, Game.game.getSettings().getHeight()/2-30);
+            cursor.setWidth(60);
+            cursor.setHeight(60);
+            Game.game.getGuiNode().attachChild(cursor);
         }
     }
 }

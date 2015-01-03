@@ -59,7 +59,7 @@ public class Map extends Node{
         setGravity(-9.81f);
         
         Geometry block = (Geometry)Game.game.getAssetManager().loadModel("Models/block.j3o"); 
-        Material eichenstamm = Game.game.getAssetManager().loadMaterial("Materials/Blöcke/Eichenstamm.j3m");
+        Material eichenstamm = Game.game.getAssetManager().loadMaterial("Materials/Eichenstamm.j3m");
         block.setMaterial(eichenstamm);
         block.setLocalTranslation(0, 0.5f, 0);
         attachChild(block);
@@ -198,7 +198,9 @@ public class Map extends Node{
         this.gravity = gravity;
     }
     
-    //Legt fest, ob die Untergrundtextur wiederholt werden soll
+    /*
+     * Legt fest, ob die Untergrundtextur wiederholt werden soll
+     */
     public void setUndergroundTextureRepetition(boolean isRepetition){
        if(!isRepetition){
            if(isUndergroundTextureRepetition){
@@ -220,7 +222,6 @@ public class Map extends Node{
     }
     
     public Player getPlayer() {
-        System.out.println(player);
         return player;
     }
     

@@ -32,6 +32,7 @@ public class Main extends Game {
         MapState mapState = new MapState();
         mapState.activateKeys(true);
         mapState.activateFocussingOfEye(true);
+        mapState.activateCursor(true);
         initMapState(mapState);
     }
 

@@ -13,6 +13,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.TouchInput;
 import com.jme3.renderer.Camera;
+import com.jme3.system.AppSettings;
 import oblivionengine.appstates.MapState;
 
 /**
@@ -25,11 +26,10 @@ abstract public class Game extends SimpleApplication{
     
     private Map activeMap;   
     public static Game game;
-    public static MapState mapState;
+    public MapState mapState;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    
     
     //--------------------------------------------------------------------------
     //Getter und Setter
@@ -140,6 +140,10 @@ abstract public class Game extends SimpleApplication{
 
     public void setTouchInput(TouchInput touchInput) {
         this.touchInput = touchInput;
+    }
+
+    public AppSettings getSettings() {
+        return settings;
     }
     
     //--------------------------------------------------------------------------
