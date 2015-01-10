@@ -37,6 +37,7 @@ public class MapState extends AbstractAppState implements ActionListener{
     public static final String RECHTS        = "Rechts laufen";
     public static final String VORWÄRTS      = "Vorwärts laufen";
     public static final String RÜCKWÄRTS     = "Rückwärts laufen";
+    public static final String SPRINTEN      = "Sprinten";
     public static final String SPRINGEN      = "Springen";
     
     //--------------------------------------------------------------------------
@@ -132,11 +133,15 @@ public class MapState extends AbstractAppState implements ActionListener{
     
     @Override
     public void onAction(String name, boolean isPressed, float tpf){
+        //Geschwindigkeit zurücksetzen
+        map.getPlayer().setSpeed(10);
+        
         switch(name){
             case VORWÄRTS     : vorwärts    = isPressed; break;
             case RÜCKWÄRTS    : rückwärts   = isPressed; break;
             case LINKS        : links       = isPressed; break;
             case RECHTS       : rechts      = isPressed; break;
+            case SPRINTEN     : map.getPlayer().setSpeed(20); break;
             case SPRINGEN     : map.getPlayer().jump();  break;
         }
     }
@@ -151,15 +156,17 @@ public class MapState extends AbstractAppState implements ActionListener{
             Game.game.getInputManager().addMapping(RECHTS, new KeyTrigger(KeyInput.KEY_D));
             Game.game.getInputManager().addMapping(VORWÄRTS, new KeyTrigger(KeyInput.KEY_W));
             Game.game.getInputManager().addMapping(RÜCKWÄRTS, new KeyTrigger(KeyInput.KEY_S));
+            Game.game.getInputManager().addMapping(SPRINTEN, new KeyTrigger(KeyInput.KEY_LSHIFT));
             Game.game.getInputManager().addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
             
             //Erstelle Listener mit den entsprechenden Mappings
-            Game.game.getInputManager().addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINGEN);
+            Game.game.getInputManager().addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINTEN, SPRINGEN);
         } else{
             Game.game.getInputManager().deleteMapping(LINKS);
             Game.game.getInputManager().deleteMapping(RECHTS);
             Game.game.getInputManager().deleteMapping(VORWÄRTS);
             Game.game.getInputManager().deleteMapping(RÜCKWÄRTS);
+            Game.game.getInputManager().deleteMapping(SPRINTEN);
             Game.game.getInputManager().deleteMapping(SPRINGEN);
         }
     }
