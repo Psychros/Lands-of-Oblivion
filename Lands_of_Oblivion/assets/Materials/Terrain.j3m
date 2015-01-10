@@ -1,0 +1,10 @@
+Material My Material : Common/MatDefs/Terrain/TerrainLighting.j3md {
+     MaterialParameters {
+        DiffuseMap_1 : Textures/Gras.png
+        DiffuseMap_2 : Textures/Erde.png
+        DiffuseMap_4 : Textures/Erde.png
+        useTriPlanarMapping : true
+     }
+    AdditionalRenderState {
+    }
+}
