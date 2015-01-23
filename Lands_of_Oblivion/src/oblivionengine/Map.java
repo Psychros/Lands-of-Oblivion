@@ -50,14 +50,14 @@ public class Map extends Node{
         activatePhysics(true);
         
         //Player
-        player = new Player(1f, 2, 80);
+        player = new Player(1f, 2, 200);
         attachChild(player.getPlayerNode());
         bulletAppState.getPhysicsSpace().add(player);
         
         setAmbientLight(true);
         setSunLight(true);
         setSkyColor(ColorRGBA.Cyan);
-        setGravity(-9.81f);
+        setGravity(-19.62f);
     }
     
     public Map(TerrainQuad terrain) {
@@ -89,9 +89,11 @@ public class Map extends Node{
             heightMap = new HillHeightMap((int)(size+1), 100, 50f, 100f, System.currentTimeMillis());
             heightMap.load();
         } catch(Exception e){e.printStackTrace();};
+        HeightMapFilter filter = new HeightMapFilter(heightMap);
+        filter.manipulateEdge();
         
         //Terain
-        terrain = new TerrainQuad("terrain", 65, (int)size+1, heightMap.getHeightMap());
+        terrain = new TerrainQuad("terrain", 65, (int)size+1, filter.getHeightMap());
         TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
         terrain.addControl(lodControl);
         this.attachChild(terrain);

@@ -86,6 +86,9 @@ public class MapState extends AbstractAppState implements ActionListener{
         map.setSunLightColor(ColorRGBA.Yellow);
         map.setAmbientLight(true);
         Game.game.setActiveMap(map);
+        
+        //Verhindern, dass gezoomt werden kann
+        Game.game.getFlyCam().setZoomSpeed(0);
     }
     
     @Override
@@ -129,19 +132,20 @@ public class MapState extends AbstractAppState implements ActionListener{
         
         //Kamera an die Position des Players setzen
         cam.setLocation(map.getPlayer().getPlayerNode().getLocalTranslation().add(0, 6, 0));
+        
+        
+        //Bewegung des 
+        map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -0.2f*tpf, 0));
     }
     
     @Override
     public void onAction(String name, boolean isPressed, float tpf){
-        //Geschwindigkeit zurücksetzen
-        map.getPlayer().setSpeed(10);
-        
         switch(name){
-            case VORWÄRTS     : vorwärts    = isPressed; break;
+            case VORWÄRTS     : vorwärts    = isPressed; map.getPlayer().setSpeed(20); break;   //Die Geschwindigkeeit wird auf den Normalwert gesetzt
             case RÜCKWÄRTS    : rückwärts   = isPressed; break;
             case LINKS        : links       = isPressed; break;
             case RECHTS       : rechts      = isPressed; break;
-            case SPRINTEN     : map.getPlayer().setSpeed(20); break;
+            case SPRINTEN     : map.getPlayer().setSpeed(30); break;
             case SPRINGEN     : map.getPlayer().jump();  break;
         }
     }

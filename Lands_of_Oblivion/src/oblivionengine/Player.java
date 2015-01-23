@@ -27,7 +27,7 @@ public class Player extends BetterCharacterControl{
     public Player(float radius, float height, float mass){
         super(radius, height, mass);      
         playerNode = new Node("Player");
-        playerNode.addControl(this);
+        setJumpForce(new Vector3f(0, 2000, 0));
         setSpeed(10);
     }
     
@@ -72,5 +72,6 @@ public class Player extends BetterCharacterControl{
     
     public void setLocalTranslation(Vector3f location){
         playerNode.move(location.add(0, 3, 0));
+        playerNode.addControl(this);
     }
 }

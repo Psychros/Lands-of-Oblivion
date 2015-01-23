@@ -30,10 +30,10 @@ public class Main extends Game {
     public void simpleInitApp() { 
         //Den MapState initialisieren und Tastendrücke aktivieren
         MapState mapState = new MapState();
+        initMapState(mapState);
         mapState.activateKeys(true);
         mapState.activateCursor(true);
         mapState.activateFogFilter(true);
-        initMapState(mapState);
     }
 
     @Override
