@@ -133,7 +133,7 @@ public class Map extends Node{
         
         terrain.setMaterial(mat_terrain);
         
-        player.setLocalTranslation(new Vector3f(0, terrain.getHeight(Vector2f.ZERO), 0));
+        player.warp(new Vector3f(0, terrain.getHeight(Vector2f.ZERO), 0));
         
         
         //Physik

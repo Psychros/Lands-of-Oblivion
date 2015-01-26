@@ -13,6 +13,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
@@ -134,7 +135,7 @@ public class MapState extends AbstractAppState implements ActionListener{
         cam.setLocation(map.getPlayer().getPlayerNode().getLocalTranslation().add(0, 6, 0));
         
         
-        //Bewegung des 
+        //Bewegung der Sonne
         map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -0.2f*tpf, 0));
     }
     
