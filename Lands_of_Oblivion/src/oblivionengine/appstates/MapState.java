@@ -13,8 +13,8 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
@@ -118,16 +118,32 @@ public class MapState extends AbstractAppState implements ActionListener{
         //Spieler bewegen
         walkDirection.set(0, 0, 0);
         if(vorwärts){
-            walkDirection.addLocal(vorwärtsRichtung.mult(speed));
+            //Nur bewegen, wenn die Steigung nicht zu groß ist
+            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(vorwärtsRichtung);
+            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
+                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
+                walkDirection.addLocal(vorwärtsRichtung.mult(speed));
         } 
         if(rückwärts){
-            walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
+            //Nur bewegen, wenn die Steigung nicht zu groß ist
+            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(vorwärtsRichtung.mult(-1));
+            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
+                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
+                walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
         } 
         if(links){
-            walkDirection.addLocal(linksRichtung.mult(speed));
+            //Nur bewegen, wenn die Steigung nicht zu groß ist
+            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(linksRichtung);
+            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
+                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
+                walkDirection.addLocal(linksRichtung.mult(speed));
         } 
         if(rechts){
-            walkDirection.addLocal(linksRichtung.mult(speed).negate());
+            //Nur bewegen, wenn die Steigung nicht zu groß ist
+            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(linksRichtung.mult(-1));
+            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
+                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
+                walkDirection.addLocal(linksRichtung.mult(speed).negate());
         }
         map.getPlayer().setWalkDirection(walkDirection);
         
