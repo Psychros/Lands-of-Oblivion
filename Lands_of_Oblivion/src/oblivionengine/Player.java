@@ -6,9 +6,6 @@ package oblivionengine;
 
 import com.jme3.animation.AnimControl;
 import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.material.Material;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -37,13 +34,14 @@ public class Player extends BetterCharacterControl{
         setSpeed(10);
         
         //Modell laden
-        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player/Player.j3o"));
+        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
         player = (Geometry)node.getChild(0);
-        player.rotate(-90 * FastMath.DEG_TO_RAD, 0, 0);
         player.setLocalTranslation(0, 4, 0);
-        player.scale(0.02f);        
+        player.scale(1.8f);        
         player.setMaterial(Game.game.getAssetManager().loadMaterial("Materials/Player.j3m"));
-        Game.game.getRootNode().attachChild(player);
+        playerNode.attachChild(player);
+        
+        animControl = player.getControl(AnimControl.class);
         
         //BetterCharakterControl hinzufügen
         playerNode.addControl(this);

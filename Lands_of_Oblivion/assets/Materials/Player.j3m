@@ -1,6 +1,7 @@
-Material My Material : Common/MatDefs/Misc/Unshaded.j3md {
+Material Player : Common/MatDefs/Misc/Unshaded.j3md {
      MaterialParameters {
-        Color : 0.2 0.2 0.0 1.0
+        SeparateTexCoord : false
+        Color : 0.59 0.44 0.338 1
      }
     AdditionalRenderState {
     }
