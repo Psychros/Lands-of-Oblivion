@@ -29,13 +29,25 @@ public class HeightMapFilter {
         //Vorne
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < aheightMap.getSize(); j++) {
-                heightMap[(int)(i*aheightMap.getSize()+j)] += 60-i*2;
+                heightMap[(int)((30-i)*aheightMap.getSize()+j)] += (i/2)*(i/2);
             }
         }
         //Hinten
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < aheightMap.getSize(); j++) {
-                heightMap[(int)(heightMap.length-((i+1)*aheightMap.getSize())+j)] += 60-i*2;
+                heightMap[(int)(heightMap.length-((30-i+1)*aheightMap.getSize())+30-j)] += (i/2)*(i/2);
+            }
+        }
+        //Rechts
+        for (int i = 0; i < aheightMap.getSize()-1; i++) {
+            for (int j = 0; j < 30; j++) {
+                heightMap[(int)(aheightMap.getSize()*i+30-j)] += (j/2)*(j/2);
+            }
+        }
+        //Links
+        for (int i = 0; i < aheightMap.getSize()-1; i++) {
+            for (int j = 0; j < 30; j++) {
+                heightMap[(int)(aheightMap.getSize()*(i+1)-30+j)] += (j/2)*(j/2);
             }
         }
     }
