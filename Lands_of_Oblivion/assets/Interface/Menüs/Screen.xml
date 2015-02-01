@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <!-- start screen -->
+    <!-- +++++++++++++++++++++++++++++++++++++++ -->
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" />
+    
+    <screen id="start" controller="oblivionengine.appstates.Hauptmenü">
+        <layer id="background" childLayout="horizontal">
+            <image filename="Interface/Menüs/Hauptmenü.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="horizontal">
+            <panel id="leftSide" height="100%" width="50%" align="center" childLayout="vertical">
+                <panel id="titel" height="15%" width="50%" align="center" childLayout="center">
+               <!-->    <text text="Lands of Oblivion" height="100%" width="100%" font="Interface/Fonts/Arial.fnt"/>   -->
+                </panel>
+                <panel id="vorschau" height="85%" width="50%" align="center" childLayout="center">
+
+                </panel>
+            </panel>
+            <panel id="buttons" height="100%" width="50%" align="center" childLayout="vertical" margin="50px">
+                <control name="button" label="Start"    id="startButton"   font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="startGame()"/></control> 
+                <control name="button" label="Optionen" id="optionsButton" font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="options()"/></control>
+                <control name="button" label="Beenden"  id="endeButton"    font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="stopGame()"/></control>
+            </panel>
+        </layer>
+    </screen>
+</nifty>

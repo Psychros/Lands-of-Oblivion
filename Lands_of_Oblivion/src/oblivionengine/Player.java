@@ -39,7 +39,7 @@ public class Player extends BetterCharacterControl{
         player.setLocalTranslation(0, 4, 0);
         player.scale(1.8f);        
         player.setMaterial(Game.game.getAssetManager().loadMaterial("Materials/Player.j3m"));
-        playerNode.attachChild(player);
+      //  playerNode.attachChild(player);
         
         animControl = player.getControl(AnimControl.class);
         

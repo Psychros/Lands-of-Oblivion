@@ -118,34 +118,23 @@ public class MapState extends AbstractAppState implements ActionListener{
         //Spieler bewegen
         walkDirection.set(0, 0, 0);
         if(vorwärts){
-            //Nur bewegen, wenn die Steigung nicht zu groß ist
-            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(vorwärtsRichtung);
-            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
-                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
-                walkDirection.addLocal(vorwärtsRichtung.mult(speed));
+            walkDirection.addLocal(vorwärtsRichtung.mult(speed));
         } 
         if(rückwärts){
-            //Nur bewegen, wenn die Steigung nicht zu groß ist
-            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(vorwärtsRichtung.mult(-1));
-            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
-                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
-                walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
+            walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
         } 
         if(links){
-            //Nur bewegen, wenn die Steigung nicht zu groß ist
-            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(linksRichtung);
-            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
-                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
-                walkDirection.addLocal(linksRichtung.mult(speed));
+            walkDirection.addLocal(linksRichtung.mult(speed));
         } 
         if(rechts){
-            //Nur bewegen, wenn die Steigung nicht zu groß ist
-            Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(linksRichtung.mult(-1));
-            if(map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) < 
-                    map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))+0.2f);
-                walkDirection.addLocal(linksRichtung.mult(speed).negate());
+            walkDirection.addLocal(linksRichtung.mult(speed).negate());
         }
-        map.getPlayer().setWalkDirection(walkDirection);
+        
+        //Nur bewegen, wenn die Steigung nicht zu groß ist
+        Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(walkDirection.normalize());
+        if((map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) - map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))) < 0.5f)
+            map.getPlayer().setWalkDirection(walkDirection);
+        
         
         //Kamera an die Position des Players setzen
         cam.setLocation(map.getPlayer().getPlayerNode().getLocalTranslation().add(0, 6, 0));
@@ -282,9 +271,9 @@ public class MapState extends AbstractAppState implements ActionListener{
         if(value){
             if(fogFilter == null){
                 fogFilter = new FogFilter();
-                fogFilter.setFogColor(ColorRGBA.Green);
-                fogFilter.setFogDistance(155);
-                fogFilter.setFogDensity(0.2f);
+                fogFilter.setFogColor(ColorRGBA.White);
+                fogFilter.setFogDistance(500);
+                fogFilter.setFogDensity(0.5f);
                 fpp.addFilter(fogFilter);
             }
         } else{
