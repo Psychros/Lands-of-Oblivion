@@ -146,7 +146,7 @@ public class Map extends Node{
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
         
         //Blumen
-        initTrees(500, "Models/Landschaft/Baum.j3o");
+        initTrees(100, "Models/Landschaft/Blume.j3o");
     }
     
     
@@ -162,14 +162,14 @@ public class Map extends Node{
      */
     private void initTrees(int number, String path){
         for (int i = 0; i < number; i++) {
-            float posX = (float)Math.random()*this.size;
-            float posZ = (float)Math.random()*this.size;
+            float posX = (float)Math.random()*this.size - size/2;
+            float posZ = (float)Math.random()*this.size - size/2;
             float height = terrain.getHeight(new Vector2f(posX, posZ));
             
             if(height <5){
                 Node tree = (Node)Game.game.getAssetManager().loadModel(path);
                 tree.scale(10);
-                tree.setLocalTranslation(posX, height+1.5f, posZ);
+                tree.setLocalTranslation(posX, height, posZ);
                 terrain.attachChild(tree);
             }
         }

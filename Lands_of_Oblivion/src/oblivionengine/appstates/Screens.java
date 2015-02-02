@@ -18,7 +18,7 @@ import oblivionengine.Game;
  *
  * @author To
  */
-public class Hauptmenü extends AbstractAppState implements ScreenController{
+public class Screens extends AbstractAppState implements ScreenController{
     //Application
     Application app;
     AppStateManager stateManager;
@@ -41,7 +41,7 @@ public class Hauptmenü extends AbstractAppState implements ScreenController{
         //Niftygui initialisieren
         niftyDisplay = new NiftyJmeDisplay(assetManager, app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/Menüs/Screen.xml", "start");
+        nifty.fromXml("Interface/Menüs/Screen.xml", "start", this);
         app.getGuiViewPort().addProcessor(niftyDisplay);
         Game.game.getFlyCam().setDragToRotate(true);
     }
@@ -70,7 +70,21 @@ public class Hauptmenü extends AbstractAppState implements ScreenController{
      * Methoden, die bei einem Klick auf einem Button ausgeführt werden
      */
     public void startGame(){
+        //zum inGame Screen wechseln
+        nifty.gotoScreen("inGame");
         
+        //Innerhalb des eigentlichen Spiels darf man per Tastendruck nicht die GUI bedienen
+        nifty.setIgnoreKeyboardEvents(true);
+        nifty.setIgnoreMouseEvents(true);
+        
+        //Die Flycam muss sich wieder normal verhalten
+        Game.game.getFlyCam().setDragToRotate(false);
+        
+        //Den MapState initialisieren und Tastendrücke aktivieren
+        MapState mapState = new MapState();
+        Game.game.initMapState(mapState);
+        mapState.activateKeys(true);
+        mapState.activateCursor(true);
     }
     
     public void stopGame(){
@@ -78,6 +92,6 @@ public class Hauptmenü extends AbstractAppState implements ScreenController{
     }
     
     public void options(){
-        
+        System.out.println("Optionen");
     }
 }

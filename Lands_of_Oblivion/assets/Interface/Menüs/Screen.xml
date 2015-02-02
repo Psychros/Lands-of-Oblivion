@@ -6,7 +6,7 @@
     <useStyles filename="nifty-default-styles.xml" />
     <useControls filename="nifty-default-controls.xml" />
     
-    <screen id="start" controller="oblivionengine.appstates.Hauptmenü">
+    <screen id="start" controller="oblivionengine.appstates.Screens">
         <layer id="background" childLayout="horizontal">
             <image filename="Interface/Menüs/Hauptmenü.png" height="100%" width="100%"></image>
         </layer>
@@ -25,5 +25,9 @@
                 <control name="button" label="Beenden"  id="endeButton"    font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="stopGame()"/></control>
             </panel>
         </layer>
+    </screen>
+    
+    <screen id="inGame" controller="oblivionengine.appstates.Hauptmenü">
+        
     </screen>
 </nifty>

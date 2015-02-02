@@ -4,7 +4,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
 import de.lessvoid.nifty.Nifty;
 import oblivionengine.Game;
-import oblivionengine.appstates.Hauptmenü;
+import oblivionengine.appstates.Screens;
 
 /**
  * test
@@ -30,14 +30,8 @@ public class Main extends Game {
 
     @Override
     public void simpleInitApp() { 
-        Hauptmenü menü = new Hauptmenü();
+        Screens menü = new Screens();
         stateManager.attach(menü);
-        
-        /*Den MapState initialisieren und Tastendrücke aktivieren
-        MapState mapState = new MapState();
-        initMapState(mapState);
-        mapState.activateKeys(true);
-        mapState.activateCursor(true);*/
     }
 
     @Override
