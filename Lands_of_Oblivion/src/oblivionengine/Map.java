@@ -100,9 +100,9 @@ public class Map extends Node{
         
         //Terain
         terrain = new TerrainQuad("terrain", 65, (int)size+1, filter.getHeightMap());
-        terrain.setShadowMode(ShadowMode.CastAndReceive);
-        TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
-        terrain.addControl(lodControl);
+        terrain.setShadowMode(ShadowMode.Receive);
+       // TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
+        //terrain.addControl(lodControl);
         this.attachChild(terrain);
         
         /*
@@ -145,8 +145,9 @@ public class Map extends Node{
         this.terrain.addControl(undergroundPhysic);  
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
         
-        //Blumen
-        initTrees(100, "Models/Landschaft/Blume.j3o");
+        //Blumen und Bäume
+        initTrees(2000,  "Models/Landschaft/Gras.j3o", false);
+        initTrees(100,   "Models/Landschaft/Baum.j3o", true);
     }
     
     
@@ -156,21 +157,32 @@ public class Map extends Node{
     }
     
     /*
-     * Generiert Baüme
+     * Generiert Baüme und Blumen
      * @param: number: Anzahl der zu generierenden Bäume
      *         path  : Pfad zum Modell des Baumes
+     *         castShadow: Soll ein Shatten erzeugt werden und soll das Objekt solide sein?
      */
-    private void initTrees(int number, String path){
+    private void initTrees(int number, String path, boolean castShadowAndCollision){
         for (int i = 0; i < number; i++) {
             float posX = (float)Math.random()*this.size - size/2;
             float posZ = (float)Math.random()*this.size - size/2;
             float height = terrain.getHeight(new Vector2f(posX, posZ));
             
+            //Es wird nur bis zur Höhe 5 ein Objekt generiert
             if(height <5){
                 Node tree = (Node)Game.game.getAssetManager().loadModel(path);
                 tree.scale(10);
                 tree.setLocalTranslation(posX, height, posZ);
                 terrain.attachChild(tree);
+                
+                if(castShadowAndCollision){
+                    tree.setShadowMode(ShadowMode.CastAndReceive); 
+                    RigidBodyControl control = new RigidBodyControl(0);
+                    tree.addControl(control);
+                    bulletAppState.getPhysicsSpace().add(control);
+                } 
+                else
+                    tree.setShadowMode(ShadowMode.Receive);   
             }
         }
     }

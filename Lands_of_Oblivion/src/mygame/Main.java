@@ -1,8 +1,6 @@
 package mygame;
 
-import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
-import de.lessvoid.nifty.Nifty;
 import oblivionengine.Game;
 import oblivionengine.appstates.Screens;
 

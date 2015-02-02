@@ -23,6 +23,7 @@ import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.ui.Picture;
 import oblivionengine.Game;
 import oblivionengine.Map;
@@ -54,6 +55,7 @@ public class MapState extends AbstractAppState implements ActionListener{
     private SSAOFilter ssaoFilter;          //weiche Schatten
     private BloomFilter bloomFilter;
     private FogFilter fogFilter;
+    private DirectionalLightShadowFilter dlsf;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -86,6 +88,7 @@ public class MapState extends AbstractAppState implements ActionListener{
         map.setSunLight(true);
         map.setSunLightColor(ColorRGBA.Yellow);
         map.setAmbientLight(true);
+        activateShadowFilter(true);
         Game.game.setActiveMap(map);
         
         //Verhindern, dass gezoomt werden kann
@@ -280,6 +283,21 @@ public class MapState extends AbstractAppState implements ActionListener{
             if(fogFilter != null){
                 fpp.removeFilter(fogFilter);
                 fogFilter = null;
+            }
+        }
+    }
+    
+        public void activateShadowFilter(boolean value){
+        if(value){
+            if(dlsf == null && map.getSunLight() != null){
+                dlsf = new DirectionalLightShadowFilter(Game.game.getAssetManager(), 1024, 1);
+                dlsf.setLight(map.getSunLight());
+                fpp.addFilter(dlsf);
+            }
+        } else{
+            if(dlsf != null){
+                fpp.removeFilter(dlsf);
+                dlsf = null;
             }
         }
     }
