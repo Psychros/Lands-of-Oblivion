@@ -19,10 +19,10 @@
 
                 </panel>
             </panel>
-            <panel id="buttons" height="100%" width="50%" align="center" childLayout="vertical" margin="50px">
-                <control name="button" label="Start"    id="startButton"   font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="startGame()"/></control> 
-                <control name="button" label="Optionen" id="optionsButton" font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="options()"/></control>
-                <control name="button" label="Beenden"  id="endeButton"    font="Interface/Fonts/Arial.fnt" align="center" valign="center" margin="5px" width="80%" height="8%" visibleToMouse="true"><interact onClick="stopGame()"/></control>
+            <panel id="buttons" height="100%" width="50%" align="center" childLayout="absolute">
+                <control name="button" label="Start"    id="startButton"   font="Interface/Fonts/Arial.fnt" x="7%" y="15%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="startGame()"/></control> 
+                <control name="button" label="Optionen" id="optionsButton" font="Interface/Fonts/Arial.fnt" x="7%" y="25%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="options()"/></control>
+                <control name="button" label="Beenden"  id="endeButton"    font="Interface/Fonts/Arial.fnt" x="7%" y="35%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="stopGame()"/></control>
             </panel>
         </layer>
     </screen>

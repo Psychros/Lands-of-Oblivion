@@ -23,6 +23,8 @@ public class Main extends Game {
 
     public static void main(String[] args) {
        Main game = new Main();
+       game.setDisplayStatView(false);
+       game.setDisplayFps(false);
        game.start();
     }
 

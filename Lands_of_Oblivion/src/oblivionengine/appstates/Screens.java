@@ -8,7 +8,9 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.math.FastMath;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -27,6 +29,8 @@ public class Screens extends AbstractAppState implements ScreenController{
     NiftyJmeDisplay niftyDisplay;
     Nifty nifty;
     
+    Node tree;
+    
     
     /*
      * Überschriebene Methoden
@@ -42,13 +46,19 @@ public class Screens extends AbstractAppState implements ScreenController{
         niftyDisplay = new NiftyJmeDisplay(assetManager, app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.fromXml("Interface/Menüs/Screen.xml", "start", this);
+        nifty.addXml("Interface/Menüs/Screen.xml");
         app.getGuiViewPort().addProcessor(niftyDisplay);
-        Game.game.getFlyCam().setDragToRotate(true);
+        Game.game.getFlyCam().setEnabled(false);
+        
+        tree = (Node)Game.game.getAssetManager().loadModel("Models/Landschaft/Baum.j3o");
+        tree.scale(0.5f);
+        tree.setLocalTranslation(-3.5f, -4, 0);
+        Game.game.getRootNode().attachChild(tree);
     }
     
     @Override
     public void update(float tpf) {
-        //TODO: implement behavior during runtime
+        tree.rotate(0, 5 * FastMath.DEG_TO_RAD*tpf, 0);
     }
 
     @Override
@@ -67,7 +77,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     } 
     
     /*
-     * Methoden, die bei einem Klick auf einem Button ausgeführt werden
+     * Hauptmenü Methoden
      */
     public void startGame(){
         //zum inGame Screen wechseln
@@ -77,14 +87,17 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.setIgnoreKeyboardEvents(true);
         nifty.setIgnoreMouseEvents(true);
         
-        //Die Flycam muss sich wieder normal verhalten
-        Game.game.getFlyCam().setDragToRotate(false);
-        
         //Den MapState initialisieren und Tastendrücke aktivieren
         MapState mapState = new MapState();
         Game.game.initMapState(mapState);
         mapState.activateKeys(true);
         mapState.activateCursor(true);
+        
+        //Kamera kann sich wieder bewegen
+        Game.game.getFlyCam().setEnabled(true);
+        
+        //Alle Objekte entfernen
+        Game.game.getRootNode().detachAllChildren();
     }
     
     public void stopGame(){
@@ -92,6 +105,6 @@ public class Screens extends AbstractAppState implements ScreenController{
     }
     
     public void options(){
-        System.out.println("Optionen");
+        nifty.gotoScreen("optionen");
     }
 }
