@@ -10,6 +10,7 @@ import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 public class Map extends Node{
     
     //Objektvariablen
-    
     private TerrainQuad terrain;
     private float size;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
@@ -39,7 +39,11 @@ public class Map extends Node{
     private float gravity;
     private Player player;
     private BulletAppState bulletAppState;
+    
+    //Globales Lager
+    public static Lager lager = new Lager(0);
 
+    
     //--------------------------------------------------------------------------
     //Konstruktoren
     
@@ -169,9 +173,11 @@ public class Map extends Node{
             float height = terrain.getHeight(new Vector2f(posX, posZ));
             
             //Es wird nur bis zur Höhe 5 ein Objekt generiert
-            if(height <5){
+            if(height == 0){
                 Node tree = (Node)Game.game.getAssetManager().loadModel(path);
                 tree.scale(10);
+                int rotation = (int)(Math.random()*360);
+                tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
                 tree.setLocalTranslation(posX, height, posZ);
                 terrain.attachChild(tree);
                 
@@ -186,6 +192,7 @@ public class Map extends Node{
             }
         }
     }
+    
     
     //--------------------------------------------------------------------------
     //Getter und Setter
@@ -274,6 +281,7 @@ public class Map extends Node{
     public Player getPlayer() {
         return player;
     }
+    
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden   

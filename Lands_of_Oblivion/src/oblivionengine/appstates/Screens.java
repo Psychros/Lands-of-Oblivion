@@ -46,7 +46,6 @@ public class Screens extends AbstractAppState implements ScreenController{
         niftyDisplay = new NiftyJmeDisplay(assetManager, app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.fromXml("Interface/Menüs/Screen.xml", "start", this);
-        nifty.addXml("Interface/Menüs/Screen.xml");
         app.getGuiViewPort().addProcessor(niftyDisplay);
         Game.game.getFlyCam().setEnabled(false);
         
@@ -93,8 +92,9 @@ public class Screens extends AbstractAppState implements ScreenController{
         mapState.activateKeys(true);
         mapState.activateCursor(true);
         
-        //Kamera kann sich wieder bewegen
+        //Kamera kann sich wieder bewegen und der Mauszeiger wird entfernt
         Game.game.getFlyCam().setEnabled(true);
+        Game.game.getInputManager().setCursorVisible(false);
         
         //Alle Objekte entfernen
         Game.game.getRootNode().detachAllChildren();
@@ -106,5 +106,13 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     public void options(){
         nifty.gotoScreen("optionen");
+    }
+    
+    
+    /*
+     * Optionsmenü im Hauptmenü Methoden
+     */ 
+    public void backToStartScreen(){
+        nifty.gotoScreen("start");
     }
 }

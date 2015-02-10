@@ -27,7 +27,20 @@
         </layer>
     </screen>
     
-    <screen id="inGame" controller="oblivionengine.appstates.Hauptmenü">
+    
+    <screen id="inGame" controller="oblivionengine.appstates.Screens">
         
+    </screen>
+    
+    
+    <screen id="optionen" controller="oblivionengine.appstates.Screens">
+        <layer id="background" childLayout="absolute">
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+            <control name="scrollPanel" id="GScrollPanel0" horizontal="true" width="80.0%" height="80.0%" x="10%" y="5%" vertical="true">
+                
+            </control>
+            <control name="button" label="Zurück" id="backToStartMenu" font="Interface/Fonts/Arial.fnt" x="70%" y="85%" width="20%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="backToStartScreen()"/></control> 
+        </layer>
     </screen>
 </nifty>
