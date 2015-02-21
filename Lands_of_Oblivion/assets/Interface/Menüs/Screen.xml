@@ -8,24 +8,26 @@
     
     <screen id="start" controller="oblivionengine.appstates.Screens">
         <layer id="background" childLayout="horizontal">
-            <image filename="Interface/Menüs/Hauptmenü.png" height="100%" width="100%"></image>
+            <image filename="Interface/Menüs/Hauptmenü/Startbildschirm/Hauptmenü.png" height="100%" width="100%"></image>
         </layer>
-        <layer id="foreground" childLayout="horizontal">
-            <panel id="leftSide" height="100%" width="50%" align="center" childLayout="vertical">
-                <panel id="titel" height="15%" width="50%" align="center" childLayout="center">
-               <!-->    <text text="Lands of Oblivion" height="100%" width="100%" font="Interface/Fonts/Arial.fnt"/>   -->
-                </panel>
-                <panel id="vorschau" height="85%" width="50%" align="center" childLayout="center">
-
-                </panel>
-            </panel>
-            <panel id="buttons" height="100%" width="50%" align="center" childLayout="absolute">
-                <control name="button" label="Start"    id="startButton"   font="Interface/Fonts/Arial.fnt" x="7%" y="15%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="startGame()"/></control> 
-                <control name="button" label="Optionen" id="optionsButton" font="Interface/Fonts/Arial.fnt" x="7%" y="25%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="options()"/></control>
-                <control name="button" label="Beenden"  id="endeButton"    font="Interface/Fonts/Arial.fnt" x="7%" y="35%" width="80%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="stopGame()"/></control>
+        <layer id="foreground" childLayout="absolute">
+            <panel id="buttons" x="50%" y="0%" height="100%" width="50%" childLayout="absolute">
+                <image id="start"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png"    x="7%" y="15%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="startGame()" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png)"/> 
+                </image>
+                
+                <image id="optionen" filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png" x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="options()"   onMouseOver="mouseOver(optionen. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen2.png)"/> 
+                </image>
+                
+                <image id="ende"     filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png"     x="7%" y="35%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="stopGame()"  onMouseOver="mouseOver(ende. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde2.png)"/> 
+                </image>
             </panel>
         </layer>
     </screen>
+    
+    
     
     
     <screen id="inGame" controller="oblivionengine.appstates.Screens">
@@ -33,13 +35,13 @@
     </screen>
     
     
+    
+    
     <screen id="optionen" controller="oblivionengine.appstates.Screens">
         <layer id="background" childLayout="absolute">
+            <image filename="Interface/Menüs/Hauptmenü/Optionen/Optionen.png" height="100%" width="100%"></image>
         </layer>
         <layer id="foreground" childLayout="absolute">
-            <control name="scrollPanel" id="GScrollPanel0" horizontal="true" width="80.0%" height="80.0%" x="10%" y="5%" vertical="true">
-                
-            </control>
             <control name="button" label="Zurück" id="backToStartMenu" font="Interface/Fonts/Arial.fnt" x="70%" y="85%" width="20%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="backToStartScreen()"/></control> 
         </layer>
     </screen>

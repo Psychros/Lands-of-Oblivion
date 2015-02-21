@@ -12,6 +12,9 @@ import com.jme3.math.FastMath;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import oblivionengine.Game;
@@ -106,6 +109,34 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     public void options(){
         nifty.gotoScreen("optionen");
+    }
+    
+    /*
+     * Bild des Buttons ändern,  wenn die Maus über diesen fährt
+     */
+    public void mouseOver(String value){
+        //Alle Bilder der Buttons zurücksetzen
+        //Startbutton
+        NiftyImage img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png", false);
+        Element niftyElement = nifty.getCurrentScreen().findElementByName("start");
+        niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+        
+        //Optionenbutton
+        NiftyImage img2 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png", false);
+        Element niftyElement2 = nifty.getCurrentScreen().findElementByName("optionen");
+        niftyElement2.getRenderer(ImageRenderer.class).setImage(img2);
+        
+        //Endebutton
+        NiftyImage img3 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png", false);
+        Element niftyElement3 = nifty.getCurrentScreen().findElementByName("ende");
+        niftyElement3.getRenderer(ImageRenderer.class).setImage(img3);
+        
+        
+        //Bild des ausgewählten buttons ändern
+        String[] values = value.trim().split(". ");
+        NiftyImage img4 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[1], false);
+        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(values[0]);
+        niftyElement4.getRenderer(ImageRenderer.class).setImage(img4);
     }
     
     

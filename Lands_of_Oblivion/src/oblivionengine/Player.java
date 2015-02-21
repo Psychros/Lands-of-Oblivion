@@ -30,7 +30,7 @@ public class Player extends BetterCharacterControl{
     public Player(float radius, float height, float mass){
         super(radius, height, mass);      
         playerNode = new Node("Player");
-        setJumpForce(new Vector3f(0, 2000, 0));
+        setJumpForce(new Vector3f(0, 500, 0));
         setSpeed(10);
         
         //Modell laden

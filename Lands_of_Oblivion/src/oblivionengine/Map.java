@@ -5,6 +5,7 @@
 package oblivionengine;
 
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
@@ -15,7 +16,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
-import com.jme3.terrain.geomipmap.TerrainLodControl;
+import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
 import com.jme3.terrain.heightmap.HillHeightMap;
@@ -61,7 +62,7 @@ public class Map extends Node{
         
         setAmbientLight(true);
         setSunLight(true);
-        setSkyColor(ColorRGBA.Cyan);
+        setSkyColor(new ColorRGBA(6f/255f, 95f/255f, 213f/255f, 1f));
         setGravity(-19.62f);
     }
     
@@ -99,13 +100,13 @@ public class Map extends Node{
             heightMap = new HillHeightMap((int)(size+1), 100, 50f, 100f, System.currentTimeMillis());
             heightMap.load();
         } catch(Exception e){e.printStackTrace();};
-        HeightMapFilter filter = new HeightMapFilter(heightMap);
-        filter.manipulateEdge();
+       // HeightMapFilter filter = new HeightMapFilter(heightMap);
+        //filter.manipulateEdge();
         
         //Terain
-        terrain = new TerrainQuad("terrain", 65, (int)size+1, filter.getHeightMap());
-        terrain.setShadowMode(ShadowMode.Receive);
-       // TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
+        terrain = new TerrainQuad("terrain", 65, (int)size+1, heightMap.getHeightMap());
+        terrain.setShadowMode(ShadowMode.CastAndReceive);
+        // TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
         //terrain.addControl(lodControl);
         this.attachChild(terrain);
         
@@ -117,7 +118,7 @@ public class Map extends Node{
         float dirtScale = 16;
         float rockScale = 128;
         
-        Texture grass = Game.game.getAssetManager().loadTexture("Textures/Gras.png");
+        Texture grass = Game.game.getAssetManager().loadTexture("Textures/gras.jpg");
         grass.setWrap(Texture.WrapMode.Repeat);
         mat_terrain.setTexture("region1ColorMap", grass);
         mat_terrain.setVector3("region1", new Vector3f(200, 1, 128));
@@ -129,7 +130,7 @@ public class Map extends Node{
         mat_terrain.setVector3("region2", new Vector3f(0, 20, dirtScale));
 
         // ROCK texture
-        Texture rock = Game.game.getAssetManager().loadTexture("Textures/Stein.png");
+        Texture rock = Game.game.getAssetManager().loadTexture("Textures/stein.jpg");
         rock.setWrap(Texture.WrapMode.Repeat);
         mat_terrain.setTexture("region3ColorMap", rock);
         mat_terrain.setVector3("region3", new Vector3f(198, 260, rockScale));
@@ -150,8 +151,9 @@ public class Map extends Node{
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
         
         //Blumen und Bäume
-        initTrees(2000,  "Models/Landschaft/Gras.j3o", false);
+        //initTrees(1000,  "Models/Landschaft/Gras.j3o", false);
         initTrees(100,   "Models/Landschaft/Baum.j3o", true);
+        initTrees(1000,   "Models/Landschaft/Gras.j3o", false);
     }
     
     
@@ -182,13 +184,15 @@ public class Map extends Node{
                 terrain.attachChild(tree);
                 
                 if(castShadowAndCollision){
-                    tree.setShadowMode(ShadowMode.CastAndReceive); 
-                    RigidBodyControl control = new RigidBodyControl(0);
+                    tree.setShadowMode(ShadowMode.Receive);
+                    tree.getChild("trunk").setShadowMode(ShadowMode.CastAndReceive);
+                    
+                    RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(6f, 30), 0);
                     tree.addControl(control);
                     bulletAppState.getPhysicsSpace().add(control);
                 } 
                 else
-                    tree.setShadowMode(ShadowMode.Receive);   
+                    tree.setShadowMode(ShadowMode.Off);   
             }
         }
     }
