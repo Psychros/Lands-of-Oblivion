@@ -23,7 +23,9 @@ import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
 import oblivionengine.Game;
 import oblivionengine.Map;
@@ -84,10 +86,8 @@ public class MapState extends AbstractAppState implements ActionListener{
     @Override
     public void initialize(AppStateManager stateManager, Application app){ 
         //Map erstellen
-        map = new Map(1024, "Testboden");
-        map.setSunLight(true);
-        map.setSunLightColor(ColorRGBA.Yellow);
-        map.setAmbientLight(true);
+        Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Insel1.j3o");
+        map = new Map((TerrainQuad)a.getChild(0), "Startinsel");
         activateShadowFilter(true);
         Game.game.setActiveMap(map);
         
@@ -133,10 +133,12 @@ public class MapState extends AbstractAppState implements ActionListener{
             walkDirection.addLocal(linksRichtung.mult(speed).negate());
         }
         
-        //Nur bewegen, wenn die Steigung nicht zu groß ist
-        Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation().add(walkDirection.normalize());
-        if((map.getTerrain().getHeight(new Vector2f(testVector.x, testVector.z)) - map.getTerrain().getHeight(new Vector2f(map.getPlayer().getPlayerNode().getLocalTranslation().x, map.getPlayer().getPlayerNode().getLocalTranslation().z))) < 0.5f)
+        //Nur bewegen, wenn der Spieler nicht ins Wasser laufen würde
+        Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation();
+        if(testVector.add(walkDirection.mult(tpf*speed)).y > 6)
             map.getPlayer().setWalkDirection(walkDirection);
+        else
+            map.getPlayer().setWalkDirection(new Vector3f(0, 0, 0));
         
         
         //Kamera an die Position des Players setzen

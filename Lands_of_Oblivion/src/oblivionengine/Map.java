@@ -14,9 +14,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Box;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
 import com.jme3.terrain.heightmap.HillHeightMap;
@@ -31,7 +34,7 @@ public class Map extends Node{
     
     //Objektvariablen
     private TerrainQuad terrain;
-    private float size;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
+    private float size = 1024;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
     private ArrayList<Building> buildings;
     private ArrayList<Structure> structures;
@@ -60,10 +63,15 @@ public class Map extends Node{
         attachChild(player.getPlayerNode());
         bulletAppState.getPhysicsSpace().add(player);
         
+        //Einstellungen treffen
         setAmbientLight(true);
         setSunLight(true);
         setSkyColor(new ColorRGBA(6f/255f, 95f/255f, 213f/255f, 1f));
         setGravity(-19.62f);
+        
+        //Wasser aktivieren
+        FilterPostProcessor processor = (FilterPostProcessor)Game.game.getAssetManager().loadFilter("Effects/Wasser.j3f");
+        Game.game.getViewPort().addProcessor(processor);
     }
     
     
@@ -77,9 +85,13 @@ public class Map extends Node{
         this.terrain = terrain;
         this.attachChild(terrain);
         
+        //Physik des Terrains einstellen
         RigidBodyControl undergroundPhysic = new RigidBodyControl(0);
         this.terrain.addControl(undergroundPhysic);  
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
+        
+        //Spieler an die gewünschte Stelle warpen
+        player.warp(new Vector3f(0, terrain.getHeight(Vector2f.ZERO), 0)); 
     }
     
     
@@ -168,14 +180,15 @@ public class Map extends Node{
      *         path  : Pfad zum Modell des Baumes
      *         castShadow: Soll ein Shatten erzeugt werden und soll das Objekt solide sein?
      */
-    private void initTrees(int number, String path, boolean castShadowAndCollision){
+    public void initTrees(int number, String path, boolean castShadowAndCollision){
         for (int i = 0; i < number; i++) {
             float posX = (float)Math.random()*this.size - size/2;
             float posZ = (float)Math.random()*this.size - size/2;
             float height = terrain.getHeight(new Vector2f(posX, posZ));
             
+            
             //Es wird nur bis zur Höhe 5 ein Objekt generiert
-            if(height == 0){
+            if(height > 10){
                 Node tree = (Node)Game.game.getAssetManager().loadModel(path);
                 tree.scale(10);
                 int rotation = (int)(Math.random()*360);
@@ -184,9 +197,11 @@ public class Map extends Node{
                 terrain.attachChild(tree);
                 
                 if(castShadowAndCollision){
-                    tree.setShadowMode(ShadowMode.Receive);
+                    //Schatten einstellen
+                    tree.setShadowMode(ShadowMode.CastAndReceive);
                     tree.getChild("trunk").setShadowMode(ShadowMode.CastAndReceive);
                     
+                    //Einen Zilinder als Kollisionsmodell verwenden
                     RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(6f, 30), 0);
                     tree.addControl(control);
                     bulletAppState.getPhysicsSpace().add(control);
@@ -298,7 +313,7 @@ public class Map extends Node{
         }
     }
     
-     public void activatePhysicsForPlayer(boolean value){
+    public void activatePhysicsForPlayer(boolean value){
         if(value){
             bulletAppState.getPhysicsSpace().add(player);
         } else{

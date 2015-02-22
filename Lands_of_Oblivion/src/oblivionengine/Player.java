@@ -30,18 +30,16 @@ public class Player extends BetterCharacterControl{
     public Player(float radius, float height, float mass){
         super(radius, height, mass);      
         playerNode = new Node("Player");
-        setJumpForce(new Vector3f(0, 500, 0));
+        setJumpForce(new Vector3f(0, 2000, 0));
         setSpeed(10);
         
         //Modell laden
-        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
-        player = (Geometry)node.getChild(0);
-        player.setLocalTranslation(0, 4, 0);
-        player.scale(1.8f);        
-        player.setMaterial(Game.game.getAssetManager().loadMaterial("Materials/Player.j3m"));
-      //  playerNode.attachChild(player);
+        //Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
+        //player.scale(1.8f);        
+        //player.setMaterial(Game.game.getAssetManager().loadMaterial("Materials/Player.j3m"));
+        //playerNode.attachChild(player);
         
-        animControl = player.getControl(AnimControl.class);
+        //animControl = player.getControl(AnimControl.class);
         
         //BetterCharakterControl hinzufügen
         playerNode.addControl(this);
