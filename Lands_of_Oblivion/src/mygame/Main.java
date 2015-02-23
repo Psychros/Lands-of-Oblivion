@@ -30,8 +30,8 @@ public class Main extends Game {
 
     @Override
     public void simpleInitApp() { 
-        Screens menü = new Screens();
-        stateManager.attach(menü);
+        screens = new Screens();
+        stateManager.attach(screens);
     }
 
     @Override

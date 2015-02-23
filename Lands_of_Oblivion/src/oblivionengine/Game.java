@@ -15,6 +15,7 @@ import com.jme3.input.TouchInput;
 import com.jme3.renderer.Camera;
 import com.jme3.system.AppSettings;
 import oblivionengine.appstates.MapState;
+import oblivionengine.appstates.Screens;
 
 /**
  *
@@ -26,6 +27,7 @@ abstract public class Game extends SimpleApplication{
     
     private Map activeMap;   
     public static Game game;
+    public Screens screens;
     public MapState mapState;
     
     //--------------------------------------------------------------------------
