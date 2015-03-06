@@ -11,10 +11,9 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
-import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
@@ -25,6 +24,7 @@ import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
 import oblivionengine.Game;
@@ -34,11 +34,11 @@ import oblivionengine.Map;
  *
  * @author To
  */
-public class MapState extends AbstractAppState implements ActionListener{
+public class MapState extends AbstractAppState implements ActionListener, AnalogListener{
     
     //Konstanten
-    public static final String LINKS         = "Links laufen";
-    public static final String RECHTS        = "Rechts laufen";
+    public static final String LINKS         = "StrafeLeft";
+    public static final String RECHTS        = "StrafeRight";
     public static final String VORWÄRTS      = "Vorwärts laufen";
     public static final String RÜCKWÄRTS     = "Rückwärts laufen";
     public static final String SPRINTEN      = "Sprinten";
@@ -58,6 +58,7 @@ public class MapState extends AbstractAppState implements ActionListener{
     private BloomFilter bloomFilter;
     private FogFilter fogFilter;
     private DirectionalLightShadowFilter dlsf;
+    private DirectionalLightShadowRenderer dlsr;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -88,7 +89,7 @@ public class MapState extends AbstractAppState implements ActionListener{
         //Map erstellen
         Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Insel1.j3o");
         map = new Map((TerrainQuad)a.getChild(0), "Startinsel");
-        activateShadowFilter(true);
+        activateShadowRenderer(true);
         Game.game.setActiveMap(map);
         
         //Verhindern, dass gezoomt werden kann
@@ -97,6 +98,7 @@ public class MapState extends AbstractAppState implements ActionListener{
     
     @Override
     public void update(float tpf){
+        
         Camera cam = Game.game.getCam();
         
         //Fokussierung der Kamera auf ein Objekt aktualisieren
@@ -116,7 +118,7 @@ public class MapState extends AbstractAppState implements ActionListener{
          */
         Vector3f vorwärtsRichtung = new Vector3f(cam.getDirection().getX(), 0, cam.getDirection().getZ());
         Vector3f linksRichtung = new Vector3f(cam.getLeft().getX(), 0, cam.getLeft().getZ());
-        float speed = map.getPlayer().getSpeed();
+        float speed = map.getPlayer().getMoveSpeed();
         
         //Spieler bewegen
         walkDirection.set(0, 0, 0);
@@ -132,33 +134,15 @@ public class MapState extends AbstractAppState implements ActionListener{
         if(rechts){
             walkDirection.addLocal(linksRichtung.mult(speed).negate());
         }
-        
-        //Nur bewegen, wenn der Spieler nicht ins Wasser laufen würde
-        Vector3f testVector = map.getPlayer().getPlayerNode().getLocalTranslation();
-        if(testVector.add(walkDirection.mult(tpf*speed)).y > 6)
-            map.getPlayer().setWalkDirection(walkDirection);
-        else
-            map.getPlayer().setWalkDirection(new Vector3f(0, 0, 0));
+        map.getPlayer().setWalkDirection(walkDirection);
         
         
         //Kamera an die Position des Players setzen
-        cam.setLocation(map.getPlayer().getPlayerNode().getLocalTranslation().add(0, 6, 0));
+        cam.setLocation(map.getPlayerNode().getLocalTranslation().add(0, 6, 0));
         
         
         //Bewegung der Sonne
         map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -0.2f*tpf, 0));
-    }
-    
-    @Override
-    public void onAction(String name, boolean isPressed, float tpf){
-        switch(name){
-            case VORWÄRTS     : vorwärts    = isPressed; map.getPlayer().setSpeed(20); break;   //Die Geschwindigkeeit wird auf den Normalwert gesetzt
-            case RÜCKWÄRTS    : rückwärts   = isPressed; break;
-            case LINKS        : links       = isPressed; break;
-            case RECHTS       : rechts      = isPressed; break;
-            case SPRINTEN     : map.getPlayer().setSpeed(30); break;
-            case SPRINGEN     : map.getPlayer().jump();  break;
-        }
     }
     
     /*
@@ -202,6 +186,18 @@ public class MapState extends AbstractAppState implements ActionListener{
             }
         }
     }
+
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf) {
+        
+    }
+
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
+        
+    }
+ 
+    
     
     public void activateDepthOfFieldFilter(DepthOfFieldFilter dofFilter){
         if(this.dofFilter == null){
@@ -272,19 +268,19 @@ public class MapState extends AbstractAppState implements ActionListener{
         }
     }
     
-    public void activateFogFilter(boolean value){
+    //Schatten für ein Sonnenlicht
+    public void activateShadowRenderer(boolean value){
         if(value){
-            if(fogFilter == null){
-                fogFilter = new FogFilter();
-                fogFilter.setFogColor(ColorRGBA.White);
-                fogFilter.setFogDistance(500);
-                fogFilter.setFogDensity(0.5f);
-                fpp.addFilter(fogFilter);
+            if(dlsr == null){
+                dlsr = new DirectionalLightShadowRenderer(Game.game.getAssetManager(), 1024, 2);
+                dlsr.setLight(map.getSunLight());
+                Game.game.getViewPort().addProcessor(dlsr); 
+ 
             }
         } else{
-            if(fogFilter != null){
-                fpp.removeFilter(fogFilter);
-                fogFilter = null;
+            if(dlsr != null){
+                Game.game.getViewPort().removeProcessor(dlsr);
+                dlsr = null;
             }
         }
     }

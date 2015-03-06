@@ -15,11 +15,8 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.shape.Box;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
 import com.jme3.terrain.heightmap.HillHeightMap;
@@ -36,12 +33,16 @@ public class Map extends Node{
     private TerrainQuad terrain;
     private float size = 1024;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
+    
     private ArrayList<Building> buildings;
     private ArrayList<Structure> structures;
+    
     private AmbientLight ambientLight;
     private DirectionalLight sunLight;
+    
+    private Node playerNode;
+    private CharakterControl player;
     private float gravity;
-    private Player player;
     private BulletAppState bulletAppState;
     
     //Globales Lager
@@ -59,9 +60,11 @@ public class Map extends Node{
         activatePhysics(true);
         
         //Player
-        player = new Player(1f, 2, 200);
-        attachChild(player.getPlayerNode());
-        bulletAppState.getPhysicsSpace().add(player);
+        player = new CharakterControl(1f, 1.8f, 200);
+        playerNode = new Node("Player");
+        playerNode.addControl(player);
+        attachChild(playerNode);
+        bulletAppState.getPhysicsSpace().add(playerNode);
         
         //Einstellungen treffen
         setAmbientLight(true);
@@ -85,10 +88,16 @@ public class Map extends Node{
         this.terrain = terrain;
         this.attachChild(terrain);
         
+        //Schatten dürfen angenommen werden
+        terrain.setShadowMode(ShadowMode.Receive);
+        
         //Physik des Terrains einstellen
         RigidBodyControl undergroundPhysic = new RigidBodyControl(0);
         this.terrain.addControl(undergroundPhysic);  
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
+        
+        initTrees(100,   "Models/Landschaft/Baum.j3o", true);
+        initTrees(1000,   "Models/Landschaft/Gras.j3o", false);
         
         //Spieler an die gewünschte Stelle warpen
         player.warp(new Vector3f(0, terrain.getHeight(Vector2f.ZERO), 0)); 
@@ -194,20 +203,19 @@ public class Map extends Node{
                 int rotation = (int)(Math.random()*360);
                 tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
                 tree.setLocalTranslation(posX, height, posZ);
-                terrain.attachChild(tree);
+                attachChild(tree);
                 
                 if(castShadowAndCollision){
                     //Schatten einstellen
                     tree.setShadowMode(ShadowMode.CastAndReceive);
-                    tree.getChild("trunk").setShadowMode(ShadowMode.CastAndReceive);
                     
                     //Einen Zilinder als Kollisionsmodell verwenden
                     RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(6f, 30), 0);
                     tree.addControl(control);
                     bulletAppState.getPhysicsSpace().add(control);
                 } 
-                else
-                    tree.setShadowMode(ShadowMode.Off);   
+                //else
+                    //tree.setShadowMode(ShadowMode.Off);   
             }
         }
     }
@@ -264,6 +272,10 @@ public class Map extends Node{
     public DirectionalLight getSunLight() {
         return sunLight;
     }
+
+    public Node getPlayerNode() {
+        return playerNode;
+    } 
     
     public void setSunLight(boolean isSunLight){
         if(sunLight == null && isSunLight){
@@ -297,7 +309,7 @@ public class Map extends Node{
         this.gravity = gravity;
     }
     
-    public Player getPlayer() {
+    public CharakterControl getPlayer() {
         return player;
     }
     
