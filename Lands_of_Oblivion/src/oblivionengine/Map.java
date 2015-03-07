@@ -203,6 +203,7 @@ public class Map extends Node{
                 int rotation = (int)(Math.random()*360);
                 tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
                 tree.setLocalTranslation(posX, height, posZ);
+                tree.setShadowMode(ShadowMode.Receive);
                 attachChild(tree);
                 
                 if(castShadowAndCollision){

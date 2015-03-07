@@ -92,6 +92,9 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         activateShadowRenderer(true);
         Game.game.setActiveMap(map);
         
+        Node b = (Node)Game.game.getAssetManager().loadModel("Scenes/Himmel.j3o");
+        map.attachChild(b);
+        
         //Verhindern, dass gezoomt werden kann
         Game.game.getFlyCam().setZoomSpeed(0);
     }
