@@ -9,11 +9,15 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
+import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
@@ -23,10 +27,13 @@ import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.shadow.BasicShadowRenderer;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
+import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
+import oblivionengine.CharakterControl;
 import oblivionengine.Game;
 import oblivionengine.Map;
 
@@ -36,20 +43,20 @@ import oblivionengine.Map;
  */
 public class MapState extends AbstractAppState implements ActionListener, AnalogListener{
     
-    //Konstanten
-    public static final String LINKS         = "StrafeLeft";
-    public static final String RECHTS        = "StrafeRight";
-    public static final String VORWÄRTS      = "Vorwärts laufen";
-    public static final String RÜCKWÄRTS     = "Rückwärts laufen";
-    public static final String SPRINTEN      = "Sprinten";
-    public static final String SPRINGEN      = "Springen";
+    //Mappings
+    public enum InputMapping{
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run;
+    }
     
     //--------------------------------------------------------------------------
     //Objektvariablen
+    private InputManager inputManager;
+    private CharakterControl player;
+    private Node playerNode;
+    
     private Map map;    //Ist eine Referenz auf activeMap in der Klasse Game
-    private boolean vorwärts = false, rückwärts = false, links = false, rechts = false; //Laufrichtungen
-    private Vector3f walkDirection = new Vector3f(0, 0, 0);
     private Picture cursor;
+    
     
     //Filter
     private FilterPostProcessor fpp;
@@ -59,6 +66,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private FogFilter fogFilter;
     private DirectionalLightShadowFilter dlsf;
     private DirectionalLightShadowRenderer dlsr;
+    private BasicShadowRenderer bsr;
+    private PssmShadowRenderer pssm;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -86,6 +95,9 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     @Override
     public void initialize(AppStateManager stateManager, Application app){ 
+        super.initialize(stateManager, app);
+
+        
         //Map erstellen
         Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Insel1.j3o");
         map = new Map((TerrainQuad)a.getChild(0), "Startinsel");
@@ -97,6 +109,21 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         
         //Verhindern, dass gezoomt werden kann
         Game.game.getFlyCam().setZoomSpeed(0);
+        
+        //Player initialisieren
+        Node playerNode = new Node("Player");
+        map.attachChild(playerNode);
+        player = new CharakterControl(0.5f, 2.5f, 8);
+        player.setCamera(Game.game.getCamera());
+        playerNode.addControl(player);
+        map.getBulletAppState().getPhysicsSpace().add(player);
+        
+        //InputManager initialisieren
+        inputManager = Game.game.getInputManager();
+        addInputMappings();
+        
+        //Spieler zum Startpunkt warpen
+        player.warp(new Vector3f(0, map.getTerrain().getHeight(Vector2f.ZERO), 0));
     }
     
     @Override
@@ -116,62 +143,63 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             }
         }
         
-        /*
-         * Bewegen des Spielers und rotieren der Kamera
-         */
-        Vector3f vorwärtsRichtung = new Vector3f(cam.getDirection().getX(), 0, cam.getDirection().getZ());
-        Vector3f linksRichtung = new Vector3f(cam.getLeft().getX(), 0, cam.getLeft().getZ());
-        float speed = map.getPlayer().getMoveSpeed();
-        
-        //Spieler bewegen
-        walkDirection.set(0, 0, 0);
-        if(vorwärts){
-            walkDirection.addLocal(vorwärtsRichtung.mult(speed));
-        } 
-        if(rückwärts){
-            walkDirection.addLocal(vorwärtsRichtung.mult(speed).negate());
-        } 
-        if(links){
-            walkDirection.addLocal(linksRichtung.mult(speed));
-        } 
-        if(rechts){
-            walkDirection.addLocal(linksRichtung.mult(speed).negate());
-        }
-        map.getPlayer().setWalkDirection(walkDirection);
-        
-        
-        //Kamera an die Position des Players setzen
-        cam.setLocation(map.getPlayerNode().getLocalTranslation().add(0, 6, 0));
-        
         
         //Bewegung der Sonne
-        map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -0.2f*tpf, 0));
+        map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -1f*tpf, 0));
     }
     
     /*
      * wichtige Tasten aktivieren und deaktivieren
      */
-    public void activateKeys(boolean value){
-        if(value){
-            //Generiere Mappings
-            Game.game.getInputManager().addMapping(LINKS, new KeyTrigger(KeyInput.KEY_A));
-            Game.game.getInputManager().addMapping(RECHTS, new KeyTrigger(KeyInput.KEY_D));
-            Game.game.getInputManager().addMapping(VORWÄRTS, new KeyTrigger(KeyInput.KEY_W));
-            Game.game.getInputManager().addMapping(RÜCKWÄRTS, new KeyTrigger(KeyInput.KEY_S));
-            Game.game.getInputManager().addMapping(SPRINTEN, new KeyTrigger(KeyInput.KEY_LSHIFT));
-            Game.game.getInputManager().addMapping(SPRINGEN, new KeyTrigger(KeyInput.KEY_SPACE));
-            
-            //Erstelle Listener mit den entsprechenden Mappings
-            Game.game.getInputManager().addListener(this, LINKS, RECHTS, VORWÄRTS, RÜCKWÄRTS, SPRINTEN, SPRINGEN);
-        } else{
-            Game.game.getInputManager().deleteMapping(LINKS);
-            Game.game.getInputManager().deleteMapping(RECHTS);
-            Game.game.getInputManager().deleteMapping(VORWÄRTS);
-            Game.game.getInputManager().deleteMapping(RÜCKWÄRTS);
-            Game.game.getInputManager().deleteMapping(SPRINTEN);
-            Game.game.getInputManager().deleteMapping(SPRINGEN);
+    private void addInputMappings(){
+        //Mappings erstellen
+        inputManager.addMapping(InputMapping.RotateLeft.name(), new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping(InputMapping.RotateRight.name(), new MouseAxisTrigger(MouseInput.AXIS_X, false));
+        inputManager.addMapping(InputMapping.LookUp.name(), new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+        inputManager.addMapping(InputMapping.LookDown.name(), new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+        
+        inputManager.addMapping(InputMapping.StrafeLeft.name(), new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping(InputMapping.StrafeRight.name(), new KeyTrigger(KeyInput.KEY_D), new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping(InputMapping.MoveForward.name(), new KeyTrigger(KeyInput.KEY_W), new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping(InputMapping.MoveBackward.name(), new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping(InputMapping.Run.name(), new KeyTrigger(KeyInput.KEY_LSHIFT), new KeyTrigger(KeyInput.KEY_RCONTROL));
+        inputManager.addMapping(InputMapping.Jump.name(), new KeyTrigger(KeyInput.KEY_SPACE));
+   
+        //Listener aktivieren
+        for(InputMapping i: InputMapping.values()){
+            inputManager.addListener(this, i.name());
         }
     }
+    
+    
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf) {
+        if(player != null){
+            player.onAction(name, isPressed, tpf);
+        }
+    }
+
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
+        if(player != null){
+            player.onAnalog(name, value, tpf);
+        }
+    }
+    
+    
+
+    @Override
+    public void cleanup() {
+        super.cleanup(); 
+        for (InputMapping i : InputMapping.values()) {
+            if(inputManager.hasMapping(i.name())){
+                inputManager.deleteMapping(i.name());
+            }
+        }
+        inputManager.removeListener(this);
+    }
+    
+    
     
     /*
      * Fokussierung der Kamera auf ein Objekt aktivieren
@@ -189,17 +217,6 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             }
         }
     }
-
-    @Override
-    public void onAction(String name, boolean isPressed, float tpf) {
-        
-    }
-
-    @Override
-    public void onAnalog(String name, float value, float tpf) {
-        
-    }
- 
     
     
     public void activateDepthOfFieldFilter(DepthOfFieldFilter dofFilter){
@@ -278,7 +295,6 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
                 dlsr = new DirectionalLightShadowRenderer(Game.game.getAssetManager(), 1024, 2);
                 dlsr.setLight(map.getSunLight());
                 Game.game.getViewPort().addProcessor(dlsr); 
- 
             }
         } else{
             if(dlsr != null){
@@ -288,7 +304,38 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         }
     }
     
-        public void activateShadowFilter(boolean value){
+    public void activateBasicShadowRenderer(boolean value){
+        if(value){
+            if(bsr == null){
+                bsr = new BasicShadowRenderer(Game.game.getAssetManager(), 1024);
+                bsr.setDirection(new Vector3f(.3f, -0.5f, -0.5f));
+                Game.game.getViewPort().addProcessor(bsr); // add one or more sceneprocessor to viewport
+
+            }
+        } else{
+            if(dlsr != null){
+                Game.game.getViewPort().removeProcessor(dlsr);
+                dlsr = null;
+            }
+        }
+    }   
+    
+    
+    public void activatePssmShadowRenderer(boolean value){
+        if(value){
+            if(pssm == null){
+                pssm = new PssmShadowRenderer(Game.game.getAssetManager(), 1024, 2);
+                Game.game.getViewPort().addProcessor(pssm); 
+            }
+        } else{
+            if(pssm != null){
+                Game.game.getViewPort().removeProcessor(pssm);
+                pssm = null;
+            }
+        }
+    }
+    
+    public void activateShadowFilter(boolean value){
         if(value){
             if(dlsf == null && map.getSunLight() != null){
                 dlsf = new DirectionalLightShadowFilter(Game.game.getAssetManager(), 1024, 1);

@@ -1,6 +1,5 @@
-Material My Material : Common/MatDefs/Light/Lighting.j3md {
+Material My Material : Common/MatDefs/Terrain/TerrainLighting.j3md {
      MaterialParameters {
-        UseMaterialColors : true
         Diffuse : 0.4 0.2 0.0 1.0
      }
     AdditionalRenderState {

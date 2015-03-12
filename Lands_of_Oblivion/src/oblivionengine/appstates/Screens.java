@@ -92,8 +92,8 @@ public class Screens extends AbstractAppState implements ScreenController{
         //Den MapState initialisieren und Tastendrücke aktivieren
         MapState mapState = new MapState();
         Game.game.initMapState(mapState);
-        mapState.activateKeys(true);
         mapState.activateCursor(true);
+        
         
         //Kamera kann sich wieder bewegen und der Mauszeiger wird entfernt
         Game.game.getFlyCam().setEnabled(true);

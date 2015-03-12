@@ -24,7 +24,8 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
 
     //Objektvariablen
     private boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
-    private float moveSpeed = 10;;
+    private float moveSpeed = 15;
+    private float rotationSpeed = 20;
     private Node head = new Node();
     private float yaw;
     
@@ -35,7 +36,8 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     public CharakterControl(float radius, float height, float mass) {
         super(radius, height, mass);
         
-        head.setLocalTranslation(0, 1.8f, 0);
+        head.setLocalTranslation(0, 4.5f, 0);    
+        super.rigidBody.setFriction(2f);
     }
     
 
@@ -99,8 +101,10 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         else if(name.equals("StrafeRight"))
             rightStrafe = isPressed;
         
-        else if(name.equals("MoveForward"))
+        else if(name.equals("MoveForward")){
             forward = isPressed;
+            moveSpeed = 15;
+        }
         else if(name.equals("MoveBackward"))
             backward = isPressed;
         
@@ -109,22 +113,22 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         else if(name.equals("Duck"))
             setDucked(isPressed);
         
-        if(name.equals("Sprinten"))
-            Game.game.mapState.getMap().getPlayer().setMoveSpeed(30);
+        if(name.equals("Run"))
+            moveSpeed = 30;
     }
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
         //Testen, welche Tastenbefehle ausgeführt werden sollen
         if(name.equals("RotateLeft"))
-            rotate(tpf * value);
+            rotate(tpf * value * rotationSpeed);
         else if(name.equals("RotateRight"))
-            rotate(-tpf * value);
+            rotate(-tpf * value * rotationSpeed);
         
         if(name.equals("LookUp"))
-            lookUpDown(value * tpf);
-        else if(name.equals("LookDownt"))
-            lookUpDown(-tpf * value);
+            lookUpDown(-value * tpf * rotationSpeed * 2);
+        else if(name.equals("LookDown"))
+            lookUpDown(value * tpf * rotationSpeed * 2);
     }
     
     public void rotate(float value){
