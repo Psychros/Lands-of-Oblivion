@@ -63,10 +63,6 @@ public class Map extends Node{
         setSunLight(true);
         setSkyColor(new ColorRGBA(6f/255f, 95f/255f, 213f/255f, 1f));
         setGravity(-19.62f);
-        
-        //Wasser aktivieren
-        FilterPostProcessor processor = (FilterPostProcessor)Game.game.getAssetManager().loadFilter("Effects/Wasser.j3f");
-        Game.game.getViewPort().addProcessor(processor);
     }
     
     

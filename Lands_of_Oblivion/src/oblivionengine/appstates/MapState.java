@@ -59,7 +59,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     
     //Filter
-    private FilterPostProcessor fpp;
+    private FilterPostProcessor effects;
     private DepthOfFieldFilter dofFilter;   //Fokussierung der Kamera
     private SSAOFilter ssaoFilter;          //weiche Schatten
     private BloomFilter bloomFilter;
@@ -71,10 +71,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public MapState() {
+    public MapState() {       
         //FilterPostProcessor initialisieren
-        fpp = new FilterPostProcessor(Game.game.getAssetManager());
-        Game.game.getViewPort().addProcessor(fpp);
+        effects = new FilterPostProcessor(Game.game.getAssetManager());
+        Game.game.getViewPort().addProcessor(effects);
     }
     
     //--------------------------------------------------------------------------
@@ -96,16 +96,25 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     @Override
     public void initialize(AppStateManager stateManager, Application app){ 
         super.initialize(stateManager, app);
-
         
         //Map erstellen
         Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Insel1.j3o");
         map = new Map((TerrainQuad)a.getChild(0), "Startinsel");
-        activateShadowRenderer(true);
         Game.game.setActiveMap(map);
         
+        //Himmel
         Node b = (Node)Game.game.getAssetManager().loadModel("Scenes/Himmel.j3o");
         map.attachChild(b);
+        
+        //Wasser initialisieren
+        effects = (FilterPostProcessor)Game.game.getAssetManager().loadFilter("Effects/Wasser.j3f");
+        
+        //Schatten initialisieren
+        activateShadowFilter(true);
+        
+        //Effekte(Wasser und Schatten) aktivieren
+        Game.game.getViewPort().addProcessor(effects);
+        
         
         //Verhindern, dass gezoomt werden kann
         Game.game.getFlyCam().setZoomSpeed(0);
@@ -208,11 +217,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         if(value){
             if(dofFilter == null){
                 dofFilter = new DepthOfFieldFilter();
-                fpp.addFilter(dofFilter);
+                effects.addFilter(dofFilter);
             }
         } else{
             if(dofFilter != null){
-                fpp.removeFilter(dofFilter);
+                effects.removeFilter(dofFilter);
                 dofFilter = null;
             }
         }
@@ -222,7 +231,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     public void activateDepthOfFieldFilter(DepthOfFieldFilter dofFilter){
         if(this.dofFilter == null){
             this.dofFilter = dofFilter;
-            fpp.addFilter(this.dofFilter);
+            effects.addFilter(this.dofFilter);
         }
     }
     
@@ -233,11 +242,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         if(value){
             if(ssaoFilter == null){
                 ssaoFilter = new SSAOFilter(1f, 1.5f, 0.1f, 0.1f);
-                fpp.addFilter(ssaoFilter);
+                effects.addFilter(ssaoFilter);
             }
         } else{
             if(ssaoFilter != null){
-                fpp.removeFilter(ssaoFilter);
+                effects.removeFilter(ssaoFilter);
                 ssaoFilter = null;
             }
         }
@@ -246,14 +255,14 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     public void activateSSAOFilter(float sampleRadius, float intensity, float scale, float bias){
         if(ssaoFilter == null){
             ssaoFilter = new SSAOFilter(sampleRadius, intensity, scale, bias);
-            fpp.addFilter(ssaoFilter);
+            effects.addFilter(ssaoFilter);
         }
     }
     
     public void activateSSAOFilter(SSAOFilter ssaoFilter){
         if(this.ssaoFilter == null){
             this.ssaoFilter = ssaoFilter;
-            fpp.addFilter(this.ssaoFilter);
+            effects.addFilter(this.ssaoFilter);
         }
     }
     
@@ -264,11 +273,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         if(value){
             if(bloomFilter == null){
                 bloomFilter = new BloomFilter();
-                fpp.addFilter(bloomFilter);
+                effects.addFilter(bloomFilter);
             }
         } else{
             if(bloomFilter != null){
-                fpp.removeFilter(bloomFilter);
+                effects.removeFilter(bloomFilter);
                 bloomFilter = null;
             }
         }
@@ -277,14 +286,14 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     public void activateBloomFilter(GlowMode glowMode){
         if(bloomFilter == null){
             bloomFilter = new BloomFilter(glowMode);
-            fpp.addFilter(bloomFilter);
+            effects.addFilter(bloomFilter);
         }
     }
     
     public void activateBloomFilter(BloomFilter bloomFilter){
         if(this.bloomFilter == null){
             this.bloomFilter = bloomFilter;
-            fpp.addFilter(this.bloomFilter);
+            effects.addFilter(this.bloomFilter);
         }
     }
     
@@ -340,11 +349,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             if(dlsf == null && map.getSunLight() != null){
                 dlsf = new DirectionalLightShadowFilter(Game.game.getAssetManager(), 1024, 1);
                 dlsf.setLight(map.getSunLight());
-                fpp.addFilter(dlsf);
+                effects.addFilter(dlsf);
             }
         } else{
             if(dlsf != null){
-                fpp.removeFilter(dlsf);
+                effects.removeFilter(dlsf);
                 dlsf = null;
             }
         }
