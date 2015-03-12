@@ -349,6 +349,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             if(dlsf == null && map.getSunLight() != null){
                 dlsf = new DirectionalLightShadowFilter(Game.game.getAssetManager(), 1024, 1);
                 dlsf.setLight(map.getSunLight());
+                dlsf.setShadowZExtend(300);
                 effects.addFilter(dlsf);
             }
         } else{
