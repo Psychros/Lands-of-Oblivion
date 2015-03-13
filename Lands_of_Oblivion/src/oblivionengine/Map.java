@@ -32,6 +32,7 @@ public class Map extends Node{
     
     //Objektvariablen
     private TerrainQuad terrain;
+    private Node trees;
     private float size = 1024;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
     
@@ -85,8 +86,9 @@ public class Map extends Node{
         this.terrain.addControl(undergroundPhysic);  
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
         
+        trees = new Node("Trees");
+        attachChild(trees);
         initTrees(300,   "Models/Landschaft/Baum.j3o", true);
-        //initTrees(1000,   "Models/Landschaft/Gras.j3o", false);
     }
     
     
@@ -182,12 +184,13 @@ public class Map extends Node{
             //Es wird nur bis zur Höhe 5 ein Objekt generiert
             if(height > 10){
                 Node tree = (Node)Game.game.getAssetManager().loadModel(path);
+                tree.setName("Tree");
                 tree.scale((float)Math.random()+1);
                 int rotation = (int)(Math.random()*360);
                 tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
                 tree.setLocalTranslation(posX, height, posZ);
                 tree.setShadowMode(ShadowMode.Receive);
-                attachChild(tree);
+                trees.attachChild(tree);
                 
                 if(castShadowAndCollision){
                     //Schatten einstellen
@@ -212,6 +215,10 @@ public class Map extends Node{
 
     public ArrayList<Building> getBuildings() {
         return buildings;
+    }
+
+    public Node getTrees() {
+        return trees;
     }
 
     public void addBuildings(Building... buildings) {

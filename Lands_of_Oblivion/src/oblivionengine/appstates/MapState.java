@@ -16,6 +16,7 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -45,7 +46,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree;
     }
     
     //--------------------------------------------------------------------------
@@ -154,7 +155,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         
         
         //Bewegung der Sonne
-        map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -1f*tpf, 0));
+        map.getSunLight().setDirection(map.getSunLight().getDirection().add(tpf, -10f*tpf, 0));
     }
     
     /*
@@ -174,6 +175,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.Run.name(), new KeyTrigger(KeyInput.KEY_LSHIFT), new KeyTrigger(KeyInput.KEY_RCONTROL));
         inputManager.addMapping(InputMapping.Jump.name(), new KeyTrigger(KeyInput.KEY_SPACE));
    
+        inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
             inputManager.addListener(this, i.name());

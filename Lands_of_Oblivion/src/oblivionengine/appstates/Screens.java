@@ -33,6 +33,14 @@ public class Screens extends AbstractAppState implements ScreenController{
     Nifty nifty;
     
     Node tree;
+
+    public NiftyJmeDisplay getNiftyDisplay() {
+        return niftyDisplay;
+    }
+
+    public Nifty getNifty() {
+        return nifty;
+    }
     
     
     /*

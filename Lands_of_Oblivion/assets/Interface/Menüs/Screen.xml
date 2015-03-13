@@ -31,7 +31,10 @@
     
     
     <screen id="inGame" controller="oblivionengine.appstates.Screens">
-        
+        <layer id="Anzeige" childLayout="absolute">
+            <image filename="Interface/Menüs/InGame/inGame.png" height="100%" width="100%"></image>
+            <control id="Baumstämme" name="label" text="0" x="70px" y="5px" height="60px" width="200px" font="Interface/Fonts/Arial.fnt"/>
+        </layer>
     </screen>
     
     
