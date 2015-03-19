@@ -36,6 +36,10 @@ abstract public class Game extends SimpleApplication{
     //--------------------------------------------------------------------------
     //Getter und Setter
     
+    public Screens getScreens() {
+        return this.screens;
+    }
+    
     public Map getActiveMap() {
         return activeMap;
     }

@@ -30,7 +30,8 @@ public class Screens extends AbstractAppState implements ScreenController{
     AssetManager assetManager;
     //NiftyGui
     NiftyJmeDisplay niftyDisplay;
-    Nifty nifty;
+    private Nifty nifty;
+    private byte cheatmenüControl = 0;
     
     Node tree;
 
@@ -117,6 +118,28 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     public void options(){
         nifty.gotoScreen("optionen");
+    }
+    
+    public void switchToCheatmenü(){
+        if (cheatmenüControl == 0){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
+                cheatmenüControl++;
+            }
+        } else if (cheatmenüControl == 1){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
+                cheatmenüControl++;
+                nifty.gotoScreen("cheatmenü");
+            }
+        } else if (cheatmenüControl == 2){
+            if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
+                cheatmenüControl++;
+            }
+        } else if (cheatmenüControl == 3){
+            if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
+                cheatmenüControl = 0;
+                nifty.gotoScreen("inGame");
+            }
+        }
     }
     
     /*

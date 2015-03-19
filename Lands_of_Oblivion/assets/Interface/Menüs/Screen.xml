@@ -48,4 +48,17 @@
             <control name="button" label="Zurück" id="backToStartMenu" font="Interface/Fonts/Arial.fnt" x="70%" y="85%" width="20%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="backToStartScreen()"/></control> 
         </layer>
     </screen>
+
+
+
+
+    <screen id="cheatmenü">
+        <layer id="GLayer0" childLayout="absolute">
+            <panel id="GPanel0" childLayout="vertical" x="5" y="4px" width="794px" style="nifty-panel-simple" height="593px">
+                <control id="GScrollPanel1" x="16px" y="270px" width="783px" height="523px" horizontal="true" vertical="true" name="scrollPanel"/>
+                <control id="GTextfield1" x="-1px" y="-1px" width="787px" height="58px" name="textfield"/>
+            </panel>
+        </layer>
+    </screen>
+    
 </nifty>
