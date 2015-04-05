@@ -35,6 +35,7 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
+import de.lessvoid.nifty.Nifty;
 import oblivionengine.CharakterControl;
 import oblivionengine.Game;
 import oblivionengine.Map;
@@ -47,7 +48,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü;
     }
     
     //--------------------------------------------------------------------------
@@ -183,6 +184,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.Jump.name(), new KeyTrigger(KeyInput.KEY_SPACE));
    
         inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        
+        inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
             inputManager.addListener(this, i.name());
@@ -192,6 +195,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
+        if (parseKeys(name)) return;
         if(player != null){
             player.onAction(name, isPressed, tpf);
         }
@@ -392,5 +396,14 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             cursor.setHeight(60);
             Game.game.getGuiNode().attachChild(cursor);
         }
+    }
+    
+    private boolean parseKeys(String name){
+        boolean returned = false;
+        if (name.equals(InputMapping.Cheatmenü.name())){
+            Game.game.getScreens().switchToCheatmenü();
+            returned = true;
+        }
+        return returned;
     }
 }
