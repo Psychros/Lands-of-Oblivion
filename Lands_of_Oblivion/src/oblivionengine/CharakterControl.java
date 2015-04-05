@@ -139,6 +139,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         else
             animControl.clearChannels();
         
+        
         if(name.equals("Jump"))
             jump();
         else if(name.equals("Duck"))
