@@ -28,6 +28,7 @@ import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.shadow.BasicShadowRenderer;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
@@ -122,10 +123,16 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         
         //Player initialisieren
         Node playerNode = new Node("Player");
+        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
+        node.scale(2.6f);
+        playerNode.attachChild(node);
         map.attachChild(playerNode);
+        
         player = new CharakterControl(0.5f, 2.5f, 8);
         player.setCamera(Game.game.getCamera());
+        player.addSpatial(node);
         playerNode.addControl(player);
+        
         map.getBulletAppState().getPhysicsSpace().add(player);
         
         //InputManager initialisieren
@@ -254,17 +261,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         }
     }
     
-    public void activateSSAOFilter(float sampleRadius, float intensity, float scale, float bias){
+    public void activateSSAOFilter(){
         if(ssaoFilter == null){
-            ssaoFilter = new SSAOFilter(sampleRadius, intensity, scale, bias);
+            SSAOFilter ssaoFilter = new SSAOFilter(12.940201f, 43.928635f, 0.32999992f, 0.6059958f);
             effects.addFilter(ssaoFilter);
-        }
-    }
-    
-    public void activateSSAOFilter(SSAOFilter ssaoFilter){
-        if(this.ssaoFilter == null){
-            this.ssaoFilter = ssaoFilter;
-            effects.addFilter(this.ssaoFilter);
         }
     }
     

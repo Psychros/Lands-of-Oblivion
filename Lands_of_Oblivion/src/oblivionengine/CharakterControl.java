@@ -4,6 +4,9 @@
  */
 package oblivionengine;
 
+import com.jme3.animation.AnimChannel;
+import com.jme3.animation.AnimControl;
+import com.jme3.animation.LoopMode;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.controls.ActionListener;
@@ -18,7 +21,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
-import de.lessvoid.nifty.controls.label.LabelControl;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 
@@ -35,6 +37,13 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     private Node head = new Node();
     private float yaw;
     
+    //Animation
+    private AnimControl animControl;
+    private AnimChannel animChannel;
+    private static final String ANIM_WALK = "my_animation";
+    private static final String ANIM_IDLE = "";
+    
+    
     //Inventar
     int baumstämme = 0;
     
@@ -45,19 +54,24 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     public CharakterControl(float radius, float height, float mass) {
         super(radius, height, mass);
         
-        head.setLocalTranslation(0, 4.5f, 0);    
-        super.rigidBody.setFriction(2f);
+        head.setLocalTranslation(0, 1.9f, 0);    
+        super.rigidBody.setFriction(0.5f); 
     }
     
 
     //--------------------------------------------------------------------------
     //Getter und Setter
 
-    public void setSpatial(Spatial spatial){
-        super.setSpatial(spatial);
+    public void addSpatial(Spatial spatial){
+        super.setSpatial(spatial);   
+        
         //Die Position des Kopfes nur dann festlegen, wenn das Spatial eine Node ist
         if(spatial instanceof Node)
-            ((Node)spatial).attachChild(head);
+            ((Node)spatial).attachChild(head);      
+        
+        //Laufanimation festlegen
+        animControl = spatial.getControl(AnimControl.class);
+        animChannel = animControl.createChannel();
     }
     
     public void setCamera(Camera cam){
@@ -88,8 +102,9 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         walkDirection.set(0, 0, 0);
         
         //NPC bewegen
-        if(forward)
+        if(forward){
             walkDirection.addLocal(modelForwardDir.mult(moveSpeed));
+        }
         else if(backward)
             walkDirection.addLocal(modelForwardDir.negate().multLocal(moveSpeed));
         
@@ -113,11 +128,18 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         else if(name.equals("MoveForward")){
             forward = isPressed;
             moveSpeed = 15;
+            animChannel = animControl.createChannel();
+            animChannel.setAnim(ANIM_WALK);
         }
-        else if(name.equals("MoveBackward"))
+        else if(name.equals("MoveBackward")){
             backward = isPressed;
+            animChannel = animControl.createChannel();
+            animChannel.setAnim(ANIM_WALK);
+        }
+        else
+            animControl.clearChannels();
         
-        else if(name.equals("Jump"))
+        if(name.equals("Jump"))
             jump();
         else if(name.equals("Duck"))
             setDucked(isPressed);

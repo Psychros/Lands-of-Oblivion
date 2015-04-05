@@ -14,7 +14,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
@@ -85,6 +84,7 @@ public class Map extends Node{
         RigidBodyControl undergroundPhysic = new RigidBodyControl(0);
         this.terrain.addControl(undergroundPhysic);  
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
+        undergroundPhysic.setFriction(3f);
         
         trees = new Node("Trees");
         attachChild(trees);
