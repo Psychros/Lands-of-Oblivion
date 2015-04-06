@@ -1,4 +1,4 @@
-package oblivionengine;
+package oblivionengine.buildings;
 
 /**
  *
@@ -8,9 +8,8 @@ public class Lager {
     
     //Objektvariablen
     
-    //Anzahl aller Ressourcen und deren Index
-    private int[] ressourcen = new int[1];
-    public enum Ressourcen{Wood}
+    //Anzahl aller Ressourcen
+    private int[] ressourcen = new int[1]; 
     
     //Größe des Lagers
     private int größe;
@@ -34,8 +33,10 @@ public class Lager {
     
     //--------------------------------------------------------------------------
     //Getter und Setter
-    public int[] getRessourcen() {
-        return ressourcen;
+    
+    //Gibt den aktuellen Lagerstand der als Argument übergebenen Ressource zurück
+    public int getAnzahlRessourcen(Ressourcen id) {
+        return ressourcen[id.ordinal()];
     }
 
     public int getGröße() {
@@ -52,14 +53,19 @@ public class Lager {
     
     /*
      * Ressourcen auffüllen oder entfernen
+     * @param
+     * id: Ressourcentyp
+     * anzahl: Menge der einzulagernden Ressourcen. Auch ein negativer Wert ist möglich
      */
-    public void addRessourcen(int index, int number){
-        ressourcen[index] += number;
+    public void addRessourcen(Ressourcen id, int anzahl){
+        ressourcen[id.ordinal()] += anzahl;
         
         //Die Anzahl einer Ressource darf nicht kleiner als 0 und nicht größer als die Lagergröße sein
-        if(ressourcen[index] < 0)
-            ressourcen[index] = 0;
-        else if(ressourcen[index] > größe)
-            ressourcen[index] = größe;
+        if(ressourcen[id.ordinal()] < 0)
+            ressourcen[id.ordinal()] = 0;
+        else if(ressourcen[id.ordinal()] > größe){
+            ressourcen[id.ordinal()] = größe;
+            System.out.println(größe);
+        }
     }
 }

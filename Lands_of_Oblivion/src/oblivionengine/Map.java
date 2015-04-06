@@ -21,7 +21,6 @@ import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
 import com.jme3.terrain.heightmap.HillHeightMap;
 import com.jme3.texture.Texture;
-import java.util.ArrayList;
 
 /**
  *
@@ -35,17 +34,11 @@ public class Map extends Node{
     private float size = 1024;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
     
-    private ArrayList<Building> buildings;
-    private ArrayList<Structure> structures;
-    
     private AmbientLight ambientLight;
     private DirectionalLight sunLight;
     
     private float gravity;
     private BulletAppState bulletAppState;
-    
-    //Globales Lager
-    public static Lager lager = new Lager(0);
 
     
     //--------------------------------------------------------------------------
@@ -198,6 +191,8 @@ public class Map extends Node{
                     
                     //Einen Zilinder als Kollisionsmodell verwenden
                     RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(1.2f, 30), 0);
+                    control.setFriction(4);
+                    control.setGravity(new Vector3f(0, -98.1f, 0));
                     tree.addControl(control);
                     bulletAppState.getPhysicsSpace().add(control);
                 } 
@@ -213,30 +208,8 @@ public class Map extends Node{
         return terrain;
     }
 
-    public ArrayList<Building> getBuildings() {
-        return buildings;
-    }
-
     public Node getTrees() {
         return trees;
-    }
-
-    public void addBuildings(Building... buildings) {
-        for (Building building : buildings) {
-            this.buildings.add(building);
-            this.attachChild(building);
-        }
-    }
-
-    public ArrayList<Structure> getStructures() {
-        return structures;
-    }
-
-    public void addStructures(Structure... structures) {
-        for (Structure structure : structures) {
-            this.structures.add(structure);
-            this.attachChild(structure);
-        }
     }
 
     public AmbientLight getAmbientLight() {

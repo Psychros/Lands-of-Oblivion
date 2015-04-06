@@ -27,8 +27,8 @@ abstract public class Game extends SimpleApplication{
     
     private Map activeMap;   
     public static Game game;
-    protected Screens screens;
-    protected MapState mapState;
+    public Screens screens;
+    public MapState mapState;
     
     //--------------------------------------------------------------------------
     //Konstruktoren

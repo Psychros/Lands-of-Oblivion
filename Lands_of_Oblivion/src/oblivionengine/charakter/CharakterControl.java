@@ -2,27 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package oblivionengine;
+package oblivionengine.charakter;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
-import com.jme3.animation.LoopMode;
 import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.collision.CollisionResults;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
-import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.CameraNode;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
-import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.TextRenderer;
 
 /**
  *
@@ -42,10 +36,6 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     private AnimChannel animChannel;
     private static final String ANIM_WALK = "my_animation";
     private static final String ANIM_IDLE = "";
-    
-    
-    //Inventar
-    int baumstämme = 0;
     
     
     //--------------------------------------------------------------------------
@@ -147,10 +137,6 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         
         if(name.equals("Run"))
             moveSpeed = 30;
-        
-        if(name.equals("CutTree")){
-            cutTree();
-        }
     }
 
     @Override
@@ -177,27 +163,5 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         yaw += value;
         yaw = FastMath.clamp(yaw, -FastMath.HALF_PI, FastMath.HALF_PI);
         head.setLocalRotation(new Quaternion().fromAngles(yaw, 0, 0));
-    }
-    
-    //Baum fällen
-    public void cutTree(){
-        CollisionResults results = new CollisionResults();
-        Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
-        Game.game.mapState.getMap().getTrees().collideWith(ray, results);
-        
-        if(results.size() != 0){
-            Geometry tree = results.getClosestCollision().getGeometry();
-            if(tree != null && tree.getParent().getName().equals("Tree") && results.getClosestCollision().getDistance() < 10){
-                Game.game.mapState.getMap().getTrees().detachChild(tree.getParent());
-                Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(tree.getParent());
-                
-                baumstämme++;
-                
-                //Text ändern
-                Element e = Game.game.screens.getNifty().getCurrentScreen().findElementByName("Baumstämme");
-                TextRenderer label = e.getRenderer(TextRenderer.class);
-                label.setText(String.valueOf(baumstämme));
-            }
-        }
     }
 }

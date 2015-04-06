@@ -28,17 +28,16 @@ import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.shadow.BasicShadowRenderer;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
-import de.lessvoid.nifty.Nifty;
-import oblivionengine.CharakterControl;
+import oblivionengine.charakter.CharakterControl;
 import oblivionengine.Game;
 import oblivionengine.Map;
+import oblivionengine.charakter.Player;
 
 /**
  *
@@ -54,7 +53,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //--------------------------------------------------------------------------
     //Objektvariablen
     private InputManager inputManager;
-    private CharakterControl player;
+    private Player player;
     private Node playerNode;
     
     private Map map;    //Ist eine Referenz auf activeMap in der Klasse Game
@@ -93,6 +92,15 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         Game.game.setActiveMap(map);
     }  
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Node getPlayerNode() {
+        return playerNode;
+    }  
+    
+
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     
@@ -129,7 +137,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         playerNode.attachChild(node);
         map.attachChild(playerNode);
         
-        player = new CharakterControl(0.5f, 2.5f, 8);
+        player = new Player(0.5f, 2.5f, 8);
         player.setCamera(Game.game.getCamera());
         player.addSpatial(node);
         playerNode.addControl(player);
