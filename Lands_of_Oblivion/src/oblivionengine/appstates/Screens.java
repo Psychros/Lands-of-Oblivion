@@ -128,6 +128,9 @@ public class Screens extends AbstractAppState implements ScreenController{
             if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
                 cheatmenüControl++;
                 nifty.gotoScreen("cheatmenü");
+                Game.game.getInputManager().setCursorVisible(true);
+                nifty.setIgnoreKeyboardEvents(false);
+                nifty.setIgnoreMouseEvents(false);
             }
         } else if (cheatmenüControl == 2){
             if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
@@ -137,6 +140,9 @@ public class Screens extends AbstractAppState implements ScreenController{
             if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
                 cheatmenüControl = 0;
                 nifty.gotoScreen("inGame");
+                Game.game.getInputManager().setCursorVisible(false);
+                nifty.setIgnoreKeyboardEvents(true);
+                nifty.setIgnoreMouseEvents(true);
             }
         }
     }
@@ -175,5 +181,10 @@ public class Screens extends AbstractAppState implements ScreenController{
      */ 
     public void backToStartScreen(){
         nifty.gotoScreen("start");
+    }
+    
+    
+    public void doCheat(String cheat){
+        
     }
 }
