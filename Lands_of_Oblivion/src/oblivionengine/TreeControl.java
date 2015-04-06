@@ -49,6 +49,7 @@ public class TreeControl extends AbstractControl {
             //Der Baum soll erst nach einiger Zet verschwinden
             timer += tpf;
             if(timer > timerTime){
+                //Baum verschinden lassen
                 Game.game.mapState.getMap().getTrees().detachChild(tree.getParent());
                 Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(tree.getParent());
             } 

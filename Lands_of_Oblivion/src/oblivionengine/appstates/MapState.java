@@ -374,38 +374,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         }
     }
     
-    /*
-     * Fadenkreuz anzeigen
-     */
-    public void activateCursor(boolean value) {
-        if(value){
-            if(cursor == null){
-                cursor = new Picture("Cursor");
-                cursor.setImage(Game.game.getAssetManager(), "Interface/Cursor.png", true);
-                cursor.move(Game.game.getSettings().getWidth()/2-30, Game.game.getSettings().getHeight()/2-30, 0);
-                cursor.setWidth(60);
-                cursor.setHeight(60);
-                Game.game.getGuiNode().attachChild(cursor);
-            }
-        } else{
-            if(cursor != null){
-                Game.game.getGuiNode().detachChild(cursor);
-                cursor = null;
-            }
-        }
-    }
-    
-    public void activateCursor(String path) {
-        if(cursor == null){
-            cursor = new Picture("Cursor");
-            cursor.setImage(Game.game.getAssetManager(), path, true);
-            cursor.move(Game.game.getSettings().getWidth()/2-30, 0, Game.game.getSettings().getHeight()/2-30);
-            cursor.setWidth(60);
-            cursor.setHeight(60);
-            Game.game.getGuiNode().attachChild(cursor);
-        }
-    }
-    
+    //Zum Cheatmenü wechseln
     private boolean parseKeys(String name){
         boolean returned = false;
         if (name.equals(InputMapping.Cheatmenü.name())){
