@@ -184,7 +184,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     }
     
     
-    public void doCheat(String cheat){
+    public void cheat(String cheat){
         
     }
 }

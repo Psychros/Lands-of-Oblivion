@@ -47,7 +47,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü, Return;
     }
     
     //--------------------------------------------------------------------------
@@ -194,6 +194,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         
         inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));
+        inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
             inputManager.addListener(this, i.name());
@@ -380,6 +381,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         if (name.equals(InputMapping.Cheatmenü.name())){
             Game.game.getScreens().switchToCheatmenü();
             returned = true;
+        } else if (name.equals(InputMapping.Return.name())){
+            if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
+                System.out.println("A Cheat has been activated");
+                returned = true;
+            }
         }
         return returned;
     }
