@@ -34,7 +34,7 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
-import oblivionengine.charakter.CharakterControl;
+import de.lessvoid.nifty.controls.TextField;
 import oblivionengine.Game;
 import oblivionengine.Map;
 import oblivionengine.charakter.Player;
@@ -383,7 +383,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             returned = true;
         } else if (name.equals(InputMapping.Return.name())){
             if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
-                System.out.println("A Cheat has been activated");
+                //String ta = nifty.getScreen("SGScreen").findNiftyControl("h1nameselect", TextField.class).getText();
+                String cheat = Game.game.getScreens().getNifty()
+                        .getCurrentScreen().findNiftyControl("cheatfield", TextField.class).getText();
+                
+                System.out.println("A Cheat has been activated: " + cheat);
                 returned = true;
             }
         }
