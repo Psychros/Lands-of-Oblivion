@@ -63,4 +63,16 @@
         </layer>
     </screen>
     
+    
+    
+    
+    <screen id="baumenü" controller="oblivionengine.appstates.Screens">
+        <layer id="background" childLayout="absolute">
+            <image filename="Interface/Menüs/Baumenü/Baumenü.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+            
+        </layer>
+    </screen>
+    
 </nifty>
