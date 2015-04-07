@@ -32,6 +32,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     NiftyJmeDisplay niftyDisplay;
     private Nifty nifty;
     private byte cheatmenüControl = 0;
+    private byte baumenüControl   = 0;
     
     Node tree;
 
@@ -87,9 +88,37 @@ public class Screens extends AbstractAppState implements ScreenController{
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     } 
     
+    
+    
     /*
-     * Hauptmenü Methoden
+     * Hauptmenü
      */
+    // Bild des Buttons ändern,  wenn die Maus über diesen fährt
+    public void mouseOver(String value){
+        //Alle Bilder der Buttons zurücksetzen
+        //Startbutton
+        NiftyImage img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png", false);
+        Element niftyElement = nifty.getCurrentScreen().findElementByName("start");
+        niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+        
+        //Optionenbutton
+        NiftyImage img2 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png", false);
+        Element niftyElement2 = nifty.getCurrentScreen().findElementByName("optionen");
+        niftyElement2.getRenderer(ImageRenderer.class).setImage(img2);
+        
+        //Endebutton
+        NiftyImage img3 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png", false);
+        Element niftyElement3 = nifty.getCurrentScreen().findElementByName("ende");
+        niftyElement3.getRenderer(ImageRenderer.class).setImage(img3);
+        
+        
+        //Bild des ausgewählten buttons ändern
+        String[] values = value.trim().split(". ");
+        NiftyImage img4 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[1], false);
+        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(values[0]);
+        niftyElement4.getRenderer(ImageRenderer.class).setImage(img4);
+    }
+    
     public void startGame(){
         //zum inGame Screen wechseln
         nifty.gotoScreen("inGame");
@@ -119,6 +148,11 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.gotoScreen("optionen");
     }
     
+    
+    
+    /*
+     * Cheatmenü
+     */
     public void switchToCheatmenü(){
         if (cheatmenüControl == 0){
             if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
@@ -127,10 +161,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         } else if (cheatmenüControl == 1){
             if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
                 cheatmenüControl++;
-                nifty.gotoScreen("cheatmenü");
-                Game.game.getInputManager().setCursorVisible(true);
-                nifty.setIgnoreKeyboardEvents(false);
-                nifty.setIgnoreMouseEvents(false);
+                goToMenu("cheatmenü");
             }
         } else if (cheatmenüControl == 2){
             if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
@@ -139,52 +170,64 @@ public class Screens extends AbstractAppState implements ScreenController{
         } else if (cheatmenüControl == 3){
             if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
                 cheatmenüControl = 0;
-                nifty.gotoScreen("inGame");
-                Game.game.getInputManager().setCursorVisible(false);
-                nifty.setIgnoreKeyboardEvents(true);
-                nifty.setIgnoreMouseEvents(true);
+                goToGame();
             }
         }
     }
     
-    /*
-     * Bild des Buttons ändern,  wenn die Maus über diesen fährt
-     */
-    public void mouseOver(String value){
-        //Alle Bilder der Buttons zurücksetzen
-        //Startbutton
-        NiftyImage img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png", false);
-        Element niftyElement = nifty.getCurrentScreen().findElementByName("start");
-        niftyElement.getRenderer(ImageRenderer.class).setImage(img);
+    public void cheat(String cheat){
         
-        //Optionenbutton
-        NiftyImage img2 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png", false);
-        Element niftyElement2 = nifty.getCurrentScreen().findElementByName("optionen");
-        niftyElement2.getRenderer(ImageRenderer.class).setImage(img2);
-        
-        //Endebutton
-        NiftyImage img3 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png", false);
-        Element niftyElement3 = nifty.getCurrentScreen().findElementByName("ende");
-        niftyElement3.getRenderer(ImageRenderer.class).setImage(img3);
-        
-        
-        //Bild des ausgewählten buttons ändern
-        String[] values = value.trim().split(". ");
-        NiftyImage img4 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[1], false);
-        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(values[0]);
-        niftyElement4.getRenderer(ImageRenderer.class).setImage(img4);
     }
     
     
     /*
-     * Optionsmenü im Hauptmenü Methoden
+     * Optionsmenü
      */ 
     public void backToStartScreen(){
         nifty.gotoScreen("start");
     }
     
     
-    public void cheat(String cheat){
-        
+    /*
+     * Baumenü
+     */
+    public void switchToBaumenü(){
+        if (baumenüControl == 0){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
+                baumenüControl++;
+            }
+        } else if (baumenüControl == 1){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
+                baumenüControl++;
+                goToMenu("baumenü");
+            }
+        } else if (baumenüControl == 2){
+            if (nifty.getCurrentScreen().getScreenId().equals("baumenü")){
+                baumenüControl++;
+            }
+        } else if (baumenüControl == 3){
+            if (nifty.getCurrentScreen().getScreenId().equals("baumenü")){
+                baumenüControl = 0;
+                goToGame();
+            }
+        }
+    }
+    
+    
+    //Der Spieler befindet sich in einem Menü und soll den Player nicht mehr bewegen können
+    public void goToMenu(String menü){
+        nifty.gotoScreen(menü);
+        Game.game.getInputManager().setCursorVisible(true);
+        nifty.setIgnoreKeyboardEvents(false);
+        nifty.setIgnoreMouseEvents(false);
+    }
+    
+    
+    //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
+    public void goToGame(){
+        nifty.gotoScreen("inGame");
+        Game.game.getInputManager().setCursorVisible(false);
+        nifty.setIgnoreKeyboardEvents(true);
+        nifty.setIgnoreMouseEvents(true);
     }
 }

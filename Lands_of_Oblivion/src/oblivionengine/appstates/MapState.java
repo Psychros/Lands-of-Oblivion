@@ -47,7 +47,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü, Return;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü, Return, Baumenü;
     }
     
     //--------------------------------------------------------------------------
@@ -195,6 +195,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         
         inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
+        inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
+        
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
             inputManager.addListener(this, i.name());
@@ -204,18 +206,24 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (parseKeys(name)) return;
+        //Cheatmenü
+        if (parseKeys(name)) return;    
+        //Baumenü
+        if(name.equals(InputMapping.Baumenü.name()))Game.game.screens.switchToBaumenü(); 
+        
         if(player != null){
             player.onAction(name, isPressed, tpf);
         }
+        
     }
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
         if(player != null){
             player.onAnalog(name, value, tpf);
-        }
+        }       
     }
+
     
     
 
