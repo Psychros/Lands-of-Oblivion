@@ -4,7 +4,7 @@ package oblivionengine.buildings;
  *
  * @author To
  */
-public class Lager {
+public class GlobalesLager {
     
     //Objektvariablen
     
@@ -17,11 +17,11 @@ public class Lager {
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public Lager() {
+    public GlobalesLager() {
         this(200);
     }
     
-    public Lager(int größe) {
+    public GlobalesLager(int größe) {
         this.größe = größe;
         
         //Startwert für die Ressourcen setzen

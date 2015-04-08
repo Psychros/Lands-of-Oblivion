@@ -71,7 +71,11 @@
             <image filename="Interface/Menüs/Baumenü/Baumenü.png" height="100%" width="100%"></image>
         </layer>
         <layer id="foreground" childLayout="absolute">
-            
+            <panel id="buttons" x="64%" y="0%" height="100%" width="36%" childLayout="absolute">
+                <image id="lager"     filename="Interface/Menüs/Baumenü/ButtonLager.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Lager)" onMouseOver="mouseOver2(lager. Interface/Menüs/Baumenü/ButtonLager2.png)"/>
+                </image>
+            </panel>
         </layer>
     </screen>
     

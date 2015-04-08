@@ -6,7 +6,7 @@
 package oblivionengine.charakter;
 
 import com.jme3.bullet.control.RigidBodyControl;
-import oblivionengine.buildings.Lager;
+import oblivionengine.buildings.GlobalesLager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.scene.Geometry;
@@ -23,8 +23,11 @@ import oblivionengine.buildings.Ressourcen;
  */
 public class Player extends CharakterControl{
     
-    //Globales Lager
-    public static Lager lager = new Lager();
+    //Globales GlobalesLager
+    public static GlobalesLager lager = new GlobalesLager();
+    
+    //Aktuell ausgewähltest Gebäude
+    public static String selectedBuilding;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -69,7 +72,7 @@ public class Player extends CharakterControl{
                 treeControl.fallDown();
                 
                 
-                //Das Lager mit Holz füllen
+                //Das GlobalesLager mit Holz füllen
                 lager.addRessourcen(Ressourcen.Wood, 1);
                 
                 //Text ändern

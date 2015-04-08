@@ -164,4 +164,14 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         yaw = FastMath.clamp(yaw, -FastMath.HALF_PI, FastMath.HALF_PI);
         head.setLocalRotation(new Quaternion().fromAngles(yaw, 0, 0));
     }
+    
+    //Hält den Spieler an
+    public void stopPlayer(){
+        forward = false;
+        backward = false;
+        leftRotate = false;
+        rightRotate = false;
+        leftStrafe = false;
+        rightStrafe = false;
+    }
 }

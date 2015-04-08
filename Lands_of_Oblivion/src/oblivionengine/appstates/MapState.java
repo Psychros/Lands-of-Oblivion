@@ -46,7 +46,7 @@ import oblivionengine.charakter.Player;
 public class MapState extends AbstractAppState implements ActionListener, AnalogListener{
     
     //Mappings
-    public enum InputMapping{
+    public static enum InputMapping{
         RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü, Return, Baumenü;
     }
     
@@ -193,6 +193,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
    
         inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         
+        //Mappings, die auch in einem Menü benutzt werden können
         inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
