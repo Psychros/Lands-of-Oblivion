@@ -12,17 +12,20 @@
         </layer>
         <layer id="foreground" childLayout="absolute">
             <panel id="buttons" x="50%" y="0%" height="100%" width="50%" childLayout="absolute">
+                <interact onMouseOver="resetMouseOver()"/>
+                
                 <image id="start"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png"    x="7%" y="15%" height="8%" width="80%" visibleToMouse="true"> 
-                    <interact onClick="startGame()" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png)"/> 
+                    <interact onClick="startGame()" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png)"/> 
                 </image>
                 
                 <image id="optionen" filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png" x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
-                    <interact onClick="options()"   onMouseOver="mouseOver(optionen. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen2.png)"/> 
+                    <interact onClick="options()"   onMouseOver="mouseOver(optionen. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png)"/> 
                 </image>
                 
                 <image id="ende"     filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png"     x="7%" y="35%" height="8%" width="80%" visibleToMouse="true"> 
-                    <interact onClick="stopGame()"  onMouseOver="mouseOver(ende. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde2.png)"/> 
+                    <interact onClick="stopGame()"  onMouseOver="mouseOver(ende. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png)"/> 
                 </image>
+                
             </panel>
         </layer>
     </screen>
@@ -45,7 +48,11 @@
             <image filename="Interface/Menüs/Hauptmenü/Optionen/Optionen.png" height="100%" width="100%"></image>
         </layer>
         <layer id="foreground" childLayout="absolute">
-            <control name="button" label="Zurück" id="backToStartMenu" font="Interface/Fonts/Arial.fnt" x="70%" y="85%" width="20%" height="8%" visibleToMouse="true" align="center" valign="center"><interact onClick="backToStartScreen()"/></control> 
+                <interact onMouseOver="resetMouseOver()"/>
+                
+                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="69%" y="90%" height="8%" width="26%" visibleToMouse="true"> 
+                    <interact onClick="backToStartScreen()" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                </image>
         </layer>
     </screen>
 
@@ -72,9 +79,15 @@
         </layer>
         <layer id="foreground" childLayout="absolute">
             <panel id="buttons" x="64%" y="0%" height="100%" width="36%" childLayout="absolute">
-                <image id="lager"     filename="Interface/Menüs/Baumenü/ButtonLager.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding(Lager)" onMouseOver="mouseOver2(lager. Interface/Menüs/Baumenü/ButtonLager2.png)"/>
+                <interact onMouseOver="resetMouseOver()"/>
+                
+                <image id="nichts"     filename="Interface/Menüs/Baumenü/ButtonNichts.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding()" onMouseOver="mouseOver(nichts. Interface/Menüs/Baumenü/ButtonNichts2.png. Interface/Menüs/Baumenü/ButtonNichts.png)"/>
                 </image>
+                <image id="lager"     filename="Interface/Menüs/Baumenü/ButtonLager.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Lager)" onMouseOver="mouseOver(lager. Interface/Menüs/Baumenü/ButtonLager2.png. Interface/Menüs/Baumenü/ButtonLager.png)"/>
+                </image>
+                
             </panel>
         </layer>
     </screen>

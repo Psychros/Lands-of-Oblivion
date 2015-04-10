@@ -5,7 +5,10 @@
 
 package oblivionengine.buildings;
 
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
+import javax.vecmath.Vector2d;
+import oblivionengine.Game;
 
 /**
  *
@@ -13,7 +16,7 @@ import com.jme3.scene.Node;
  */
 public class Building {
     //Objektvariablen
-    private Node building;
+    protected Node building;  //Alles sichtbare, was zum Building gehört
     
     public static enum IDs{
         Lager
@@ -21,6 +24,13 @@ public class Building {
 
     //--------------------------------------------------------------------------
     //Konstruktoren
+    //--------------------------------------------------------------------------
+    //Konstruktoren
+    public Building(Vector2f pos) {
+        building = new Node("Building");
+        Game.game.mapState.getMap().attachChild(building);
+        building.setLocalTranslation(pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), pos.y);
+    }
 
     //--------------------------------------------------------------------------
     //Getter und Setter

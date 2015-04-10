@@ -47,7 +47,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public static enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Cheatmenü, Return, Baumenü;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, Cheatmenü, Return, Baumenü;
     }
     
     //--------------------------------------------------------------------------
@@ -177,7 +177,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     /*
      * wichtige Tasten aktivieren und deaktivieren
      */
-    private void addInputMappings(){
+    public void addInputMappings(){
         //Mappings erstellen
         inputManager.addMapping(InputMapping.RotateLeft.name(), new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping(InputMapping.RotateRight.name(), new MouseAxisTrigger(MouseInput.AXIS_X, false));
@@ -192,6 +192,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.Jump.name(), new KeyTrigger(KeyInput.KEY_SPACE));
    
         inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        inputManager.addMapping(InputMapping.Build.name(), new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
         
         //Mappings, die auch in einem Menü benutzt werden können
         inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));

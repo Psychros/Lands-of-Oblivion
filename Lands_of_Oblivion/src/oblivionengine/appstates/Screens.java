@@ -39,6 +39,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     AssetManager assetManager;
     //NiftyGui
     NiftyJmeDisplay niftyDisplay;
+    String name; NiftyImage img;   //Ausgewählter Button und dessen Name
     private Nifty nifty;
     private byte cheatmenüControl = 0;
     private byte baumenüControl   = 0;
@@ -117,6 +118,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         inputManager.deleteMapping(InputMapping.Jump.name());
         inputManager.deleteMapping(InputMapping.Run.name());
         inputManager.deleteMapping(InputMapping.CutTree.name());
+        inputManager.deleteMapping(InputMapping.Build.name());
         
         //Den Spieler anhalten, wenn er sich bewegt
         Game.game.mapState.getPlayer().stopPlayer();
@@ -125,25 +127,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
     public void goToGame(){
-        //Mappings erstellen
-        InputManager inputManager = Game.game.getInputManager();
-        
-        inputManager.addMapping(InputMapping.RotateLeft.name(), new MouseAxisTrigger(MouseInput.AXIS_X, true));
-        inputManager.addMapping(InputMapping.RotateRight.name(), new MouseAxisTrigger(MouseInput.AXIS_X, false));
-        inputManager.addMapping(InputMapping.LookUp.name(), new MouseAxisTrigger(MouseInput.AXIS_Y, false));
-        inputManager.addMapping(InputMapping.LookDown.name(), new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-        inputManager.addMapping(InputMapping.StrafeLeft.name(), new KeyTrigger(KeyInput.KEY_A), new KeyTrigger(KeyInput.KEY_LEFT));
-        inputManager.addMapping(InputMapping.StrafeRight.name(), new KeyTrigger(KeyInput.KEY_D), new KeyTrigger(KeyInput.KEY_RIGHT));
-        inputManager.addMapping(InputMapping.MoveForward.name(), new KeyTrigger(KeyInput.KEY_W), new KeyTrigger(KeyInput.KEY_UP));
-        inputManager.addMapping(InputMapping.MoveBackward.name(), new KeyTrigger(KeyInput.KEY_S), new KeyTrigger(KeyInput.KEY_DOWN));
-        inputManager.addMapping(InputMapping.Run.name(), new KeyTrigger(KeyInput.KEY_LSHIFT), new KeyTrigger(KeyInput.KEY_RCONTROL));
-        inputManager.addMapping(InputMapping.Jump.name(), new KeyTrigger(KeyInput.KEY_SPACE));
-        inputManager.addMapping(InputMapping.CutTree.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-    
-        //Listener aktivieren
-        for(InputMapping i: InputMapping.values()){
-            inputManager.addListener(Game.game.mapState, i.name());
-        }
+        Game.game.mapState.addInputMappings();
         
         nifty.gotoScreen("inGame");
         Game.game.getInputManager().setCursorVisible(false);
@@ -151,37 +135,33 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.setIgnoreMouseEvents(true);
     }
     
+    //Ausgewählten Button wieder entfärben, wenn der Cursor ihn nicht mehr auswählt
+    public void resetMouseOver(){
+        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(name);
+        niftyElement4.getRenderer(ImageRenderer.class).setImage(img);
+    }
     
-    
-    /*
-     * Hauptmenü
-     */
-    // Bild des Buttons ändern,  wenn die Maus über diesen fährt
+    //Ausgewählten Button einfärben
     public void mouseOver(String value){
-        //Alle Bilder der Buttons zurücksetzen
-        //Startbutton
-        NiftyImage img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png", false);
-        Element niftyElement = nifty.getCurrentScreen().findElementByName("start");
-        niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-        
-        //Optionenbutton
-        NiftyImage img2 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png", false);
-        Element niftyElement2 = nifty.getCurrentScreen().findElementByName("optionen");
-        niftyElement2.getRenderer(ImageRenderer.class).setImage(img2);
-        
-        //Endebutton
-        NiftyImage img3 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png", false);
-        Element niftyElement3 = nifty.getCurrentScreen().findElementByName("ende");
-        niftyElement3.getRenderer(ImageRenderer.class).setImage(img3);
-        
-        
+        /*
+         * Alle Bilder der Buttons zurücksetzen
+         */             
         //Bild des ausgewählten buttons ändern
         String[] values = value.trim().split(". ");
+        
+        img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[2], false);
+        name = values[0];
+        
         NiftyImage img4 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[1], false);
         Element niftyElement4 = nifty.getCurrentScreen().findElementByName(values[0]);
         niftyElement4.getRenderer(ImageRenderer.class).setImage(img4);
     }
     
+    
+    
+    /*
+     * Hauptmenü
+     */
     public void startGame(){
         //zum inGame Screen wechseln
         nifty.gotoScreen("inGame");
@@ -209,6 +189,15 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     public void options(){
         nifty.gotoScreen("optionen");
+    }
+    
+    
+    
+    /*
+     * Optionsmenü
+     */ 
+    public void backToStartScreen(){
+        nifty.gotoScreen("start");
     }
     
     
@@ -242,14 +231,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         
     }
     
-    
-    /*
-     * Optionsmenü
-     */ 
-    public void backToStartScreen(){
-        nifty.gotoScreen("start");
-    }
-    
+ 
     
     /*
      * Baumenü
@@ -279,23 +261,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     //Gebäude auswählen
     public void chooseBuilding(String buildingID){
         Player.selectedBuilding = buildingID;
-        goToGame();
         baumenüControl = 0;
-    }
-    
-    // Bild des Buttons ändern,  wenn die Maus über diesen fährt
-    public void mouseOver2(String value){
-        //Alle Bilder der Buttons zurücksetzen
-        //Startbutton
-        NiftyImage img = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), "Interface/Menüs/Baumenü/ButtonLager.png", false);
-        Element niftyElement = nifty.getCurrentScreen().findElementByName("lager");
-        niftyElement.getRenderer(ImageRenderer.class).setImage(img);
-        
-        
-        //Bild des ausgewählten buttons ändern
-        String[] values = value.trim().split(". ");
-        NiftyImage img4 = nifty.getRenderEngine().createImage(nifty.getCurrentScreen(), values[1], false);
-        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(values[0]);
-        niftyElement4.getRenderer(ImageRenderer.class).setImage(img4);
+        goToGame();
     }
 }

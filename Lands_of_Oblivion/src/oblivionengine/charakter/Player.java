@@ -9,12 +9,17 @@ import com.jme3.bullet.control.RigidBodyControl;
 import oblivionengine.buildings.GlobalesLager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector2f;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
+import com.jme3.terrain.geomipmap.TerrainPatch;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
+import oblivionengine.buildings.Building;
+import oblivionengine.buildings.BuildingLager;
 import oblivionengine.buildings.Ressourcen;
 
 /**
@@ -53,7 +58,8 @@ public class Player extends CharakterControl{
         //Baum fällen
         if(name.equals("CutTree")){
             cutTree();
-        }
+        } else if(name.equals("Build"))
+            build();
     }
     
     //Baum fällen
@@ -79,6 +85,27 @@ public class Player extends CharakterControl{
                 Element e = Game.game.screens.getNifty().getCurrentScreen().findElementByName("Baumstämme");
                 TextRenderer label = e.getRenderer(TextRenderer.class);
                 label.setText(String.valueOf(lager.getAnzahlRessourcen(Ressourcen.Wood)));
+            }
+        }
+    }
+    
+    //Gebäude bauen
+    public void build(){
+        if(selectedBuilding != null){
+            
+            //Position des Gebäudes per MousePicking feststellen
+            CollisionResults results = new CollisionResults();
+            Vector2f click2d = Game.game.getInputManager().getCursorPosition();
+            Vector3f click3d = Game.game.getCam().getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 0f).clone();
+            Vector3f dir = Game.game.getCam().getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalize();
+            Ray ray = new Ray(click3d, dir);
+            Game.game.mapState.getMap().collideWith(ray, results);
+            
+            if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch){
+                Building b;
+                switch(selectedBuilding){
+                    case "Lager": b = new BuildingLager(new Vector2f(results.getClosestCollision().getContactPoint().x, results.getClosestCollision().getContactPoint().z));
+                }
             }
         }
     }
