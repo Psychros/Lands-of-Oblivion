@@ -9,24 +9,21 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState.InputMapping;
+import oblivionengine.buildings.Ressourcen;
 import oblivionengine.charakter.Player;
+import static oblivionengine.charakter.Player.lager;
 
 /**
  *
@@ -94,6 +91,17 @@ public class Screens extends AbstractAppState implements ScreenController{
     public void onEndScreen() {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     } 
+    
+    //Setzt den Text eines Elements
+    public void setText(String element, String text){
+         Element e = Game.game.screens.getNifty().getCurrentScreen().findElementByName(element);
+         TextRenderer label = e.getRenderer(TextRenderer.class);
+         label.setText(text);
+    }
+    
+    public void setText(String element, int text){
+         setText(element, String.valueOf(text));
+    }
     
     
     
@@ -260,7 +268,13 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     //Gebäude auswählen
     public void chooseBuilding(String buildingID){
-        Player.selectedBuilding = buildingID;
+        //ID des Gebäudes auswählen
+        if(buildingID.equals("Nichts"))
+            Player.selectedBuilding = null;
+        else
+            Player.selectedBuilding = buildingID;
+        
+        //Zum Spiel zurückkehren
         baumenüControl = 0;
         goToGame();
     }

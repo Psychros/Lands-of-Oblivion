@@ -19,6 +19,7 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
+import static oblivionengine.buildings.Building.SIZE_LAGER;
 import oblivionengine.buildings.BuildingLager;
 import oblivionengine.buildings.Ressourcen;
 
@@ -82,14 +83,14 @@ public class Player extends CharakterControl{
                 lager.addRessourcen(Ressourcen.Wood, 1);
                 
                 //Text ändern
-                Element e = Game.game.screens.getNifty().getCurrentScreen().findElementByName("Baumstämme");
-                TextRenderer label = e.getRenderer(TextRenderer.class);
-                label.setText(String.valueOf(lager.getAnzahlRessourcen(Ressourcen.Wood)));
+                Game.game.screens.setText("Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
             }
         }
     }
     
-    //Gebäude bauen
+    /*
+     * Gebäude bauen
+     */
     public void build(){
         if(selectedBuilding != null){
             
@@ -102,9 +103,18 @@ public class Player extends CharakterControl{
             Game.game.mapState.getMap().collideWith(ray, results);
             
             if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch){
-                Building b;
+                Building b = null;
+                
+                //ID des Gebäudes überprüfen
                 switch(selectedBuilding){
-                    case "Lager": b = new BuildingLager(new Vector2f(results.getClosestCollision().getContactPoint().x, results.getClosestCollision().getContactPoint().z));
+                    case "Lager": b = new BuildingLager();
+                }
+                
+                //Position des Gebäudes setzen
+                if(b != null){
+                    b.setLocalTranslation(new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z));
+                    b.plainGround(SIZE_LAGER);
+                    System.out.println("Hallo");
                 }
             }
         }

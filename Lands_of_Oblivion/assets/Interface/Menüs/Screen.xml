@@ -82,7 +82,7 @@
                 <interact onMouseOver="resetMouseOver()"/>
                 
                 <image id="nichts"     filename="Interface/Menüs/Baumenü/ButtonNichts.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding()" onMouseOver="mouseOver(nichts. Interface/Menüs/Baumenü/ButtonNichts2.png. Interface/Menüs/Baumenü/ButtonNichts.png)"/>
+                    <interact onClick="chooseBuilding(Nichts)" onMouseOver="mouseOver(nichts. Interface/Menüs/Baumenü/ButtonNichts2.png. Interface/Menüs/Baumenü/ButtonNichts.png)"/>
                 </image>
                 <image id="lager"     filename="Interface/Menüs/Baumenü/ButtonLager.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Lager)" onMouseOver="mouseOver(lager. Interface/Menüs/Baumenü/ButtonLager2.png. Interface/Menüs/Baumenü/ButtonLager.png)"/>

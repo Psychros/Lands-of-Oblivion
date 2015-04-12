@@ -26,7 +26,7 @@ public class GlobalesLager {
         
         //Startwert für die Ressourcen setzen
         for (int i = 0; i < ressourcen.length; i++) {
-            ressourcen[i] = 0;
+            ressourcen[i] = 200;
         }
     }
 
@@ -37,6 +37,10 @@ public class GlobalesLager {
     //Gibt den aktuellen Lagerstand der als Argument übergebenen Ressource zurück
     public int getAnzahlRessourcen(Ressourcen id) {
         return ressourcen[id.ordinal()];
+    }
+    
+    public int getAnzahlRessourcen(int id) {
+        return ressourcen[id];
     }
 
     public int getGröße() {
@@ -58,14 +62,17 @@ public class GlobalesLager {
      * anzahl: Menge der einzulagernden Ressourcen. Auch ein negativer Wert ist möglich
      */
     public void addRessourcen(Ressourcen id, int anzahl){
-        ressourcen[id.ordinal()] += anzahl;
+        addRessourcen(id.ordinal(), anzahl);
+    }
+    
+    public void addRessourcen(int id, int anzahl){
+        ressourcen[id] += anzahl;
         
         //Die Anzahl einer Ressource darf nicht kleiner als 0 und nicht größer als die Lagergröße sein
-        if(ressourcen[id.ordinal()] < 0)
-            ressourcen[id.ordinal()] = 0;
-        else if(ressourcen[id.ordinal()] > größe){
-            ressourcen[id.ordinal()] = größe;
-            System.out.println(größe);
+        if(ressourcen[id] < 0)
+            ressourcen[id] = 0;
+        else if(ressourcen[id] > größe){
+            ressourcen[id] = größe;
         }
     }
 }
