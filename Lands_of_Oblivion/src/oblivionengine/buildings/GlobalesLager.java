@@ -18,7 +18,7 @@ public class GlobalesLager {
     //--------------------------------------------------------------------------
     //Konstruktoren
     public GlobalesLager() {
-        this(200);
+        this(10);
     }
     
     public GlobalesLager(int größe) {
@@ -26,7 +26,7 @@ public class GlobalesLager {
         
         //Startwert für die Ressourcen setzen
         for (int i = 0; i < ressourcen.length; i++) {
-            ressourcen[i] = 200;
+            ressourcen[i] = 0;
         }
     }
 

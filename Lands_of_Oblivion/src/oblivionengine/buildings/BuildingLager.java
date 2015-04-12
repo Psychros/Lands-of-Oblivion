@@ -11,6 +11,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.PRICE_LAGER;
+import oblivionengine.charakter.Player;
 
 /**
  *
@@ -18,6 +19,7 @@ import static oblivionengine.buildings.Building.PRICE_LAGER;
  */
 public class BuildingLager extends Building{
     //Objektvariablen
+    public static final int SIZE = 100; //Größe der neuen Lagerkapazität
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -32,6 +34,9 @@ public class BuildingLager extends Building{
             boxMat.setColor("Diffuse", ColorRGBA.Green); 
             boxGeo.setMaterial(boxMat); 
             building.attachChild(boxGeo);
+            
+            //Größe des globalen Lagers erhöhen
+            Player.lager.setGröße(Player.lager.getGröße()+SIZE);
         }
     }
 

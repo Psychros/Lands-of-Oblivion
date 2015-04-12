@@ -14,8 +14,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainPatch;
-import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.TextRenderer;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
@@ -114,7 +112,6 @@ public class Player extends CharakterControl{
                 if(b != null){
                     b.setLocalTranslation(new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z));
                     b.plainGround(SIZE_LAGER);
-                    System.out.println("Hallo");
                 }
             }
         }

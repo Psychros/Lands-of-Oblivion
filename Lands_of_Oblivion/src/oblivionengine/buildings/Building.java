@@ -82,9 +82,8 @@ public class Building {
         
         for (int x = (int)(building.getLocalTranslation().x-sizeOfBuilding[0]/2 - 2*RAND); x < (int)(building.getLocalTranslation().x+sizeOfBuilding[0]/2 + RAND); x++) {
            for (int y = (int)(building.getLocalTranslation().z-sizeOfBuilding[1]/2 - RAND/2f); y < (int)(building.getLocalTranslation().z+sizeOfBuilding[1]/2 + RAND/1.5f); y++) {
-               System.out.println(height + ": " + building.getLocalTranslation() + ",     " + x + "/" + y);
                terrain.setHeight(new Vector2f(x, y), height);
-            } 
+           } 
         }
         terrain.recalculateAllNormals();
         
