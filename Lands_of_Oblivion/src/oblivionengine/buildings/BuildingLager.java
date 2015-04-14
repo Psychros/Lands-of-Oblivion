@@ -38,8 +38,9 @@ public class BuildingLager extends Building{
             boxGeo.setMaterial(boxMat); 
             building.attachChild(boxGeo);
             
-            //Größe des globalen Lagers erhöhen
+            //Größe des globalen Lagers erhöhen und die Anzeige aktualisieren
             Player.lager.setGröße(Player.lager.getGröße()+SIZE);
+            Game.game.screens.setText("Lager", Player.lager.getGröße());
         }
     }
 

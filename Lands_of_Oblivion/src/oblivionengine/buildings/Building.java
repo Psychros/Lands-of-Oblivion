@@ -5,12 +5,14 @@
 
 package oblivionengine.buildings;
 
+import com.bulletphysics.dynamics.RigidBody;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import oblivionengine.Game;
 import static oblivionengine.charakter.Player.lager;
+import static oblivionengine.charakter.Player.selectedBuilding;
 
 /**
  *
@@ -83,6 +85,17 @@ public class Building {
         return true;
     }
     
+    //testen, ob genug Ressourcen zum Bauen vorhanden sind
+    //Übergebene Baukosten bezahlen
+    public static boolean testRessources(int[][] price){
+        //Ressourcen aus dem Lager entfernen
+        for (int i = 0; i < price.length; i++) {
+            if(!(lager.getAnzahlRessourcen(price[i][0]) >= price[i][1]))
+                return false;
+        }
+        return true;
+    }
+    
     
     
     //Boden plätten und an das Gebäude anpassen
@@ -104,5 +117,16 @@ public class Building {
         terrain.addControl(undergroundPhysic);  
         Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(undergroundPhysic);
         undergroundPhysic.setFriction(3f);
+    }
+    
+    //Gebäude endgültig bauen
+    public void build(){
+        selectedBuilding.getBuilding().removeControl(BuildingPositionControl.class);
+        selectedBuilding.plainGround();
+        
+        //RigidBodyControl hinzufügen
+        RigidBodyControl control = new RigidBodyControl(0);
+        building.addControl(control);
+        Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(control);
     }
 }

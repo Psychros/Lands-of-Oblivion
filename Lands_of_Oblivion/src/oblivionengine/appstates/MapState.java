@@ -117,13 +117,9 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         Node b = (Node)Game.game.getAssetManager().loadModel("Scenes/Himmel.j3o");
         map.attachChild(b);
         
-        //Wasser initialisieren
+        //Schatten und Wasser initialisieren
         effects = (FilterPostProcessor)Game.game.getAssetManager().loadFilter("Effects/Wasser.j3f");
-        
-        //Schatten initialisieren
         activateShadowFilter(true);
-        
-        //Effekte(Wasser und Schatten) aktivieren
         Game.game.getViewPort().addProcessor(effects);
         
         
@@ -131,18 +127,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         Game.game.getFlyCam().setZoomSpeed(0);
         
         //Player initialisieren
-        Node playerNode = new Node("Player");
-        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
-        node.scale(2.6f);
-        playerNode.attachChild(node);
-        map.attachChild(playerNode);
-        
-        player = new Player(0.5f, 2.5f, 8);
-        player.setCamera(Game.game.getCamera());
-        player.addSpatial(node);
-        playerNode.addControl(player);
-        
-        map.getBulletAppState().getPhysicsSpace().add(player);
+        initPlayer();
         
         //InputManager initialisieren
         inputManager = Game.game.getInputManager();
@@ -203,6 +188,22 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         for(InputMapping i: InputMapping.values()){
             inputManager.addListener(this, i.name());
         }
+    }
+    
+    //Player initialisieren
+    public void initPlayer(){
+        Node playerNode = new Node("Player");
+        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
+        node.scale(2.6f);
+        playerNode.attachChild(node);
+        map.attachChild(playerNode);
+        
+        player = new Player(0.5f, 2.5f, 8);
+        player.setCamera(Game.game.getCamera());
+        player.addSpatial(node);
+        playerNode.addControl(player);
+        
+        map.getBulletAppState().getPhysicsSpace().add(player);
     }
     
     

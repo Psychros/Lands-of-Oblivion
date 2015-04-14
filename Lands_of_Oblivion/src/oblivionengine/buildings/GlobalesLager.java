@@ -1,5 +1,8 @@
 package oblivionengine.buildings;
 
+import de.lessvoid.nifty.screen.Screen;
+import oblivionengine.Game;
+
 /**
  *
  * @author To
@@ -28,6 +31,9 @@ public class GlobalesLager {
         for (int i = 0; i < ressourcen.length; i++) {
             ressourcen[i] = 0;
         }
+        
+        //Größe des Lagers anzeigen
+        Game.game.screens.setText("Lager", größe);
     }
 
     

@@ -94,7 +94,7 @@ public class Player extends CharakterControl{
                 
                 //ID des zu bauenden Gebäudes überprüfen
                 switch(selectedBuildingID){
-                    case "Lager": selectedBuilding = new BuildingLager();
+                    case "Lager": if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt
@@ -104,9 +104,12 @@ public class Player extends CharakterControl{
                 isBuildingSelected = true;
             }
             else{
+                //Das Gebäude endgültig bauen
+                if(selectedBuilding != null){
+                    selectedBuilding.build();
+                    selectedBuilding = null;
+                }
                 isBuildingSelected = false;
-                selectedBuilding.getBuilding().removeControl(BuildingPositionControl.class);
-                selectedBuilding.plainGround();
             }
             
         }
