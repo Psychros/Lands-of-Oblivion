@@ -9,16 +9,13 @@ import com.jme3.bullet.control.RigidBodyControl;
 import oblivionengine.buildings.GlobalesLager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
-import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
-import com.jme3.terrain.geomipmap.TerrainPatch;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
-import static oblivionengine.buildings.Building.SIZE_LAGER;
 import oblivionengine.buildings.BuildingLager;
+import oblivionengine.buildings.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
 
 /**
@@ -31,7 +28,9 @@ public class Player extends CharakterControl{
     public static GlobalesLager lager = new GlobalesLager();
     
     //Aktuell ausgewähltest Gebäude
-    public static String selectedBuilding;
+    public static String selectedBuildingID;
+    public static Building selectedBuilding;
+    public static boolean isBuildingSelected = false;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -90,30 +89,27 @@ public class Player extends CharakterControl{
      * Gebäude bauen
      */
     public void build(){
-        if(selectedBuilding != null){
-            
-            //Position des Gebäudes per MousePicking feststellen
-            CollisionResults results = new CollisionResults();
-            Vector2f click2d = Game.game.getInputManager().getCursorPosition();
-            Vector3f click3d = Game.game.getCam().getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 0f).clone();
-            Vector3f dir = Game.game.getCam().getWorldCoordinates(new Vector2f(click2d.x, click2d.y), 1f).subtractLocal(click3d).normalize();
-            Ray ray = new Ray(click3d, dir);
-            Game.game.mapState.getMap().collideWith(ray, results);
-            
-            if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch){
-                Building b = null;
+        if(selectedBuildingID != null){   //Nur wenn im Baumenü ein Gebäude ausgewählt wurde
+            if(!isBuildingSelected){
                 
-                //ID des Gebäudes überprüfen
-                switch(selectedBuilding){
-                    case "Lager": b = new BuildingLager();
+                //ID des zu bauenden Gebäudes überprüfen
+                switch(selectedBuildingID){
+                    case "Lager": selectedBuilding = new BuildingLager();
                 }
                 
-                //Position des Gebäudes setzen
-                if(b != null){
-                    b.setLocalTranslation(new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z));
-                    b.plainGround(SIZE_LAGER);
-                }
+                //Dafür sorgen, dass das Building der Mausposition folgt
+                if(selectedBuilding != null)
+                    selectedBuilding.getBuilding().addControl(new BuildingPositionControl());
+                
+                isBuildingSelected = true;
             }
+            else{
+                isBuildingSelected = false;
+                selectedBuilding.getBuilding().removeControl(BuildingPositionControl.class);
+                selectedBuilding.plainGround();
+            }
+            
         }
+        
     }
 }

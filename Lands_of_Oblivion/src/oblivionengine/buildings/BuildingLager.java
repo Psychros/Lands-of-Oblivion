@@ -26,6 +26,9 @@ public class BuildingLager extends Building{
     public BuildingLager() {
         super();
         if(payPrice(PRICE_LAGER)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+            //Größe des Gebäudes 
+            setSize(SIZE_LAGER);
+            
             Box boxMesh = new Box(7f,6f,4f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 

@@ -24,6 +24,9 @@ public class Building {
     //Rand, der um ein Gebäude herum ist
     public static final int RAND = 6;
     
+    //Größe des Gebäudes
+    private int[] size ={0, 0};
+    
     /*
      * Größen aller Gebäude
      */
@@ -54,6 +57,14 @@ public class Building {
         building.setLocalTranslation(pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), pos.y);
     }
 
+    public Node getBuilding() {
+        return building;
+    }
+    
+    public void setSize(int[] size){
+        this.size = size;
+    }
+    
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
@@ -75,13 +86,13 @@ public class Building {
     
     
     //Boden plätten und an das Gebäude anpassen
-    public void plainGround(int[] sizeOfBuilding){
+    public void plainGround(){
         //Höhe, auf die der Boden geebnet werden soll
         float height = Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(building.getLocalTranslation().x, building.getLocalTranslation().z));
         TerrainQuad terrain = Game.game.mapState.getMap().getTerrain();
         
-        for (int x = (int)(building.getLocalTranslation().x-sizeOfBuilding[0]/2 - 2*RAND); x < (int)(building.getLocalTranslation().x+sizeOfBuilding[0]/2 + RAND); x++) {
-           for (int y = (int)(building.getLocalTranslation().z-sizeOfBuilding[1]/2 - RAND/2f); y < (int)(building.getLocalTranslation().z+sizeOfBuilding[1]/2 + RAND/1.5f); y++) {
+        for (int x = (int)(building.getLocalTranslation().x-size[0]/2 - 2*RAND); x < (int)(building.getLocalTranslation().x+size[0]/2 + RAND); x++) {
+           for (int y = (int)(building.getLocalTranslation().z-size[1]/2 - RAND/2f); y < (int)(building.getLocalTranslation().z+size[1]/2 + RAND/1.5f); y++) {
                terrain.setHeight(new Vector2f(x, y), height);
            } 
         }

@@ -270,9 +270,9 @@ public class Screens extends AbstractAppState implements ScreenController{
     public void chooseBuilding(String buildingID){
         //ID des Gebäudes auswählen
         if(buildingID.equals("Nichts"))
-            Player.selectedBuilding = null;
+            Player.selectedBuildingID = null;
         else
-            Player.selectedBuilding = buildingID;
+            Player.selectedBuildingID = buildingID;
         
         //Zum Spiel zurückkehren
         baumenüControl = 0;
