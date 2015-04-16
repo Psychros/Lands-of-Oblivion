@@ -25,15 +25,12 @@ public class GlobalesLager {
     }
     
     public GlobalesLager(int größe) {
-        this.größe = größe;
+        setGröße(größe);
         
         //Startwert für die Ressourcen setzen
         for (int i = 0; i < ressourcen.length; i++) {
-            ressourcen[i] = 0;
+            addRessourcen(Ressourcen.Wood, 10); //Startwert für alle Ressourcen
         }
-        
-        //Größe des Lagers anzeigen
-        Game.game.screens.setText("Lager", größe);
     }
 
     
@@ -55,6 +52,7 @@ public class GlobalesLager {
 
     public void setGröße(int größe) {
         this.größe = größe;
+        Game.game.screens.setText("Lager", größe);
     } 
     
     
@@ -80,5 +78,15 @@ public class GlobalesLager {
         else if(ressourcen[id] > größe){
             ressourcen[id] = größe;
         }
+        
+        //Anzeige aktualisieren
+        if(Game.game.screens.getNifty().getCurrentScreen().getScreenId().equals("inGame"));
+            actualizeText(id);
+    }
+    
+    //Aktualisiere die Anzeige
+    public void actualizeText(int id){
+        if(id == Ressourcen.Wood.ordinal())
+            Game.game.screens.setText("Baumstämme", ressourcen[id]);
     }
 }

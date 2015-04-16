@@ -14,6 +14,7 @@ import com.jme3.scene.Spatial;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
+import oblivionengine.buildings.BuildingHolzfäller;
 import oblivionengine.buildings.BuildingLager;
 import oblivionengine.buildings.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
@@ -94,12 +95,13 @@ public class Player extends CharakterControl{
                 
                 //ID des zu bauenden Gebäudes überprüfen
                 switch(selectedBuildingID){
-                    case "Lager": if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
+                    case "Lager":      if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
+                    case "Holzfäller": if(Building.testRessources(Building.PRICE_HOLZFÄLLER))selectedBuilding = new BuildingHolzfäller(); break;
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt
                 if(selectedBuilding != null)
-                    selectedBuilding.getBuilding().addControl(new BuildingPositionControl());
+                    selectedBuilding.addControl(new BuildingPositionControl());
                 
                 isBuildingSelected = true;
             }

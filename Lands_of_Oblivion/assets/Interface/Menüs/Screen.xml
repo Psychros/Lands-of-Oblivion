@@ -88,6 +88,9 @@
                 <image id="lager"     filename="Interface/Menüs/Baumenü/ButtonLager.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Lager)" onMouseOver="mouseOver(lager. Interface/Menüs/Baumenü/ButtonLager2.png. Interface/Menüs/Baumenü/ButtonLager.png)"/>
                 </image>
+                <image id="holzfäller" filename="Interface/Menüs/Baumenü/ButtonHolzfäller.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Holzfäller)" onMouseOver="mouseOver(holzfäller. Interface/Menüs/Baumenü/ButtonHolzfäller2.png. Interface/Menüs/Baumenü/ButtonHolzfäller.png)"/>
+                </image>
                 
             </panel>
         </layer>
