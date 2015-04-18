@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package oblivionengine.buildings;
+package oblivionengine.buildings.buildControls;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
+import oblivionengine.buildings.Building;
 import oblivionengine.charakter.Player;
 
 /**
@@ -38,31 +39,35 @@ public class BuildBuildingControl extends AbstractControl {
     
     @Override
     protected void controlUpdate(float tpf) {
-        timer += tpf;
-        if(timer >= timePerRessource){
-            timer = 0;
-            
-            //Nächste Ressource verwenden, wenn die aktuelle Ressource schon komplett verwendet wurde
-            if(price[index][1] == 0){
-                
-                //Wenn das Gebäude fertig ist, kann dieser Control entfernt werden und es wird ein Kollisionsmodell erzeugt
-                if(index >= price.length-1){
-                    building.finishBuilding();
-                    spatial.removeControl(this);
-                    return;
+        //Nur wenn genug Ressourcen vorhanden sind kann weitergebaut werden
+        if(Player.lager.getAnzahlRessourcen(index)!=0 || price[index][1]==0){
+            if(timer >= timePerRessource){
+                timer = 0;
+
+                //Nächste Ressource verwenden, wenn die aktuelle Ressource schon komplett verwendet wurde
+                if(price[index][1] == 0){
+
+                    //Wenn das Gebäude fertig ist, kann dieser Control entfernt werden und es wird ein Kollisionsmodell erzeugt
+                    if(index >= price.length-1){
+                        building.finishBuilding();
+                        spatial.removeControl(this);
+                        return;
+                    } else{
+                        index++;
+                    }
+
                 } else{
-                    index++;
+                    price[index][1]--;
+                    Player.lager.addRessourcen(price[index][0], -1);
                 }
-                    
-            } else{
-                price[index][1]--;
-                Player.lager.addRessourcen(price[index][0], -1);
             }
+
+            timer += tpf;
+            
+            //Building langsam aus dem Boden kommen lassen
+            float newHeight = spatial.getLocalTranslation().y + ((float)building.getHeight()/(float)time)*tpf;
+            spatial.setLocalTranslation(new Vector3f(spatial.getLocalTranslation().x, newHeight, spatial.getLocalTranslation().z));
         }
-        
-        //Building langsam aus dem Boden kommen lassen
-        float newHeight = spatial.getLocalTranslation().y + ((float)building.getHeight()/(float)time)*tpf;
-        spatial.setLocalTranslation(new Vector3f(spatial.getLocalTranslation().x, newHeight, spatial.getLocalTranslation().z));
     }
     
     @Override

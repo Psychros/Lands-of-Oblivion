@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package oblivionengine.buildings;
+package oblivionengine.buildings.buildControls;
 
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;

@@ -5,6 +5,8 @@
 
 package oblivionengine.buildings;
 
+import oblivionengine.buildings.buildControls.BuildBuildingControl;
+import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector2f;
 import com.jme3.scene.Node;

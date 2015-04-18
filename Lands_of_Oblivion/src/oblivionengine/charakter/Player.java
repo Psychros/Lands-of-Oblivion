@@ -16,7 +16,7 @@ import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.BuildingHolzfäller;
 import oblivionengine.buildings.BuildingLager;
-import oblivionengine.buildings.BuildingPositionControl;
+import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
 
 /**
