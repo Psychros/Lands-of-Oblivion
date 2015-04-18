@@ -92,6 +92,9 @@
                 <image id="holzfäller" filename="Interface/Menüs/Baumenü/ButtonHolzfäller.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Holzfäller)" onMouseOver="mouseOver(holzfäller. Interface/Menüs/Baumenü/ButtonHolzfäller2.png. Interface/Menüs/Baumenü/ButtonHolzfäller.png)"/>
                 </image>
+                <image id="steinmetz" filename="Interface/Menüs/Baumenü/ButtonSteinmetz.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Steinmetz)" onMouseOver="mouseOver(steinmetz. Interface/Menüs/Baumenü/ButtonSteinmetz2.png. Interface/Menüs/Baumenü/ButtonSteinmetz.png)"/>
+                </image>
                 
             </panel>
         </layer>
