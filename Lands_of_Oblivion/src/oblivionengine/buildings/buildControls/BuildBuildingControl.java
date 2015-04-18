@@ -23,6 +23,7 @@ public class BuildBuildingControl extends AbstractControl {
     private float timer = 0;
     private int [][] price; int index = 0;  //Preis des Gebäude und der Index der aktuell verwendeten Ressource
     private Building building;
+    private boolean isBuild = false;
     
     public BuildBuildingControl(Building building){
         this.building = building;
@@ -39,6 +40,11 @@ public class BuildBuildingControl extends AbstractControl {
     
     @Override
     protected void controlUpdate(float tpf) {
+        if(!isBuild){
+            spatial.move(0, -building.getHeight(), 0);
+            isBuild = true;
+        }
+        
         //Nur wenn genug Ressourcen vorhanden sind kann weitergebaut werden
         if(Player.lager.getAnzahlRessourcen(index)!=0 || price[index][1]==0){
             if(timer >= timePerRessource){
@@ -66,7 +72,7 @@ public class BuildBuildingControl extends AbstractControl {
             
             //Building langsam aus dem Boden kommen lassen
             float newHeight = spatial.getLocalTranslation().y + ((float)building.getHeight()/(float)time)*tpf;
-            spatial.setLocalTranslation(new Vector3f(spatial.getLocalTranslation().x, newHeight, spatial.getLocalTranslation().z));
+            spatial.move(0, ((float)building.getHeight()/(float)time)*tpf, 0);
         }
     }
     

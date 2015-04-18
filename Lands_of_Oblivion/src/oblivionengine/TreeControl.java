@@ -65,7 +65,7 @@ public class TreeControl extends AbstractControl {
     
     //Startet den Umfallprozess
     public void fallDown(){
-        tree.getParent().getControl(RigidBodyControl.class).setMass(500);
+        tree.getParent().getControl(RigidBodyControl.class).setMass(0.00001f);
         isCut = true;
         fallDirection = Game.game.mapState.getPlayer().getSpatial().getWorldRotation().mult(Vector3f.UNIT_X);
     }

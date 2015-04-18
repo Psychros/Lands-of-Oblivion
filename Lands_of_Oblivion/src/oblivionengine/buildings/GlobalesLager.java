@@ -29,7 +29,7 @@ public class GlobalesLager {
         
         //Startwert für die Ressourcen setzen
         for (int i = 0; i < ressourcen.length; i++) {
-            addRessourcen(Ressourcen.Wood, 10); //Startwert für alle Ressourcen
+            addRessourcen(i, 10); //Startwert für alle Ressourcen
         }
     }
 

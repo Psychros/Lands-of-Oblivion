@@ -46,8 +46,8 @@ public class Building extends Node{
      * Der erste Wert ist die Rohstoff-ID und der zweite Wert die Anzahl
      */
     public static final int[][] PRICE_LAGER      = {{Ressourcen.Wood.ordinal(), 10}};  
-    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 5}}; 
-    public static final int[][] PRICE_STEINMETZ = {{Ressourcen.Wood.ordinal(), 5}};
+    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 10}}; 
+    public static final int[][] PRICE_STEINMETZ = {{Ressourcen.Wood.ordinal(), 20}};
     
     public static enum IDs{
         Lager, Holzfäller, Steinmetz
@@ -148,6 +148,11 @@ public class Building extends Node{
     //Gebäude endgültig bauen
     public void build(){
         if(testRessources(PRICE)){
+            //RigidBodyControl hinzufügen
+            RigidBodyControl control = new RigidBodyControl(0);
+            addControl(control);
+            Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(control);
+            
             //Boden Ebenen und BuildingPositionControl entfernen
             selectedBuilding.removeControl(BuildingPositionControl.class);
             selectedBuilding.plainGround();
@@ -161,9 +166,6 @@ public class Building extends Node{
     
     //Gebäude fertigstellen und den Bauprozess beenden
     public void finishBuilding(){
-        //RigidBodyControl hinzufügen
-        RigidBodyControl control = new RigidBodyControl(0);
-        addControl(control);
-        Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(control);
+        
     }
 }

@@ -148,9 +148,9 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
             rotate(-tpf * value * rotationSpeed);
         
         if(name.equals("LookUp"))
-            lookUpDown(-value * tpf * rotationSpeed * 2);
+            lookUpDown(-value * tpf * rotationSpeed*2);
         else if(name.equals("LookDown"))
-            lookUpDown(value * tpf * rotationSpeed * 2);
+            lookUpDown(value * tpf * rotationSpeed*2);
     }
     
     public void rotate(float value){
