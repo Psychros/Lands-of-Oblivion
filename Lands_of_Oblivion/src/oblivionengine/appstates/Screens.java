@@ -93,14 +93,14 @@ public class Screens extends AbstractAppState implements ScreenController{
     } 
     
     //Setzt den Text eines Elements
-    public void setText(String element, String text){
-         Element e = Game.game.screens.getNifty().getCurrentScreen().findElementByName(element);
+    public void setText(String screen, String element, String text){
+         Element e = Game.game.screens.getNifty().getScreen(screen).findElementByName(element);
          TextRenderer label = e.getRenderer(TextRenderer.class);
          label.setText(text);
     }
     
-    public void setText(String element, int text){
-         setText(element, String.valueOf(text));
+    public void setText(String screen, String element, int text){
+         setText(screen, element, String.valueOf(text));
     }
     
     

@@ -12,7 +12,7 @@ public class GlobalesLager {
     //Objektvariablen
     
     //Anzahl aller Ressourcen
-    private int[] ressourcen = new int[1]; 
+    private int[] ressourcen = new int[2]; 
     
     //Größe des Lagers
     private int größe;
@@ -52,7 +52,7 @@ public class GlobalesLager {
 
     public void setGröße(int größe) {
         this.größe = größe;
-        Game.game.screens.setText("Lager", größe);
+        Game.game.screens.setText("inGame", "Lager", größe);
     } 
     
     
@@ -80,13 +80,14 @@ public class GlobalesLager {
         }
         
         //Anzeige aktualisieren
-        if(Game.game.screens.getNifty().getCurrentScreen().getScreenId().equals("inGame"));
-            actualizeText(id);
+        actualizeText(id);
     }
     
     //Aktualisiere die Anzeige
     public void actualizeText(int id){
         if(id == Ressourcen.Wood.ordinal())
-            Game.game.screens.setText("Baumstämme", ressourcen[id]);
+            Game.game.screens.setText("inGame", "Baumstämme", ressourcen[id]);
+        else if(id == Ressourcen.Stone.ordinal())
+            Game.game.screens.setText("inGame", "Stein", ressourcen[id]);
     }
 }

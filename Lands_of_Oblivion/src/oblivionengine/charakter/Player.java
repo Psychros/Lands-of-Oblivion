@@ -81,7 +81,7 @@ public class Player extends CharakterControl{
                 lager.addRessourcen(Ressourcen.Wood, 1);
                 
                 //Text ändern
-                Game.game.screens.setText("Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
+                Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
             }
         }
     }

@@ -43,7 +43,7 @@ public class Building extends Node{
      * Der erste Wert ist die Rohstoff-ID und der zweite Wert die Anzahl
      */
     public static final int[][] PRICE_LAGER      = {{Ressourcen.Wood.ordinal(), 10}};  
-    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 10}}; 
+    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 15}}; 
     
     public static enum IDs{
         Lager, Holzfäller
@@ -103,7 +103,7 @@ public class Building extends Node{
                 return false;
         }
         
-        Game.game.screens.setText("Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
+        Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
         return true;
     }
     
