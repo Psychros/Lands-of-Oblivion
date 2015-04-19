@@ -15,7 +15,9 @@ import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.BuildingHolzfäller;
+import oblivionengine.buildings.BuildingHolzhaus;
 import oblivionengine.buildings.BuildingLager;
+import oblivionengine.buildings.BuildingSteinhaus;
 import oblivionengine.buildings.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
@@ -98,7 +100,9 @@ public class Player extends CharakterControl{
                 switch(selectedBuildingID){
                     case "Lager":      if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
                     case "Holzfäller": if(Building.testRessources(Building.PRICE_HOLZFÄLLER))selectedBuilding = new BuildingHolzfäller(); break;
-                    case "Steinmetz": if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
+                    case "Steinmetz":  if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
+                    case "Holzhaus":   if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
+                    case "Steinhaus":  if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt

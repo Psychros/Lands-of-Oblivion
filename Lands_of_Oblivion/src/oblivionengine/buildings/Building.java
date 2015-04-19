@@ -38,7 +38,11 @@ public class Building extends Node{
      */
     public static final int[] SIZE_LAGER      = {7, 4, 7};   
     public static final int[] SIZE_HOLZFÄLLER = {10, 10, 8};   
-    public static final int[] SIZE_STEINMETZ = {10, 10, 8};   
+    public static final int[] SIZE_STEINMETZ  = {10, 10, 8};   
+    
+    public static final int[] SIZE_HOLZHAUS   = {5, 5, 5};
+    public static final int[] SIZE_STEINHAUS  = {5, 5, 10};
+    
     
     /*
      * Alle Baukosten
@@ -47,7 +51,11 @@ public class Building extends Node{
      */
     public static final int[][] PRICE_LAGER      = {{Ressourcen.Wood.ordinal(), 10}};  
     public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 10}}; 
-    public static final int[][] PRICE_STEINMETZ = {{Ressourcen.Wood.ordinal(), 20}};
+    public static final int[][] PRICE_STEINMETZ  = {{Ressourcen.Wood.ordinal(), 20}};
+    
+    public static final int[][] PRICE_HOLZHAUS   = {{Ressourcen.Wood.ordinal(), 5}};
+    public static final int[][] PRICE_STEINHAUS  = {{Ressourcen.Wood.ordinal(), 5},
+                                                    {Ressourcen.Stone.ordinal(), 8}};
     
     public static enum IDs{
         Lager, Holzfäller, Steinmetz

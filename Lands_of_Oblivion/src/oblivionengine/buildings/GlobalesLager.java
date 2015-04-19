@@ -1,6 +1,5 @@
 package oblivionengine.buildings;
 
-import de.lessvoid.nifty.screen.Screen;
 import oblivionengine.Game;
 
 /**

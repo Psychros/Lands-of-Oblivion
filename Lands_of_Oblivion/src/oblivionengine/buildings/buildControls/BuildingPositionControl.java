@@ -25,7 +25,6 @@ public class BuildingPositionControl extends AbstractControl {
 
     @Override
     protected void controlUpdate(float tpf) {
-            
         
             //Position der neuen Position des Buldings feststellen
             CollisionResults results = new CollisionResults();
@@ -36,9 +35,10 @@ public class BuildingPositionControl extends AbstractControl {
             Game.game.mapState.getMap().collideWith(ray, results);
             
             //Neue Position setzen
-            if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch){
+            if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch 
+                    && results.getClosestCollision().getDistance() > 10){
                 Vector2f pos = new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
-                spatial.setLocalTranslation(pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), pos.y);
+                spatial.setLocalTranslation((int)pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), (int)pos.y);
             }        
     }
     
