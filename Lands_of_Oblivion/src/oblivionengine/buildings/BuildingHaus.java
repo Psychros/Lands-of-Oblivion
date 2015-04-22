@@ -5,13 +5,17 @@
 
 package oblivionengine.buildings;
 
+import oblivionengine.Game;
+import oblivionengine.charakter.NPCControl;
+
 /**
  *
  * @author To
  */
 public abstract class BuildingHaus extends Building{
     //Objektvariablen
-    int numberpeople;   //Zahl der Einwohner
+    protected int numberpeople;   //Zahl der maximalen Einwohner
+    protected NPCControl[] npcs= null;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -28,8 +32,19 @@ public abstract class BuildingHaus extends Building{
 
     public void setNumberpeople(int numberpeople) {
         this.numberpeople = numberpeople;
+        npcs = new NPCControl[numberpeople];
+        
+        generateNPCs();
     }
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
+    
+    //Neue NPCs fürs Haus erstellen
+    public void generateNPCs(){
+        for (int i = 0; i < numberpeople; i++) {
+            npcs[i] = new NPCControl(this);
+            npcs[i].generateModell();
+        }
+    }
 }

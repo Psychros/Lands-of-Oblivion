@@ -25,7 +25,7 @@ import com.jme3.scene.control.CameraControl;
 public class CharakterControl extends BetterCharacterControl implements ActionListener, AnalogListener{
 
     //Objektvariablen
-    private boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
+    protected boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
     private float moveSpeed = 15;
     private float rotationSpeed = 20;
     private Node head = new Node();
@@ -45,7 +45,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         super(radius, height, mass);
         
         head.setLocalTranslation(0, 1.9f, 0);    
-        super.rigidBody.setFriction(0.5f); 
+        rigidBody.setFriction(0.5f); 
     }
     
 

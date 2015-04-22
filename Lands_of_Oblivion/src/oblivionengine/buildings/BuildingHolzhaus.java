@@ -27,7 +27,6 @@ public class BuildingHolzhaus extends BuildingHaus{
         if(testRessources(PRICE_HOLZHAUS)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
             setSize(SIZE_HOLZHAUS);
             setPRICE(PRICE_HOLZHAUS);
-            setNumberpeople(4);
             
             Box boxMesh = new Box(5f,5f,5f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
@@ -49,6 +48,8 @@ public class BuildingHolzhaus extends BuildingHaus{
     @Override
     public void finishBuilding() {
         super.finishBuilding(); 
+        
+        setNumberpeople(1);
     }
     
 }

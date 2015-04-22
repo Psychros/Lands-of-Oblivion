@@ -27,6 +27,7 @@ import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.post.filters.FogFilter;
 import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.shadow.BasicShadowRenderer;
 import com.jme3.shadow.DirectionalLightShadowFilter;
@@ -196,9 +197,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
         node.scale(2.6f);
         playerNode.attachChild(node);
+        playerNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         map.attachChild(playerNode);
         
-        player = new Player(0.5f, 2.5f, 8);
+        player = new Player(0.5f, 2.5f, 80);
         player.setCamera(Game.game.getCamera());
         player.addSpatial(node);
         playerNode.addControl(player);

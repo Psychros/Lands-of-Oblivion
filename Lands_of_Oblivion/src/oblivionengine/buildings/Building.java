@@ -9,9 +9,12 @@ import oblivionengine.buildings.buildControls.BuildBuildingControl;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector2f;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.terrain.geomipmap.TerrainQuad;
+import java.util.ArrayList;
 import oblivionengine.Game;
+import oblivionengine.charakter.NPCManager;
 import static oblivionengine.charakter.Player.lager;
 import static oblivionengine.charakter.Player.selectedBuilding;
 
@@ -20,17 +23,10 @@ import static oblivionengine.charakter.Player.selectedBuilding;
  * @author To
  */
 public class Building extends Node{
-    //Objektvariablen
     
-    //Rand, der um ein Gebäude herum ist
-    public static final int RAND = 6;
-    
-    //Größe des Gebäudes
-    private int[] size ={0, 0, 0};
-    private int height = 0;
-    
-    //Preis des Gebäudes
-    private int[][] PRICE = {}; 
+    public static final int RAND = 6;   //Rand, der um ein Gebäude herum ist
+    private int[] size ={0, 0, 0};      //Größe des Gebäudes
+    private int[][] PRICE = {};         //Preis des Gebäudes
     
     /*
      * Größen aller Gebäude
@@ -66,6 +62,11 @@ public class Building extends Node{
     //Konstruktoren 
     public Building(){
         Game.game.mapState.getMap().attachChild(this);
+        
+        NPCManager.numberBuildings++;
+        
+        //Schatten aktivieren
+        setShadowMode(RenderQueue.ShadowMode.Receive);
     }
 
     //--------------------------------------------------------------------------

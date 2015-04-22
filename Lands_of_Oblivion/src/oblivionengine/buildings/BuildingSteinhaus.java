@@ -10,7 +10,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_LAGER;
 
 /**
  *
@@ -28,7 +27,6 @@ public class BuildingSteinhaus extends BuildingHaus{
         if(testRessources(PRICE_STEINHAUS)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
             setSize(SIZE_STEINHAUS);
             setPRICE(PRICE_STEINHAUS);
-            setNumberpeople(8);
             
             Box boxMesh = new Box(5f,10f,5f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
@@ -50,6 +48,8 @@ public class BuildingSteinhaus extends BuildingHaus{
     @Override
     public void finishBuilding() {
         super.finishBuilding(); 
+        
+        setNumberpeople(8);
     }
     
 }
