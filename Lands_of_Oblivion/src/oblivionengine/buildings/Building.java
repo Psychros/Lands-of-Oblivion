@@ -12,21 +12,23 @@ import com.jme3.math.Vector2f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.terrain.geomipmap.TerrainQuad;
-import java.util.ArrayList;
 import oblivionengine.Game;
-import oblivionengine.charakter.NPCManager;
-import static oblivionengine.charakter.Player.lager;
-import static oblivionengine.charakter.Player.selectedBuilding;
+import oblivionengine.charakter.npc.NPCControl;
+import oblivionengine.charakter.npc.NPCManager;
+import static oblivionengine.charakter.player.Player.lager;
+import static oblivionengine.charakter.player.Player.selectedBuilding;
 
 /**
  *
  * @author To
  */
 public class Building extends Node{
-    
-    public static final int RAND = 6;   //Rand, der um ein Gebäude herum ist
+
     private int[] size ={0, 0, 0};      //Größe des Gebäudes
     private int[][] PRICE = {};         //Preis des Gebäudes
+    private NPCControl worker = null;
+    
+    public static final int RAND = 6;   //Rand, der um ein Gebäude herum ist
     
     /*
      * Größen aller Gebäude
@@ -100,6 +102,14 @@ public class Building extends Node{
         }
         
         this.PRICE = price;
+    }
+
+    public NPCControl getWorker() {
+        return worker;
+    }
+
+    public void setWorker(NPCControl worker) {
+        this.worker = worker;
     }
     
     

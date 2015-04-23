@@ -1,6 +1,7 @@
 package mygame;
 
 import com.jme3.renderer.RenderManager;
+import com.jme3.system.AppSettings;
 import oblivionengine.Game;
 import oblivionengine.appstates.Screens;
 
@@ -24,6 +25,15 @@ public class Main extends Game {
     public static void main(String[] args) {
        Main game = new Main();
        game.setDisplayStatView(false);
+       
+       //Appsettings anpassen
+       AppSettings settings = new AppSettings(true);
+       settings.setFullscreen(true);
+       settings.setTitle("Lands of Oblivion");
+       settings.setSettingsDialogImage("Interface/SplashScreen2.png");
+       settings.setResolution(1920, 1080);
+       game.setSettings(settings);
+       
        game.start();
     }
 

@@ -12,7 +12,7 @@ import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.PRICE_LAGER;
 import static oblivionengine.buildings.Building.testRessources;
-import oblivionengine.charakter.NPCManager;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -30,8 +30,7 @@ public class BuildingSteinmetz extends Building{
          if(testRessources(PRICE_STEINMETZ)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
             setSize(SIZE_STEINMETZ);
             setPRICE(PRICE_STEINMETZ);
-            NPCManager.getFreeBuildings().add(this);
-
+            
             Box boxMesh = new Box(10f,8f,10f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
@@ -53,6 +52,8 @@ public class BuildingSteinmetz extends Building{
     public void finishBuilding() {
         super.finishBuilding(); 
         addControl(new SteinmetzControl());
+        
+        NPCManager.addFreeBuildings(this);
     }
     
 }

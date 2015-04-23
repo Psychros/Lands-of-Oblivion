@@ -3,11 +3,12 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.charakter;
+package oblivionengine.charakter.npc;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -28,15 +29,15 @@ import oblivionengine.buildings.BuildingHaus;
 public class NPCControl extends AbstractControl{
     //Objektvariablen
     private RigidBodyControl rigidBody;
+    private Node node;
     
     //Laufrichtung & Geschwindigkeit
     private int moveSpeed = 15;
-    private Vector2f walkDirection = new Vector2f(0, 0);
-    private float timeChangeDirection = 5;
+    protected Vector2f walkDirection = new Vector2f(0, 0);
+    private float timeChangeDirection = 1;
     private float timer = 0;
     
     private BuildingHaus home = null;   //Zuhause des NPCs
-    private Building workPlace = null;
     
     //Animation
     private AnimControl animControl;
@@ -48,8 +49,6 @@ public class NPCControl extends AbstractControl{
     //Konstruktoren
     public NPCControl(BuildingHaus home) { 
         this.home = home;
-        
-        NPCManager.getFreeNPCs().add(this);
         NPCManager.numberNPCs++;
     }
     
@@ -64,11 +63,28 @@ public class NPCControl extends AbstractControl{
         spatial.setLocalTranslation(pos);
     }
 
+    public BuildingHaus getHome() {
+        return home;
+    }
+
+    public void setHome(BuildingHaus home) {
+        this.home = home;
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
+    
+
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     
     public void generateModell(){
-        Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
+        node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
         node.setLocalTranslation(home.getLocalTranslation().add(0, 0, 7));
         node.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(node.getLocalTranslation().x, node.getLocalTranslation().z)));
         node.scale(2.6f);
@@ -97,21 +113,17 @@ public class NPCControl extends AbstractControl{
         timer += tpf;
         if(timer >= timeChangeDirection){
             timer = 0;
+            timeChangeDirection = (float)(Math.random()*8);
             
-            float x = (float)Math.random();
-            float y = (float)Math.random();
-            //Werte per Zufall negieren
-            if((int)(Math.random()*2) == 1)
-                x *= -1;
-            if((int)(Math.random()*2) == 1)
-                y *= -1;
             
-            walkDirection.setX(x);
-            walkDirection.setY(y);
-            
-            //Spatial rotieren
-            rotateSpatialToWalkDirection(this.walkDirection);
-            
+            //Stehen bleiben oder in zufällige Richtung laufen
+            int i = (int)(Math.random()*2);
+            if(i == 0){
+                changeWalkDirection();
+                
+            } else if(i == 1){
+                this.walkDirection.set(0, 0);
+            }
             
         }
     }
@@ -119,6 +131,23 @@ public class NPCControl extends AbstractControl{
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         
+    }
+    
+    
+    public void changeWalkDirection(){
+        float x = (float)Math.random();
+        float y = (float)Math.random();
+        //Werte per Zufall negieren
+        if((int)(Math.random()*2) == 1)
+            x *= -1;
+        if((int)(Math.random()*2) == 1)
+            y *= -1;
+
+        walkDirection.setX(x);
+        walkDirection.setY(y);
+
+        //Spatial rotieren
+        rotateSpatialToWalkDirection(this.walkDirection);
     }
     
     
@@ -130,11 +159,15 @@ public class NPCControl extends AbstractControl{
         
         //Winkel bestimmen auf den das Spatial gedreht werden soll
         double cosAlpha = (us.x*ue.x+us.y*ue.y)/(us.length()*ue.length());
-        double alpha = Math.toRadians(cosAlpha);
-        float phi = (float)Math.cos(alpha);
+        float alpha = (float)(Math.cos(cosAlpha) * FastMath.RAD_TO_DEG);
+        
+        if(ue.y < 0)
+            alpha *= -1;
+        
+        
         
         //Spatial rotieren
-        float[] angles = {0, -phi, 0};
+        float[] angles = {0, alpha, 0};
         Quaternion quat = new Quaternion(angles);
         spatial.setLocalRotation(quat);
     }

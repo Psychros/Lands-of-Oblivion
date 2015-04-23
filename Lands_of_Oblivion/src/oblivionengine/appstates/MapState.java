@@ -38,7 +38,7 @@ import com.jme3.ui.Picture;
 import de.lessvoid.nifty.controls.TextField;
 import oblivionengine.Game;
 import oblivionengine.Map;
-import oblivionengine.charakter.Player;
+import oblivionengine.charakter.player.Player;
 
 /**
  *

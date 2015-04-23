@@ -9,7 +9,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
 import oblivionengine.buildings.Building;
-import oblivionengine.charakter.Player;
+import oblivionengine.charakter.player.Player;
 
 /**
  * Das Gebäude bauen und es langsam aus dem Boden aufsteigen lassen

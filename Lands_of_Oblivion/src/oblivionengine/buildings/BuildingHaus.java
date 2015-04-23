@@ -5,8 +5,8 @@
 
 package oblivionengine.buildings;
 
-import oblivionengine.Game;
-import oblivionengine.charakter.NPCControl;
+import oblivionengine.charakter.npc.NPCControl;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -45,6 +45,7 @@ public abstract class BuildingHaus extends Building{
         for (int i = 0; i < numberpeople; i++) {
             npcs[i] = new NPCControl(this);
             npcs[i].generateModell();
+            NPCManager.addFreeNPC(npcs[i]);
         }
     }
 }

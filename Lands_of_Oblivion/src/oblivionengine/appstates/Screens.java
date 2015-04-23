@@ -22,8 +22,8 @@ import de.lessvoid.nifty.screen.ScreenController;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState.InputMapping;
 import oblivionengine.buildings.Ressourcen;
-import oblivionengine.charakter.Player;
-import static oblivionengine.charakter.Player.lager;
+import oblivionengine.charakter.player.Player;
+import static oblivionengine.charakter.player.Player.lager;
 
 /**
  *

@@ -49,7 +49,7 @@ public class BuildingHolzhaus extends BuildingHaus{
     public void finishBuilding() {
         super.finishBuilding(); 
         
-        setNumberpeople(1);
+        setNumberpeople(4);
     }
     
 }

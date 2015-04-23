@@ -7,7 +7,7 @@ package oblivionengine.buildings;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
-import oblivionengine.charakter.Player;
+import oblivionengine.charakter.player.Player;
 
 /**
  *

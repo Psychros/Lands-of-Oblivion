@@ -12,7 +12,7 @@ import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.PRICE_LAGER;
 import static oblivionengine.buildings.Building.testRessources;
-import oblivionengine.charakter.Player;
+import oblivionengine.charakter.player.Player;
 
 /**
  *

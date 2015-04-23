@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.charakter;
+package oblivionengine.charakter.player;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import oblivionengine.buildings.GlobalesLager;
