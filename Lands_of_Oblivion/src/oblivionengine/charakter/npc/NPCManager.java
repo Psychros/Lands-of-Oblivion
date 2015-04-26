@@ -43,8 +43,8 @@ public class NPCManager {
     }
 
     public static void addWorkingNPCs(NPCControl npc) {
-        workingNPCs.add(npc);
         freeNPCs.remove(npc);
+        workingNPCs.add(npc);
     }
     
     public static void removeWorkingNPCs(NPCControl npc) {
@@ -74,23 +74,22 @@ public class NPCManager {
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden 
     public static void referNPCToBuilding(){
-        System.out.println(freeNPCs.size() + ", " + freeBuildings.size());
+        System.out.println(freeNPCs.size() + "/" + workingNPCs.size() + " : " + freeBuildings.size() + "/" + workingBuildings.size());
         
         if(freeNPCs.size()>0 && freeBuildings.size()>0){
             WorkerControl npc;
             Building building = freeBuildings.get(0);           
+            
+            //Intere Listen neu organisieren
+            addWorkingNPCs(freeNPCs.get(0));
+            addWorkingBuildings(building);
             
             //NPCControl austauschen
             Node node = freeNPCs.get(0).getNode();
             npc = new WorkerControl(node.getControl(NPCControl.class).getHome(), building);
             node.addControl(npc);
             node.removeControl(NPCControl.class);
-            npc.setSpatial(node);
-            
-            //Intere Listen neu organisieren
-            workingNPCs.add(npc);
-            workingBuildings.add(building);
-            
+            npc.setSpatial(node);         
             
             building.setWorker(npc);
         }

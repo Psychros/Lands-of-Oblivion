@@ -159,15 +159,11 @@ public class NPCControl extends AbstractControl{
         
         //Winkel bestimmen auf den das Spatial gedreht werden soll
         double cosAlpha = (us.x*ue.x+us.y*ue.y)/(us.length()*ue.length());
-        float alpha = (float)(Math.cos(cosAlpha) * FastMath.RAD_TO_DEG);
-        
-        if(ue.y < 0)
-            alpha *= -1;
-        
+        float alpha = (float)(Math.acos(cosAlpha)*FastMath.RAD_TO_DEG);
         
         
         //Spatial rotieren
-        float[] angles = {0, alpha, 0};
+        float[] angles = {0, 180-alpha, 0};
         Quaternion quat = new Quaternion(angles);
         spatial.setLocalRotation(quat);
     }
