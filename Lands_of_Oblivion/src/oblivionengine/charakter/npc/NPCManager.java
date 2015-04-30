@@ -5,6 +5,7 @@
 
 package oblivionengine.charakter.npc;
 
+import com.jme3.animation.AnimControl;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import oblivionengine.buildings.Building;
@@ -43,7 +44,6 @@ public class NPCManager {
     }
 
     public static void addWorkingNPCs(NPCControl npc) {
-        freeNPCs.remove(npc);
         workingNPCs.add(npc);
     }
     
@@ -80,18 +80,24 @@ public class NPCManager {
             WorkerControl npc;
             Building building = freeBuildings.get(0);           
             
-            //Intere Listen neu organisieren
-            addWorkingNPCs(freeNPCs.get(0));
-            addWorkingBuildings(building);
             
             //NPCControl austauschen
             Node node = freeNPCs.get(0).getNode();
             npc = new WorkerControl(node.getControl(NPCControl.class).getHome(), building);
+            npc.setAnimControl(freeNPCs.get(0).getNode().getControl(AnimControl.class));
             node.addControl(npc);
             node.removeControl(NPCControl.class);
-            npc.setSpatial(node);         
+            npc.setSpatial(node);        
+            
+            //Intere Listen neu organisieren
+            addWorkingNPCs(npc);
+            freeNPCs.remove(freeNPCs.get(0));
+            addWorkingBuildings(building);
             
             building.setWorker(npc);
+            
+            //NPC zum Arbeitsplatz laufen lassen
+            npc.goToWorkPlace();
         }
     }
 }

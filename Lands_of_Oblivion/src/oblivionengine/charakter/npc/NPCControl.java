@@ -8,7 +8,6 @@ package oblivionengine.charakter.npc;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -19,7 +18,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import oblivionengine.Game;
-import oblivionengine.buildings.Building;
 import oblivionengine.buildings.BuildingHaus;
 
 /**
@@ -36,6 +34,7 @@ public class NPCControl extends AbstractControl{
     protected Vector2f walkDirection = new Vector2f(0, 0);
     private float timeChangeDirection = 1;
     private float timer = 0;
+    protected boolean isWalkingRandom = true;
     
     private BuildingHaus home = null;   //Zuhause des NPCs
     
@@ -79,6 +78,28 @@ public class NPCControl extends AbstractControl{
         this.node = node;
     }
     
+    public void setWalkDirection(Vector2f walkDirection){
+        this.walkDirection = walkDirection;
+        
+        rotateSpatialToWalkDirection(walkDirection);
+    }
+
+    public boolean isIsWalkingRandom() {
+        return isWalkingRandom;
+    }
+
+    public void setIsWalkingRandom(boolean isWalkingRandom) {
+        this.isWalkingRandom = isWalkingRandom;
+    } 
+
+    public AnimControl getAnimControl() {
+        return animControl;
+    }
+
+    public void setAnimControl(AnimControl animControl) {
+        this.animControl = animControl;
+    } 
+    
 
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
@@ -93,7 +114,6 @@ public class NPCControl extends AbstractControl{
                 
         //Animation vorbereiten
         animControl = spatial.getControl(AnimControl.class);
-        animChannel = animControl.createChannel();
         
         //Schatten
         node.setShadowMode(ShadowMode.CastAndReceive);  
@@ -105,26 +125,34 @@ public class NPCControl extends AbstractControl{
         if(!walkDirection.equals(Vector2f.ZERO)){
             //Spatial bewegen
             Vector3f walkDirection = new Vector3f(this.walkDirection.x, 0, this.walkDirection.y);
-            spatial.move(walkDirection.normalize().mult(tpf));
+            spatial.move(walkDirection.normalize().mult(tpf).mult(3));
             spatial.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)));
+            
+            //Animation anzeigen
+            animChannel = animControl.createChannel();
+            animChannel.setAnim(ANIM_WALK);
+        } else{
+            //Laufanimation beenden
+            animControl.clearChannels();
         }
         
         //Bewegungsrichtung in einem festen Intervall zufällig ändern
-        timer += tpf;
-        if(timer >= timeChangeDirection){
-            timer = 0;
-            timeChangeDirection = (float)(Math.random()*8);
-            
-            
-            //Stehen bleiben oder in zufällige Richtung laufen
-            int i = (int)(Math.random()*2);
-            if(i == 0){
-                changeWalkDirection();
-                
-            } else if(i == 1){
-                this.walkDirection.set(0, 0);
+        if(isWalkingRandom){
+            timer += tpf;
+            if(timer >= timeChangeDirection){
+                timer = 0;
+                timeChangeDirection = (float)(Math.random()*8);
+
+
+                //Stehen bleiben oder in zufällige Richtung laufen
+                int i = (int)(Math.random()*2);
+                if(i == 0){
+                    changeRandomWalkDirection();
+
+                } else if(i == 1){
+                    setWalkDirection(new Vector2f(0, 0));
+                }
             }
-            
         }
     }
 
@@ -134,7 +162,7 @@ public class NPCControl extends AbstractControl{
     }
     
     
-    public void changeWalkDirection(){
+    public void changeRandomWalkDirection(){
         float x = (float)Math.random();
         float y = (float)Math.random();
         //Werte per Zufall negieren
@@ -158,12 +186,15 @@ public class NPCControl extends AbstractControl{
         Vector2f ue   = walkDirection.normalize();  //Endrichtung
         
         //Winkel bestimmen auf den das Spatial gedreht werden soll
-        double cosAlpha = (us.x*ue.x+us.y*ue.y)/(us.length()*ue.length());
-        float alpha = (float)(Math.acos(cosAlpha)*FastMath.RAD_TO_DEG);
+        float dot = us.dot(ue);
+        float angle = (float)Math.acos(dot);
         
+        if(walkDirection.x < 0){
+            angle *= -1;
+        }
         
         //Spatial rotieren
-        float[] angles = {0, 180-alpha, 0};
+        float[] angles = {0, angle, 0};
         Quaternion quat = new Quaternion(angles);
         spatial.setLocalRotation(quat);
     }

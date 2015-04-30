@@ -5,12 +5,8 @@
 
 package oblivionengine.charakter.npc;
 
-import com.jme3.animation.AnimChannel;
-import com.jme3.animation.AnimControl;
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import oblivionengine.Game;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.BuildingHaus;
 
@@ -27,6 +23,8 @@ public class WorkerControl extends NPCControl{
     public WorkerControl(BuildingHaus home, Building workPlace) { 
         super(home);
         this.workPlace = workPlace;
+        
+        setIsWalkingRandom(false);
     }
     
     
@@ -45,11 +43,21 @@ public class WorkerControl extends NPCControl{
 
     @Override
     protected void controlUpdate(float tpf) {
-        //Zum Arbeitsplatz bewegen
-        if(!spatial.getLocalTranslation().equals(workPlace.getLocalTranslation())){
-            Vector3f walkDirection = new Vector3f(workPlace.getLocalTranslation().x, 0, workPlace.getLocalTranslation().z).subtract(new Vector3f(this.spatial.getLocalTranslation().x, 0, this.spatial.getLocalTranslation().z));
-            spatial.move(walkDirection.normalize().mult(tpf));
-            spatial.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)));
+        super.controlUpdate(tpf);
+        
+        //Am Arbeitsplatz anhalten
+        if(spatial.getLocalTranslation().distance(workPlace.getLocalTranslation()) < 3){
+           setWalkDirection(Vector2f.ZERO);
         }
+    }
+    
+    
+    //Der NPC läuft in Richtung Arbeitsplatz
+    public void goToWorkPlace(){
+        Vector3f walkDirection = new Vector3f(workPlace.getLocalTranslation().x, 0, workPlace.getLocalTranslation().z).subtract(new Vector3f(this.spatial.getLocalTranslation().x, 0, this.spatial.getLocalTranslation().z));
+        setWalkDirection(new Vector2f(walkDirection.x, walkDirection.z));
+
+        //NPC zur WalkDirection drehen
+        rotateSpatialToWalkDirection(new Vector2f(walkDirection.x, walkDirection.z));
     }
 }
