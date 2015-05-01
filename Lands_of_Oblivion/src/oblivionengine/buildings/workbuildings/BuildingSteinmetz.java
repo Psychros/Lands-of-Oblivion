@@ -3,22 +3,21 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings;
+package oblivionengine.buildings.workbuildings;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_LAGER;
 import static oblivionengine.buildings.Building.testRessources;
-import oblivionengine.charakter.npc.NPCManager;
+import oblivionengine.buildings.Ressourcen;
 
 /**
  *
  * @author To
  */
-public class BuildingSteinmetz extends Building{
+public class BuildingSteinmetz extends WorkBuilding{
     //Objektvariablen
     
 
@@ -51,9 +50,8 @@ public class BuildingSteinmetz extends Building{
     @Override
     public void finishBuilding() {
         super.finishBuilding(); 
-        addControl(new SteinmetzControl());
         
-        NPCManager.addFreeBuildings(this);
+        control.setRessource(Ressourcen.Stone);
     }
     
 }

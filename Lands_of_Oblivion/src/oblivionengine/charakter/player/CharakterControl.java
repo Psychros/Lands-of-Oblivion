@@ -27,7 +27,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     //Objektvariablen
     protected boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
     private float moveSpeed = 15;
-    private float rotationSpeed = 20;
+    private static float mouseSensitivity = 20;
     private Node head = new Node();
     private float yaw;
     
@@ -77,6 +77,15 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     public void setMoveSpeed(float moveSpeed) {
         this.moveSpeed = moveSpeed;
     }
+
+    public static float getMouseSensitivity() {
+        return mouseSensitivity;
+    }
+
+    public static void setMouseSensitivity(float mouseSensitivit) {
+        mouseSensitivity = mouseSensitivit;
+    }
+    
     
     
     //--------------------------------------------------------------------------
@@ -143,14 +152,14 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     public void onAnalog(String name, float value, float tpf) {
         //Testen, welche Tastenbefehle ausgeführt werden sollen
         if(name.equals("RotateLeft"))
-            rotate(tpf * value * rotationSpeed);
+            rotate(tpf * value * mouseSensitivity);
         else if(name.equals("RotateRight"))
-            rotate(-tpf * value * rotationSpeed);
+            rotate(-tpf * value * mouseSensitivity);
         
         if(name.equals("LookUp"))
-            lookUpDown(-value * tpf * rotationSpeed*2.5f);
+            lookUpDown(-value * tpf * mouseSensitivity*2.5f);
         else if(name.equals("LookDown"))
-            lookUpDown(value * tpf * rotationSpeed*2.5f);
+            lookUpDown(value * tpf * mouseSensitivity*2.5f);
     }
     
     public void rotate(float value){

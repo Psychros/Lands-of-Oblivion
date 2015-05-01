@@ -8,7 +8,9 @@ package oblivionengine.charakter.npc;
 import com.jme3.animation.AnimControl;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
+import oblivionengine.Game;
 import oblivionengine.buildings.Building;
+import oblivionengine.buildings.workbuildings.WorkBuilding;
 
 /**
  *
@@ -16,11 +18,11 @@ import oblivionengine.buildings.Building;
  */
 public class NPCManager {
     private static ArrayList<NPCControl> freeNPCs = new ArrayList<NPCControl>();    //Nicht arbeitende NPCs
-    private static ArrayList<NPCControl> workingNPCs = new ArrayList<NPCControl>(); //Arbeitende NPCs
+    private static ArrayList<WorkerControl> workingNPCs = new ArrayList<WorkerControl>(); //Arbeitende NPCs
     public static int numberNPCs = 0;
     
-    private static ArrayList<Building> freeBuildings = new ArrayList<Building>();   //Gebäude, die noch eine Arbeitskraft brauchen
-    private static ArrayList<Building> workingBuildings = new ArrayList<Building>();   //Gebäude, die eine Arbeitskraft besitzen
+    private static ArrayList<WorkBuilding> freeBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die noch eine Arbeitskraft brauchen
+    private static ArrayList<WorkBuilding> workingBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die eine Arbeitskraft besitzen
     public static int numberBuildings = 0;
 
     
@@ -37,21 +39,27 @@ public class NPCManager {
          workingNPCs.remove(npc);
          
          referNPCToBuilding();
-    }
+         actualizeText();
+   }
     
     public static void removeFreeNPC(NPCControl npc) {
          freeNPCs.remove(npc);
+         actualizeText();
+         freeNPCs.trimToSize();
     }
 
-    public static void addWorkingNPCs(NPCControl npc) {
+    public static void addWorkingNPCs(WorkerControl npc) {
         workingNPCs.add(npc);
+        actualizeText();
     }
     
     public static void removeWorkingNPCs(NPCControl npc) {
         workingNPCs.remove(npc);
+        actualizeText();
+        workingNPCs.trimToSize();
     }
 
-    public static void addFreeBuildings(Building building) {
+    public static void addFreeBuildings(WorkBuilding building) {
         freeBuildings.add(building);
         workingBuildings.remove(building);
         
@@ -60,25 +68,25 @@ public class NPCManager {
     
     public static void removeFreeBuildings(Building building) {
         freeBuildings.remove(building);
+        freeBuildings.trimToSize();
     }
 
-    public static void addWorkingBuildings(Building building) {
+    public static void addWorkingBuildings(WorkBuilding building) {
         workingBuildings.add(building);
         freeBuildings.remove(building);
     }
     
     public static void removeWorkingBuildings(Building building) {
         workingBuildings.remove(building);
+        workingBuildings.trimToSize();
     }
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden 
     public static void referNPCToBuilding(){
-        System.out.println(freeNPCs.size() + "/" + workingNPCs.size() + " : " + freeBuildings.size() + "/" + workingBuildings.size());
-        
         if(freeNPCs.size()>0 && freeBuildings.size()>0){
             WorkerControl npc;
-            Building building = freeBuildings.get(0);           
+            WorkBuilding building = freeBuildings.get(0);           
             
             
             //NPCControl austauschen
@@ -91,13 +99,23 @@ public class NPCManager {
             
             //Intere Listen neu organisieren
             addWorkingNPCs(npc);
-            freeNPCs.remove(freeNPCs.get(0));
+            removeFreeNPC(freeNPCs.get(0));
             addWorkingBuildings(building);
-            
-            building.setWorker(npc);
             
             //NPC zum Arbeitsplatz laufen lassen
             npc.goToWorkPlace();
+            
+            System.out.println(freeNPCs.size() + "/" + workingNPCs.size() + " : " + freeBuildings.size() + "/" + workingBuildings.size());
         }
+    }
+    
+    
+    //Aktualisiert die Einwohneranzeige
+    public static void actualizeText(){
+        int freePeople = freeNPCs.size();
+        int workingPeople = workingNPCs.size();
+        
+        String text = freePeople + "/" + workingPeople;
+        Game.game.screens.setText("inGame", "Einwohner", text);
     }
 }

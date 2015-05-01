@@ -39,6 +39,7 @@
             <control id="Lager" name="label" text="0" x="70px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
             <control id="Baumstämme" name="label" text="0" x="260px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
             <control id="Stein" name="label" text="0" x="450px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
+            <control id="Einwohner" name="label" text="0/0" x="85px" y="80px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
         </layer>
     </screen>
     
@@ -51,6 +52,8 @@
         </layer>
         <layer id="foreground" childLayout="absolute">
                 <interact onMouseOver="resetMouseOver()"/>
+                    
+                <control id="Mausempfindlichkeit" name="horizontalScrollbar" x="670px" y="55px" width="400" worldMax="400.0" worldPageSize="200.0" initial="20.0" buttonStepSize="2.0" />
                 
                 <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="69%" y="90%" height="8%" width="26%" visibleToMouse="true"> 
                     <interact onClick="backToStartScreen()" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 

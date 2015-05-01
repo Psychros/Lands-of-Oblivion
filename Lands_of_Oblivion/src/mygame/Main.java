@@ -2,6 +2,8 @@ package mygame;
 
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oblivionengine.Game;
 import oblivionengine.appstates.Screens;
 
@@ -25,6 +27,7 @@ public class Main extends Game {
     public static void main(String[] args) {
        Main game = new Main();
        game.setDisplayStatView(false);
+       Logger.getLogger("").setLevel(Level.SEVERE);
        
        //Appsettings anpassen
        AppSettings settings = new AppSettings(true);

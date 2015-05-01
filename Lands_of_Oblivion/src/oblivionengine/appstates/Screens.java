@@ -13,6 +13,7 @@ import com.jme3.math.FastMath;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.scrollbar.ScrollbarControl;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
@@ -21,9 +22,8 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState.InputMapping;
-import oblivionengine.buildings.Ressourcen;
+import oblivionengine.charakter.player.CharakterControl;
 import oblivionengine.charakter.player.Player;
-import static oblivionengine.charakter.player.Player.lager;
 
 /**
  *
@@ -205,9 +205,13 @@ public class Screens extends AbstractAppState implements ScreenController{
      * Optionsmenü
      */ 
     public void backToStartScreen(){
+        //Maussensitivität einstellen
+        ScrollbarControl e = nifty.getCurrentScreen().findElementByName("Mausempfindlichkeit").findControl("Mausempfindlichkeit", ScrollbarControl.class);
+        float v = e.getValue();
+        CharakterControl.setMouseSensitivity(v);
+        
         nifty.gotoScreen("start");
     }
-    
     
     
     /*

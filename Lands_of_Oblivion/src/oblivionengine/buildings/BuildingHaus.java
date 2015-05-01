@@ -10,7 +10,8 @@ import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
- * @author To
+ * @author Tod
+ * 
  */
 public abstract class BuildingHaus extends Building{
     //Objektvariablen

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings;
+package oblivionengine.buildings.workbuildings;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -11,13 +11,12 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
-import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
  * @author To
  */
-public class BuildingHolzfäller extends Building{
+public class BuildingHolzfäller extends WorkBuilding{
     //Objektvariablen
     
 
@@ -49,9 +48,6 @@ public class BuildingHolzfäller extends Building{
     @Override
     public void finishBuilding() {
         super.finishBuilding(); 
-        addControl(new HolzfällerControl());
-        
-        NPCManager.addFreeBuildings(this);
     }
     
 }

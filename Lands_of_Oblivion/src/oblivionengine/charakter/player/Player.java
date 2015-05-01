@@ -14,11 +14,11 @@ import com.jme3.scene.Spatial;
 import oblivionengine.Game;
 import oblivionengine.TreeControl;
 import oblivionengine.buildings.Building;
-import oblivionengine.buildings.BuildingHolzfäller;
+import oblivionengine.buildings.workbuildings.BuildingHolzfäller;
 import oblivionengine.buildings.BuildingHolzhaus;
 import oblivionengine.buildings.BuildingLager;
 import oblivionengine.buildings.BuildingSteinhaus;
-import oblivionengine.buildings.BuildingSteinmetz;
+import oblivionengine.buildings.workbuildings.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
 

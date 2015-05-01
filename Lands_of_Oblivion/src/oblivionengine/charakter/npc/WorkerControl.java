@@ -9,6 +9,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.BuildingHaus;
+import oblivionengine.buildings.workbuildings.WorkBuilding;
 
 /**
  *
@@ -16,11 +17,12 @@ import oblivionengine.buildings.BuildingHaus;
  */
 public class WorkerControl extends NPCControl{
     //Objektvariablen
-    private Building workPlace = null;
+    private WorkBuilding workPlace = null;
+    private boolean isGoingToWorkplace = true;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public WorkerControl(BuildingHaus home, Building workPlace) { 
+    public WorkerControl(BuildingHaus home, WorkBuilding workPlace) { 
         super(home);
         this.workPlace = workPlace;
         
@@ -34,7 +36,7 @@ public class WorkerControl extends NPCControl{
         return workPlace;
     }
 
-    public void setWorkPlace(Building workPlace) {
+    public void setWorkPlace(WorkBuilding workPlace) {
         this.workPlace = workPlace;
     }
 
@@ -46,8 +48,11 @@ public class WorkerControl extends NPCControl{
         super.controlUpdate(tpf);
         
         //Am Arbeitsplatz anhalten
-        if(spatial.getLocalTranslation().distance(workPlace.getLocalTranslation()) < 3){
+        if(isGoingToWorkplace && spatial.getLocalTranslation().distance(workPlace.getLocalTranslation()) < 3){
            setWalkDirection(Vector2f.ZERO);
+           isGoingToWorkplace = false;
+           
+           workPlace.setWorker(this);
         }
     }
     
