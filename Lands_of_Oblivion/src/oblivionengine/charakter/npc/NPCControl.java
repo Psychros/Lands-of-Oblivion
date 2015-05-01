@@ -82,6 +82,16 @@ public class NPCControl extends AbstractControl{
         this.walkDirection = walkDirection;
         
         rotateSpatialToWalkDirection(walkDirection);
+        
+        //Animation
+        if(!walkDirection.equals(Vector2f.ZERO)){
+            animChannel = animControl.createChannel();
+            animChannel.setAnim(ANIM_WALK);
+        } 
+        else{
+            //Laufanimation beenden
+            animControl.clearChannels();
+        }
     }
 
     public boolean isIsWalkingRandom() {
@@ -127,13 +137,6 @@ public class NPCControl extends AbstractControl{
             Vector3f walkDirection = new Vector3f(this.walkDirection.x, 0, this.walkDirection.y);
             spatial.move(walkDirection.normalize().mult(tpf).mult(3));
             spatial.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)));
-            
-            //Animation anzeigen
-            animChannel = animControl.createChannel();
-            animChannel.setAnim(ANIM_WALK);
-        } else{
-            //Laufanimation beenden
-            animControl.clearChannels();
         }
         
         //Bewegungsrichtung in einem festen Intervall zufällig ändern
@@ -171,8 +174,7 @@ public class NPCControl extends AbstractControl{
         if((int)(Math.random()*2) == 1)
             y *= -1;
 
-        walkDirection.setX(x);
-        walkDirection.setY(y);
+        setWalkDirection(new Vector2f(x, y));
 
         //Spatial rotieren
         rotateSpatialToWalkDirection(this.walkDirection);
