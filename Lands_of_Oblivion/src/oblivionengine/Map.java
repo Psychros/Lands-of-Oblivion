@@ -190,7 +190,7 @@ public class Map extends Node{
                     tree.setShadowMode(ShadowMode.CastAndReceive);
                     
                     //Einen Zilinder als Kollisionsmodell verwenden
-                    RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(1.2f, 30), 0);
+                    RigidBodyControl control = new RigidBodyControl(new CapsuleCollisionShape(1.6f, 30), 0);
                     control.setFriction(4);
                     control.setGravity(new Vector3f(0, -98.1f, 0));
                     tree.addControl(control);

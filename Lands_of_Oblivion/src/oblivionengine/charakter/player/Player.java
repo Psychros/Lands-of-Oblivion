@@ -35,6 +35,7 @@ public class Player extends CharakterControl{
     public static String selectedBuildingID;
     public static Building selectedBuilding;
     public static boolean isBuildingSelected = false;
+    public boolean canBeBuild = false;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -113,10 +114,15 @@ public class Player extends CharakterControl{
             }
             else{
                 //Das Gebäude endgültig bauen
-                if(selectedBuilding != null){
+                if(selectedBuilding != null && canBeBuild){
                     selectedBuilding.build();
                     selectedBuilding = null;
                 }
+                else{
+                    selectedBuilding.removeFromParent();
+                    selectedBuilding.removeControl(BuildingPositionControl.class);
+                }
+                
                 isBuildingSelected = false;
             }
             

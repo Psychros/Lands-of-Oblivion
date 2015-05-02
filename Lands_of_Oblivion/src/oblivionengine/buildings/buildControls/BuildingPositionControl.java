@@ -12,7 +12,6 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.terrain.geomipmap.TerrainPatch;
-import javax.vecmath.Vector2d;
 import oblivionengine.Game;
 
 /**
@@ -22,7 +21,7 @@ import oblivionengine.Game;
  * @author To
  */
 public class BuildingPositionControl extends AbstractControl {
-
+    
     @Override
     protected void controlUpdate(float tpf) {
         
@@ -35,10 +34,19 @@ public class BuildingPositionControl extends AbstractControl {
             Game.game.mapState.getMap().collideWith(ray, results);
             
             //Neue Position setzen
-            if(results.size() != 0 && results.getClosestCollision().getGeometry() instanceof TerrainPatch 
-                    && results.getClosestCollision().getDistance() > 10){
-                Vector2f pos = new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
-                spatial.setLocalTranslation((int)pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), (int)pos.y);
+            if(results.size() != 0 && results.getClosestCollision().getDistance() > 10){
+                Game.game.mapState.getPlayer().canBeBuild = false;
+                
+                //Gebäude darf nicht platziert werden, wenn ein Baum ausgewählt ist
+                if (results.getClosestCollision().getGeometry() instanceof TerrainPatch) {
+                    Vector2f pos = new Vector2f((int)results.getClosestCollision().getContactPoint().x, (int)results.getClosestCollision().getContactPoint().z);
+                
+                    //Gebäude können nicht im Wasser platziert werden                           
+                    if(Game.game.mapState.getMap().getTerrain().getHeight(pos) > 6){
+                        spatial.setLocalTranslation((int)pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), (int)pos.y);
+                        Game.game.mapState.getPlayer().canBeBuild = true;
+                    }
+                } 
             }        
     }
     

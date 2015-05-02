@@ -216,6 +216,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         //Baumenü
         if(name.equals(InputMapping.Baumenü.name()))Game.game.screens.switchToBaumenü(); 
         
+        //Alle anderen Mappings
         if(player != null){
             player.onAction(name, isPressed, tpf);
         }
