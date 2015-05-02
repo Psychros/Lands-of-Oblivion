@@ -41,7 +41,7 @@ public class WorkBuilding extends Building{
         super.finishBuilding(); 
         
         //Controll hinzufügen, der Waren produziert
-        WorkBuildingControl control = new WorkBuildingControl(Ressourcen.Wood, 30);
+        control = new WorkBuildingControl(Ressourcen.Wood, 30);
         addControl(control);
         
         NPCManager.addFreeBuildings(this);

@@ -9,6 +9,7 @@ import com.jme3.bullet.control.RigidBodyControl;
 import oblivionengine.buildings.GlobalesLager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector2f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import oblivionengine.Game;
@@ -21,6 +22,7 @@ import oblivionengine.buildings.BuildingSteinhaus;
 import oblivionengine.buildings.workbuildings.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.buildings.workbuildings.BuildingFischer;
 
 /**
  *
@@ -104,6 +106,7 @@ public class Player extends CharakterControl{
                     case "Steinmetz":  if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
                     case "Holzhaus":   if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
                     case "Steinhaus":  if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
+                    case "Fischer":    if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt
@@ -114,13 +117,17 @@ public class Player extends CharakterControl{
             }
             else{
                 //Das Gebäude endgültig bauen
-                if(selectedBuilding != null && canBeBuild){
-                    selectedBuilding.build();
-                    selectedBuilding = null;
-                }
-                else{
-                    selectedBuilding.removeFromParent();
-                    selectedBuilding.removeControl(BuildingPositionControl.class);
+                if(selectedBuilding != null){
+                    Vector2f v = new Vector2f(selectedBuilding.getLocalTranslation().x, selectedBuilding.getLocalTranslation().z);
+                    
+                    if(canBeBuild && !v.equals(Vector2f.ZERO)){
+                        selectedBuilding.build();
+                        selectedBuilding = null;
+                    }
+                    else{
+                        selectedBuilding.removeFromParent();
+                        selectedBuilding.removeControl(BuildingPositionControl.class);
+                    }
                 }
                 
                 isBuildingSelected = false;

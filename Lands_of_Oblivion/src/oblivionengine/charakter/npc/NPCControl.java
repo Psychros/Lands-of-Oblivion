@@ -19,6 +19,8 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import oblivionengine.Game;
 import oblivionengine.buildings.BuildingHaus;
+import oblivionengine.buildings.Ressourcen;
+import oblivionengine.charakter.player.Player;
 
 /**
  *
@@ -36,13 +38,18 @@ public class NPCControl extends AbstractControl{
     private float timer = 0;
     protected boolean isWalkingRandom = true;
     
-    private BuildingHaus home = null;   //Zuhause des NPCs
+    //Zuhause des NPCs
+    private BuildingHaus home = null;   
     
     //Animation
     private AnimControl animControl;
     private AnimChannel animChannel;
     private static final String ANIM_WALK = "my_animation";
     private static final String ANIM_IDLE = "";
+    
+    //Zeit, in der bestimmte Güter gebraucht werden
+    public static final int timeFood = 60;
+    private float timerFood = 0;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -81,7 +88,8 @@ public class NPCControl extends AbstractControl{
     public void setWalkDirection(Vector2f walkDirection){
         this.walkDirection = walkDirection;
         
-        rotateSpatialToWalkDirection(walkDirection);
+        if(!walkDirection.equals(Vector2f.ZERO))
+            rotateSpatialToWalkDirection(walkDirection);
         
         //Animation
         if(!walkDirection.equals(Vector2f.ZERO)){
@@ -157,11 +165,31 @@ public class NPCControl extends AbstractControl{
                 }
             }
         }
+        
+        //Güter verbrauchen
+        consumeProducts(tpf);
     }
 
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         
+    }
+    
+    
+    //Güter werden verbraucht
+    private void consumeProducts(float tpf){
+        timerFood += tpf;
+        if(timerFood >= timeFood){
+            timerFood = 0;
+            
+            if(Player.lager.getAnzahlRessourcen(Ressourcen.Food) > 0){
+                NPCManager.addMoral(0.01f);
+                Player.lager.addRessourcen(Ressourcen.Food, -1);
+            }
+            else{
+                NPCManager.addMoral(-0.01f);
+            }
+        }
     }
     
     

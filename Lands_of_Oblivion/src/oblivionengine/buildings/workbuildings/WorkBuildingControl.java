@@ -9,6 +9,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.charakter.npc.NPCManager;
 import oblivionengine.charakter.player.Player;
 
 /**
@@ -17,7 +18,7 @@ import oblivionengine.charakter.player.Player;
  */
 public class WorkBuildingControl extends AbstractControl{
     //Objektvariablen
-    private int time = 30;
+    private int time = 15;
     private float timer = 0;
     private Ressourcen ressource = null; //Zu produzierende Ressource
 
@@ -58,10 +59,11 @@ public class WorkBuildingControl extends AbstractControl{
     @Override
     protected void controlUpdate(float tpf) {
         WorkBuilding building = (WorkBuilding)spatial;
+        
         if(building.getWorker() != null){
             timer += tpf;
             if(timer >= time){
-                timer = 0;
+                timer = 0 - (time * (1- NPCManager.getMoral()));
                 Player.lager.addRessourcen(ressource, 1);
             }
         }

@@ -11,7 +11,7 @@ public class GlobalesLager {
     //Objektvariablen
     
     //Anzahl aller Ressourcen
-    private int[] ressourcen = new int[2]; 
+    private int[] ressourcen = new int[Ressourcen.values().length]; 
     
     //Größe des Lagers
     private int größe;
@@ -30,6 +30,8 @@ public class GlobalesLager {
         for (int i = 0; i < ressourcen.length; i++) {
             addRessourcen(i, 10); //Startwert für alle Ressourcen
         }
+        
+        addRessourcen(Ressourcen.Food, -10);
     }
 
     

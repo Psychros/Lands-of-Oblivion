@@ -10,5 +10,5 @@ package oblivionengine.buildings;
  * @author To
  */
 public enum Ressourcen{
-    Wood, Stone
+    Wood, Stone, Food
 }

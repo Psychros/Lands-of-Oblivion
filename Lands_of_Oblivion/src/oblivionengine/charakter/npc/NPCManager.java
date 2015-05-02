@@ -24,6 +24,10 @@ public class NPCManager {
     private static ArrayList<WorkBuilding> freeBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die noch eine Arbeitskraft brauchen
     private static ArrayList<WorkBuilding> workingBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die eine Arbeitskraft besitzen
     public static int numberBuildings = 0;
+    
+    //Moral beeinflusst das Arbeitverhalten der NPCs
+    //Anfangs beträgt sie 100%
+    private static float moral = 1.00f;  
 
     
 
@@ -80,6 +84,22 @@ public class NPCManager {
         workingBuildings.remove(building);
         workingBuildings.trimToSize();
     }
+
+    public static float getMoral() {
+        return moral;
+    }
+
+    //Moral kann nur einen Wert zwischen 0 und 1.5 einnehmen
+    public static void addMoral(float moral) {
+        NPCManager.moral += moral;
+        
+        if(NPCManager.moral > 1.5f)
+            NPCManager.moral = 1.5f;
+        else if(NPCManager.moral < 0)
+            NPCManager.moral = 0;
+        
+        actualizeText();
+    }
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden 
@@ -115,7 +135,7 @@ public class NPCManager {
         int freePeople = freeNPCs.size();
         int workingPeople = workingNPCs.size();
         
-        String text = freePeople + "/" + workingPeople;
+        String text = freePeople + "/" + workingPeople + " (" + (int)(moral*100) + "%)";
         Game.game.screens.setText("inGame", "Einwohner", text);
     }
 }
