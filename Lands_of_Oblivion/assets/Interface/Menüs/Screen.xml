@@ -101,11 +101,14 @@
                 <image id="fischer" filename="Interface/Menüs/Baumenü/ButtonFischer.png"     x="5%" y="55%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Fischer)" onMouseOver="mouseOver(fischer. Interface/Menüs/Baumenü/ButtonFischer2.png. Interface/Menüs/Baumenü/ButtonFischer.png)"/>
                 </image>
+                <image id="kirche" filename="Interface/Menüs/Baumenü/ButtonKirche.png"     x="5%" y="65%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Kirche)" onMouseOver="mouseOver(kirche. Interface/Menüs/Baumenü/ButtonKirche2.png. Interface/Menüs/Baumenü/ButtonKirche.png)"/>
+                </image>
                 
-                <image id="holzhaus" filename="Interface/Menüs/Baumenü/ButtonHolzhaus.png"     x="5%" y="65%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="holzhaus" filename="Interface/Menüs/Baumenü/ButtonHolzhaus.png"     x="5%" y="75%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Holzhaus)" onMouseOver="mouseOver(holzhaus. Interface/Menüs/Baumenü/ButtonHolzhaus2.png. Interface/Menüs/Baumenü/ButtonHolzhaus.png)"/>
                 </image>
-                <image id="steinhaus" filename="Interface/Menüs/Baumenü/ButtonSteinhaus.png"     x="5%" y="75%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="steinhaus" filename="Interface/Menüs/Baumenü/ButtonSteinhaus.png"     x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Steinhaus)" onMouseOver="mouseOver(steinhaus. Interface/Menüs/Baumenü/ButtonSteinhaus2.png. Interface/Menüs/Baumenü/ButtonSteinhaus.png)"/>
                 </image>
             </panel>

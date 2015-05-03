@@ -28,6 +28,9 @@ public class NPCManager {
     //Moral beeinflusst das Arbeitverhalten der NPCs
     //Anfangs beträgt sie 100%
     private static float moral = 1.00f;  
+    private static float maxMoral = 1.50f;
+    
+    private static boolean isChurch = false; //Ist eine Kirche gebaut?
 
     
 
@@ -93,13 +96,39 @@ public class NPCManager {
     public static void addMoral(float moral) {
         NPCManager.moral += moral;
         
-        if(NPCManager.moral > 1.5f)
-            NPCManager.moral = 1.5f;
+        if(NPCManager.moral > maxMoral)
+            NPCManager.moral = maxMoral;
         else if(NPCManager.moral < 0)
             NPCManager.moral = 0;
         
         actualizeText();
     }
+
+    public static float getMaxMoral() {
+        return maxMoral;
+    }
+
+    public static void setMaxMoral(float maxMoral) {
+        NPCManager.maxMoral = maxMoral;
+    }
+
+    public static boolean isIsChurch() {
+        return isChurch;
+    }
+
+    //Ist eine Kirche gebaut?
+    public static void setIsChurch(boolean isChurch) {
+        NPCManager.isChurch = isChurch;
+        
+        if(isChurch && !NPCManager.isChurch)
+            maxMoral += 0.2f;
+        else if(!isChurch && NPCManager.isChurch){
+            maxMoral -= 0.2f;
+            addMoral(0);    //Moral wird auf den neuen Maximalwert angepasst
+        }
+           
+    } 
+    
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden 

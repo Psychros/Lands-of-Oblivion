@@ -50,6 +50,8 @@ public class NPCControl extends AbstractControl{
     //Zeit, in der bestimmte Güter gebraucht werden
     public static final int timeFood = 60;
     private float timerFood = 0;
+    public static final int timeBelief = 60;
+    private float timerBelief = 0;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -178,6 +180,7 @@ public class NPCControl extends AbstractControl{
     
     //Güter werden verbraucht
     private void consumeProducts(float tpf){
+        //Essen
         timerFood += tpf;
         if(timerFood >= timeFood){
             timerFood = 0;
@@ -185,6 +188,21 @@ public class NPCControl extends AbstractControl{
             if(Player.lager.getAnzahlRessourcen(Ressourcen.Food) > 0){
                 NPCManager.addMoral(0.01f);
                 Player.lager.addRessourcen(Ressourcen.Food, -1);
+            }
+            else{
+                NPCManager.addMoral(-0.01f);
+            }
+        }
+        
+        //Glaube
+        timerBelief += tpf;
+        if(timerBelief >= timeBelief){
+            timerBelief = 0;
+            
+            System.out.println(Player.lager.getAnzahlRessourcen(Ressourcen.Belief));
+            if(Player.lager.getAnzahlRessourcen(Ressourcen.Belief) > 0){
+                NPCManager.addMoral(0.01f);
+                Player.lager.addRessourcen(Ressourcen.Belief, -1);
             }
             else{
                 NPCManager.addMoral(-0.01f);

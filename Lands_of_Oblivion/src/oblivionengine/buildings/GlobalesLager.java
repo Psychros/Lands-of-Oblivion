@@ -32,6 +32,7 @@ public class GlobalesLager {
         }
         
         addRessourcen(Ressourcen.Food, -10);
+        addRessourcen(Ressourcen.Belief, -10);
     }
 
     

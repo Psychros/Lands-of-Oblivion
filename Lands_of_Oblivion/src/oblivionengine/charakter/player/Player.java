@@ -23,6 +23,7 @@ import oblivionengine.buildings.workbuildings.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.workbuildings.BuildingFischer;
+import oblivionengine.buildings.workbuildings.BuildingKirche;
 
 /**
  *
@@ -107,6 +108,7 @@ public class Player extends CharakterControl{
                     case "Holzhaus":   if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
                     case "Steinhaus":  if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
                     case "Fischer":    if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
+                    case "Kirche":     if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;    
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt
