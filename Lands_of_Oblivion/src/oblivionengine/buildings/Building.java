@@ -51,8 +51,8 @@ public class Building extends Node{
     public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 10}}; 
     public static final int[][] PRICE_STEINMETZ  = {{Ressourcen.Wood.ordinal(), 15}};
     public static final int[][] PRICE_FISCHER    = {{Ressourcen.Wood.ordinal(), 10}};
-    public static final int[][] PRICE_KIRCHE     = {{Ressourcen.Wood.ordinal(), 20},
-                                                    {Ressourcen.Stone.ordinal(), 25}};
+    public static final int[][] PRICE_KIRCHE     = {{Ressourcen.Wood.ordinal(), 1},
+                                                    {Ressourcen.Stone.ordinal(), 1}};
     
     public static final int[][] PRICE_HOLZHAUS   = {{Ressourcen.Wood.ordinal(), 5}};
     public static final int[][] PRICE_STEINHAUS  = {{Ressourcen.Wood.ordinal(), 5},

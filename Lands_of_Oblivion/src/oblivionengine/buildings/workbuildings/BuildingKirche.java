@@ -55,6 +55,7 @@ public class BuildingKirche extends WorkBuilding{
         control.setRessource(Ressourcen.Belief);
         control.setTime(3);
         NPCManager.setIsChurch(true);
+        System.out.println(NPCManager.getMaxMoral());
     }
     
 }

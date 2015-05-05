@@ -118,15 +118,15 @@ public class NPCManager {
 
     //Ist eine Kirche gebaut?
     public static void setIsChurch(boolean isChurch) {
-        NPCManager.isChurch = isChurch;
-        
-        if(isChurch && !NPCManager.isChurch)
+        if(isChurch && !NPCManager.isChurch){
             maxMoral += 0.2f;
+        }
         else if(!isChurch && NPCManager.isChurch){
             maxMoral -= 0.2f;
             addMoral(0);    //Moral wird auf den neuen Maximalwert angepasst
         }
            
+        NPCManager.isChurch = isChurch;
     } 
     
     

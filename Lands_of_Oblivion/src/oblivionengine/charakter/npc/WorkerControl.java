@@ -48,11 +48,16 @@ public class WorkerControl extends NPCControl{
         super.controlUpdate(tpf);
         
         //Am Arbeitsplatz anhalten
-        if(isGoingToWorkplace && spatial.getLocalTranslation().distance(workPlace.getLocalTranslation()) < 3){
-           setWalkDirection(Vector2f.ZERO);
-           isGoingToWorkplace = false;
-           
-           workPlace.setWorker(this);
+        if(isGoingToWorkplace){
+            Vector2f v1 = new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z);
+            Vector2f v2 = new Vector2f(workPlace.getLocalTranslation().x, workPlace.getLocalTranslation().z);
+            
+            if(v1.distance(v2) < 1){
+                setWalkDirection(Vector2f.ZERO);
+                isGoingToWorkplace = false;
+
+                workPlace.setWorker(this);
+            }
         }
     }
     
