@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import oblivionengine.Game;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.workbuildings.WorkBuilding;
+import oblivionengine.charakter.bedürfnisse.Bedürfnis;
 
 /**
  *
@@ -31,12 +32,15 @@ public class NPCManager {
     private static float maxMoral = 1.50f;
     
     private static boolean isChurch = false; //Ist eine Kirche gebaut?
-
     
-
-    //--------------------------------------------------------------------------
-    //Konstruktoren
-
+    
+    private static ArrayList<Bedürfnis> bedürfnisse = new ArrayList<Bedürfnis>();
+    
+    //Alle Anfangsbedürfnisse
+    static{
+        addBedürnis(Bedürfnis.FOOD);
+        addBedürnis(Bedürfnis.BELIEf);
+    }
     
     
     //--------------------------------------------------------------------------
@@ -128,6 +132,23 @@ public class NPCManager {
            
         NPCManager.isChurch = isChurch;
     } 
+
+    public static ArrayList<Bedürfnis> getBedürfnisse() {
+        return bedürfnisse;
+    }
+    
+    //Umbedingt nutzen, um ein Bedürfnis hinzuzufürgen, da dadurch die Timer der NPCs aktualisiert werden
+    public static void addBedürfnis(Bedürfnis b){
+        bedürfnisse.add(b);
+        
+        //Timer aktualisieren
+        for (NPCControl npc : freeNPCs) {
+            npc.getTimerBedürfnisse().add(new Float(0));
+        }
+        for (WorkerControl npc : workingNPCs) {
+            npc.getTimerBedürfnisse().add(new Float(0));
+        }
+    }
     
     
     //--------------------------------------------------------------------------
@@ -166,5 +187,9 @@ public class NPCManager {
         
         String text = freePeople + "/" + workingPeople + " (" + (int)(moral*100) + "%)";
         Game.game.screens.setText("inGame", "Einwohner", text);
+    }
+    
+    public static void addBedürnis(Bedürfnis b){
+        bedürfnisse.add(b);
     }
 }
