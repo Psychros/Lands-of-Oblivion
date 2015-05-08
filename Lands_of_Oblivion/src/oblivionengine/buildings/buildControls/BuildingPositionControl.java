@@ -10,6 +10,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.terrain.geomipmap.TerrainPatch;
 import oblivionengine.Game;
@@ -23,8 +24,13 @@ import oblivionengine.buildings.Building;
  */
 public class BuildingPositionControl extends AbstractControl {
     
+    private Vector3f oldPos;
+    
     @Override
     protected void controlUpdate(float tpf) {
+        //Alte Position des Spatials zwischenspeichern
+        oldPos = spatial.getLocalTranslation();
+        
         //Position der neuen Position des Buldings feststellen
         CollisionResults results = new CollisionResults();
         Vector2f click2d = new Vector2f(960, 540);
@@ -49,6 +55,19 @@ public class BuildingPositionControl extends AbstractControl {
                 Game.game.mapState.getPlayer().canBeBuild = false;
             }
         } 
+        
+        
+        //Gebäude wieder auf alte Position setzen, wenn es mit einem anderen kollidiert
+        Gebäude:
+        if(Game.game.mapState.getMap().getBuildings() != null && Game.game.mapState.getMap().getBuildings().getChildren().size() > 0){
+            for (Spatial building : Game.game.mapState.getMap().getBuildings().getChildren()) {
+                if(spatial.collideWith(building.getWorldBound(), results) > 0){
+                    spatial.setLocalTranslation(oldPos);
+                    break Gebäude;
+                }
+            }
+        }
+        
     }
     
     @Override

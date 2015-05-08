@@ -31,6 +31,7 @@ public class Map extends Node{
     //Objektvariablen
     private TerrainQuad terrain;
     private Node trees;
+    private Node buildings;
     private float size = 1024;   //Wird nur mit einem Wert belegt, wenn man eine ebene Fläche im Kostruktor erzeugt
     private boolean isUndergroundTextureRepetition = false;
     
@@ -79,9 +80,14 @@ public class Map extends Node{
         bulletAppState.getPhysicsSpace().add(undergroundPhysic);
         undergroundPhysic.setFriction(3f);
         
+        //Bäume generieren
         trees = new Node("Trees");
         attachChild(trees);
         initTrees(300,   "Models/Landschaft/Baum.j3o", true);
+        
+        //Gebäudenode initialisieren
+        buildings = new Node("Buildings");
+        attachChild(buildings);
     }
     
     
@@ -270,7 +276,10 @@ public class Map extends Node{
     public BulletAppState getBulletAppState() {
         return bulletAppState;
     }
-    
+
+    public Node getBuildings() {
+        return buildings;
+    }
     
     
     //--------------------------------------------------------------------------

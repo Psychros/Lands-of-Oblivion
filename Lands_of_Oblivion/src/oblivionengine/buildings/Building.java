@@ -66,7 +66,7 @@ public class Building extends Node{
     //--------------------------------------------------------------------------
     //Konstruktoren 
     public Building(){
-        Game.game.mapState.getMap().attachChild(this);
+        Game.game.mapState.getMap().getBuildings().attachChild(this);
         
         NPCManager.numberBuildings++;
         

@@ -20,8 +20,6 @@ import com.jme3.scene.control.AbstractControl;
 import java.util.ArrayList;
 import oblivionengine.Game;
 import oblivionengine.buildings.BuildingHaus;
-import oblivionengine.buildings.Ressourcen;
-import oblivionengine.charakter.bedürfnisse.Bedürfnis;
 import oblivionengine.charakter.player.Player;
 
 /**
@@ -194,8 +192,6 @@ public class NPCControl extends AbstractControl{
             float timer = timerBedürfnisse.get(i);
             timer += tpf;
             timerBedürfnisse.set(i, timer);
-            
-            System.out.println("consumeProducts(float pf) " + timer);
             
             //Bedürfnis überprüfen und Moral anpassen
             if(timer >= NPCManager.getBedürfnisse().get(i).getTime()){

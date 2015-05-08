@@ -174,8 +174,6 @@ public class NPCManager {
             
             //NPC zum Arbeitsplatz laufen lassen
             npc.goToWorkPlace();
-            
-            System.out.println(freeNPCs.size() + "/" + workingNPCs.size() + " : " + freeBuildings.size() + "/" + workingBuildings.size());
         }
     }
     
