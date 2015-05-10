@@ -7,6 +7,7 @@ package oblivionengine.buildings.workbuildings;
 
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.charakter.npc.Job;
 import oblivionengine.charakter.npc.NPCManager;
 import oblivionengine.charakter.npc.WorkerControl;
 
@@ -51,4 +52,8 @@ public class WorkBuilding extends Building{
     public void build() {
         super.build(); //To change body of generated methods, choose Tools | Templates.
     }  
+    
+    public Job getJob(){
+        return null;
+    }
 }

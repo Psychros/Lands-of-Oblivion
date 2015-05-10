@@ -13,7 +13,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import oblivionengine.Game;
-import oblivionengine.TreeControl;
+import oblivionengine.TreeCutControl;
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.workbuildings.BuildingHolzfäller;
 import oblivionengine.buildings.BuildingHolzhaus;
@@ -79,7 +79,7 @@ public class Player extends CharakterControl{
             if(tree != null && tree.getParent().getControl(RigidBodyControl.class).getMass()==0 && tree.getParent().getName().equals("Tree") && results.getClosestCollision().getDistance() < 10){          
                 
                 //Den Baum umfallen lassen
-                TreeControl treeControl = new TreeControl(tree);
+                TreeCutControl treeControl = new TreeCutControl(tree);
                 tree.addControl(treeControl);
                 treeControl.fallDown();
                 

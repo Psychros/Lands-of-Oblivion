@@ -16,7 +16,7 @@ import com.jme3.scene.control.AbstractControl;
  * festgelegten Zeit verschwinden
  * @author To
  */
-public class TreeControl extends AbstractControl {
+public class TreeCutControl extends AbstractControl {
     
     private float timer = 0;
     private float timerTime = 4;
@@ -26,7 +26,7 @@ public class TreeControl extends AbstractControl {
     private boolean isCut = false; 
     
 
-    public TreeControl(Geometry tree) {
+    public TreeCutControl(Geometry tree) {
         super();
         
         this.tree = tree;
@@ -50,7 +50,7 @@ public class TreeControl extends AbstractControl {
             timer += tpf;
             if(timer > timerTime){
                 //Baum verschinden lassen
-                Game.game.mapState.getMap().getTrees().detachChild(tree.getParent());
+                tree.getParent().removeFromParent();
                 Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(tree.getParent());
             } 
         }

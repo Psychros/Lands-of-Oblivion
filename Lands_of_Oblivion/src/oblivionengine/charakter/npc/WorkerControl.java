@@ -17,6 +17,7 @@ import oblivionengine.buildings.workbuildings.WorkBuilding;
  */
 public class WorkerControl extends NPCControl{
     //Objektvariablen
+    private Job job;
     private WorkBuilding workPlace = null;
     private boolean isGoingToWorkplace = true;
     
@@ -40,6 +41,15 @@ public class WorkerControl extends NPCControl{
         this.workPlace = workPlace;
     }
 
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+    
+
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
 
@@ -55,10 +65,17 @@ public class WorkerControl extends NPCControl{
             if(v1.distance(v2) < 1){
                 setWalkDirection(Vector2f.ZERO);
                 isGoingToWorkplace = false;
-
                 workPlace.setWorker(this);
+                
+                //Job einstellen
+                setJob(workPlace.getJob());
+                job.setWorker(this);
             }
         }
+        
+        //Job ausführen
+        if(job != null)
+            job.update(tpf);
     }
     
     
