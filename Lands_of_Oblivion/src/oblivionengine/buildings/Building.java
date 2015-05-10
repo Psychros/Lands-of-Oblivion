@@ -23,8 +23,8 @@ import static oblivionengine.charakter.player.Player.selectedBuilding;
  */
 public class Building extends Node{
 
-    private int[] size ={0, 0, 0};      //Größe des Gebäudes
-    private int[][] PRICE = {};         //Preis des Gebäudes
+    protected int[] size ={0, 0, 0};      //Größe des Gebäudes
+    protected int[][] PRICE = {};         //Preis des Gebäudes
     
     public static final int RAND = 6;   //Rand, der um ein Gebäude herum ist
     

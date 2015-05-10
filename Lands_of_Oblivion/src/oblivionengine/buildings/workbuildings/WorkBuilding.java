@@ -46,4 +46,9 @@ public class WorkBuilding extends Building{
         
         NPCManager.addFreeBuildings(this);
     }
+
+    @Override
+    public void build() {
+        super.build(); //To change body of generated methods, choose Tools | Templates.
+    }  
 }

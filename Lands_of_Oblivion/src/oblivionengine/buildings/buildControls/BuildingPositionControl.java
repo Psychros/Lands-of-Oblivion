@@ -15,6 +15,7 @@ import com.jme3.scene.control.AbstractControl;
 import com.jme3.terrain.geomipmap.TerrainPatch;
 import oblivionengine.Game;
 import oblivionengine.buildings.Building;
+import oblivionengine.buildings.workbuildings.BuildingFischer;
 
 /**
  * Dieser Control aktuallisiert die Position eines zu bauenden Gebäudes, das noch nicht gesetzt wurde auf
@@ -24,7 +25,7 @@ import oblivionengine.buildings.Building;
  */
 public class BuildingPositionControl extends AbstractControl {
     
-    private Vector3f oldPos;
+    protected Vector3f oldPos;
     
     @Override
     protected void controlUpdate(float tpf) {
@@ -68,6 +69,10 @@ public class BuildingPositionControl extends AbstractControl {
             }
         }
         
+        //Der Fischer darf nur am Wasser stehen
+        if(spatial instanceof BuildingFischer && spatial.getLocalTranslation().getY() > 15){
+            Game.game.mapState.getPlayer().canBeBuild = false;
+        }
     }
     
     @Override

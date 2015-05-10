@@ -5,6 +5,7 @@
 
 package oblivionengine.buildings.workbuildings;
 
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
@@ -12,6 +13,8 @@ import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.buildings.buildControls.BuildBuildingControl;
+import static oblivionengine.charakter.player.Player.selectedBuilding;
 
 /**
  *
@@ -53,5 +56,4 @@ public class BuildingFischer extends WorkBuilding{
         
         control.setRessource(Ressourcen.Food);
     }
-    
 }
