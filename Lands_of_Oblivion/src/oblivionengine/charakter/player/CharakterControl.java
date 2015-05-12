@@ -27,7 +27,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     //Objektvariablen
     protected boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
     private float moveSpeed = 15;
-    private static float mouseSensitivity = 20;
+    private static float mouseSensitivity = 25;
     private Node head = new Node();
     private float yaw;
     

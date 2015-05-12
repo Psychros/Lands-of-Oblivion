@@ -18,7 +18,7 @@ public class TreePlantControl extends AbstractControl{
     private float timer = 0;
     private float timerTime = 2f;
     private int steps = 0;          //Anzahl der geleisteten Wachstumsschritte
-    private int numberSteps = 20;   //Anzahl der zu leistenden Wachstumsschritte
+    private int numberSteps = 25;   //Anzahl der zu leistenden Wachstumsschritte
 
     //--------------------------------------------------------------------------
     //Konstruktoren

@@ -145,15 +145,18 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     //Ausgewählten Button wieder entfärben, wenn der Cursor ihn nicht mehr auswählt
     public void resetMouseOver(){
-        Element niftyElement4 = nifty.getCurrentScreen().findElementByName(name);
-        niftyElement4.getRenderer(ImageRenderer.class).setImage(img);
+        if(name != null){
+            Element niftyElement4 = nifty.getCurrentScreen().findElementByName(name);
+            if(niftyElement4 != null)
+                niftyElement4.getRenderer(ImageRenderer.class).setImage(img);
+        }
     }
     
     //Ausgewählten Button einfärben
     public void mouseOver(String value){
-        /*
-         * Alle Bilder der Buttons zurücksetzen
-         */             
+        //Der alte Button darf nicht mehr ausgewählt sein
+        resetMouseOver();
+            
         //Bild des ausgewählten buttons ändern
         String[] values = value.trim().split(". ");
         
