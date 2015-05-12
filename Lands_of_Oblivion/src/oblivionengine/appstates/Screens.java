@@ -20,6 +20,7 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import de.lessvoid.nifty.tools.SizeValue;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState.InputMapping;
 import oblivionengine.charakter.player.CharakterControl;
@@ -42,6 +43,9 @@ public class Screens extends AbstractAppState implements ScreenController{
     private byte baumenüControl   = 0;
     
     Node tree;
+    
+    //Ausgewählte Kategorie im Baumenü
+    private String category = "";
 
     public NiftyJmeDisplay getNiftyDisplay() {
         return niftyDisplay;
@@ -284,5 +288,27 @@ public class Screens extends AbstractAppState implements ScreenController{
         //Zum Spiel zurückkehren
         baumenüControl = 0;
         goToGame();
+    }
+    
+    //Wechsel in ein Untermenü des Baumenüs
+    public void switchCategory(String name){
+        //Position des Untermenüs wechseln
+        nifty.getCurrentScreen().findElementByName(name).setConstraintX(new SizeValue("64%"));
+        
+        //Position des Obermenüs wechseln
+        nifty.getCurrentScreen().findElementByName("buttons").setConstraintX(new SizeValue("100%"));
+        
+        nifty.getCurrentScreen().layoutLayers();
+    }
+    
+    //Zurück zum Obermenü wechseln
+    public void switchBack(String name){
+        //Position des Obermenüs wechseln
+        nifty.getCurrentScreen().findElementByName("buttons").setConstraintX(new SizeValue("64%"));
+        
+        //Position des Untermenüs wechseln
+        nifty.getCurrentScreen().findElementByName(name).setConstraintX(new SizeValue("100%"));
+        
+        nifty.getCurrentScreen().layoutLayers();
     }
 }
