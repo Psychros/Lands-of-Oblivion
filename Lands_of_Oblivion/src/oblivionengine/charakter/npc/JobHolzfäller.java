@@ -15,6 +15,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import oblivionengine.Game;
 import oblivionengine.TreeCutControl;
+import oblivionengine.TreePlantControl;
 import oblivionengine.buildings.workbuildings.BuildingHolzfäller;
 
 /**
@@ -87,7 +88,7 @@ public class JobHolzfäller extends Job{
             task++;
         }
         
-        //Warten, bis der Baum umgefallen
+        //Warten, bis der Baum umgefallen ist und einen neuen pflanzen
         else if(task == 2){
             timer += tpf;
             
@@ -124,6 +125,7 @@ public class JobHolzfäller extends Job{
         tree.setName("Tree");
         tree.setLocalTranslation(pos);
         tree.scale((float)Math.random()+1);
+        tree.scale(0.1f);
         int rotation = (int)(Math.random()*360);
         tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
         Game.game.mapState.getMap().getTrees().attachChild(tree);
@@ -138,5 +140,8 @@ public class JobHolzfäller extends Job{
         control.setGravity(new Vector3f(0, -98.1f, 0));
         tree.addControl(control);
         Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(control);
+        
+        //Baum soll wachsen
+        tree.addControl(new TreePlantControl());
     }
 }
