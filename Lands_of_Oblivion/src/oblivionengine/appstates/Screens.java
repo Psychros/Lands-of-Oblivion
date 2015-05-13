@@ -293,10 +293,10 @@ public class Screens extends AbstractAppState implements ScreenController{
     //Wechsel in ein Untermenü des Baumenüs
     public void switchCategory(String name){
         //Position des Untermenüs wechseln
-        nifty.getCurrentScreen().findElementByName(name).setConstraintX(new SizeValue("64%"));
+        nifty.getCurrentScreen().findElementByName(name).setVisible(true);
         
         //Position des Obermenüs wechseln
-        nifty.getCurrentScreen().findElementByName("buttons").setConstraintX(new SizeValue("100%"));
+        nifty.getCurrentScreen().findElementByName("buttons").setVisible(false);
         
         nifty.getCurrentScreen().layoutLayers();
     }
@@ -304,10 +304,10 @@ public class Screens extends AbstractAppState implements ScreenController{
     //Zurück zum Obermenü wechseln
     public void switchBack(String name){
         //Position des Obermenüs wechseln
-        nifty.getCurrentScreen().findElementByName("buttons").setConstraintX(new SizeValue("64%"));
+        nifty.getCurrentScreen().findElementByName("buttons").setVisible(true);
         
         //Position des Untermenüs wechseln
-        nifty.getCurrentScreen().findElementByName(name).setConstraintX(new SizeValue("100%"));
+        nifty.getCurrentScreen().findElementByName(name).setVisible(false);
         
         nifty.getCurrentScreen().layoutLayers();
     }

@@ -90,22 +90,51 @@
                 <image id="nichts"     filename="Interface/Menüs/Baumenü/ButtonNichts.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Nichts)" onMouseOver="mouseOver(nichts. Interface/Menüs/Baumenü/ButtonNichts2.png. Interface/Menüs/Baumenü/ButtonNichts.png)"/>
                 </image>
-                <image id="baumaterial"  filename="Interface/Menüs/Baumenü/ButtonBaumaterial.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="einwohner"  filename="Interface/Menüs/Baumenü/ButtonEinwohner.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchCategory(buttonsEinwohner)" onMouseOver="mouseOver(einwohner. Interface/Menüs/Baumenü/ButtonEinwohner2.png. Interface/Menüs/Baumenü/ButtonEinwohner.png)"/>
+                </image>
+                <image id="gesellschaft"  filename="Interface/Menüs/Baumenü/ButtonGesellschaft.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchCategory(buttonsGesellschaft)" onMouseOver="mouseOver(gesellschaft. Interface/Menüs/Baumenü/ButtonGesellschaft2.png. Interface/Menüs/Baumenü/ButtonGesellschaft.png)"/>
+                </image>
+                <image id="baumaterial"  filename="Interface/Menüs/Baumenü/ButtonBaumaterial.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchCategory(buttonsBaumaterial)" onMouseOver="mouseOver(baumaterial. Interface/Menüs/Baumenü/ButtonBaumaterial2.png. Interface/Menüs/Baumenü/ButtonBaumaterial.png)"/>
                 </image>
-                <image id="waren"  filename="Interface/Menüs/Baumenü/ButtonWaren.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="waren"  filename="Interface/Menüs/Baumenü/ButtonWaren.png"     x="5%" y="55%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchCategory(buttonsWaren)" onMouseOver="mouseOver(waren. Interface/Menüs/Baumenü/ButtonWaren2.png. Interface/Menüs/Baumenü/ButtonWaren.png)"/>
-                </image>
-                <image id="holzhaus" filename="Interface/Menüs/Baumenü/ButtonHolzhaus.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding(Holzhaus)" onMouseOver="mouseOver(holzhaus. Interface/Menüs/Baumenü/ButtonHolzhaus2.png. Interface/Menüs/Baumenü/ButtonHolzhaus.png)"/>
-                </image>
-                <image id="steinhaus" filename="Interface/Menüs/Baumenü/ButtonSteinhaus.png"     x="5%" y="55%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding(Steinhaus)" onMouseOver="mouseOver(steinhaus. Interface/Menüs/Baumenü/ButtonSteinhaus2.png. Interface/Menüs/Baumenü/ButtonSteinhaus.png)"/>
                 </image>
             </panel>
             
-            <!-->Kategorie Baustoffe<-->
-            <panel id="buttonsBaumaterial" x="100%" y="0%" height="100%" width="36%" childLayout="absolute">
+            <!-->Kategorie Einwohner<-->
+            <panel id="buttonsEinwohner" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
+                <interact onMouseOver="resetMouseOver()"/>
+                
+                <image id="holzhaus" filename="Interface/Menüs/Baumenü/Einwohner/ButtonHolzhaus.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Holzhaus)" onMouseOver="mouseOver(holzhaus. Interface/Menüs/Baumenü/Einwohner/ButtonHolzhaus2.png. Interface/Menüs/Baumenü/Einwohner/ButtonHolzhaus.png)"/>
+                </image>
+                <image id="steinhaus" filename="Interface/Menüs/Baumenü/Einwohner/ButtonSteinhaus.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Steinhaus)" onMouseOver="mouseOver(steinhaus. Interface/Menüs/Baumenü/Einwohner/ButtonSteinhaus2.png. Interface/Menüs/Baumenü/Einwohner/ButtonSteinhaus.png)"/>
+                </image>
+                
+                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchBack(buttonsEinwohner)" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                </image>
+            </panel>
+            
+            <!-->Kategorie Gesellschaft<-->
+            <panel id="buttonsGesellschaft" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
+                <interact onMouseOver="resetMouseOver()"/>
+                
+                <image id="kirche" filename="Interface/Menüs/Baumenü/Gesellschaft/ButtonKirche.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Kirche)" onMouseOver="mouseOver(kirche. Interface/Menüs/Baumenü/Gesellschaft/ButtonKirche2.png. Interface/Menüs/Baumenü/Gesellschaft/ButtonKirche.png)"/>
+                </image>
+                
+                <image id="zurück2"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="75%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchBack(buttonsGesellschaft)" onMouseOver="mouseOver(zurück2. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                </image>
+            </panel>
+            
+            <!-->Kategorie Baumaterial<-->
+            <panel id="buttonsBaumaterial" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
                 <interact onMouseOver="resetMouseOver()"/>
                 
                 <image id="holzfäller" filename="Interface/Menüs/Baumenü/Baustoffe/ButtonHolzfäller.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
@@ -115,13 +144,13 @@
                     <interact onClick="chooseBuilding(Steinmetz)" onMouseOver="mouseOver(steinmetz. Interface/Menüs/Baumenü/Baustoffe/ButtonSteinmetz2.png. Interface/Menüs/Baumenü/Baustoffe/ButtonSteinmetz.png)"/>
                 </image>
                 
-                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="switchBack(buttonsBaumaterial)" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                <image id="zurück3"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchBack(buttonsBaumaterial)" onMouseOver="mouseOver(zurück3. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
             </panel>
             
             <!-->Kategorie Waren<-->
-            <panel id="buttonsWaren" x="100%" y="0%" height="100%" width="36%" childLayout="absolute">
+            <panel id="buttonsWaren" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
                 <interact onMouseOver="resetMouseOver()"/>
                 
                 <image id="lager"     filename="Interface/Menüs/Baumenü/Waren/ButtonLager.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
@@ -130,12 +159,9 @@
                 <image id="fischer" filename="Interface/Menüs/Baumenü/Waren/ButtonFischer.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Fischer)" onMouseOver="mouseOver(fischer. Interface/Menüs/Baumenü/Waren/ButtonFischer2.png. Interface/Menüs/Baumenü/Waren/ButtonFischer.png)"/>
                 </image>
-                <image id="kirche" filename="Interface/Menüs/Baumenü/Waren/ButtonKirche.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding(Kirche)" onMouseOver="mouseOver(kirche. Interface/Menüs/Baumenü/Waren/ButtonKirche2.png. Interface/Menüs/Baumenü/Waren/ButtonKirche.png)"/>
-                </image>
                 
-                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="switchBack(buttonsWaren)" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                <image id="zurück4"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchBack(buttonsWaren)" onMouseOver="mouseOver(zurück4. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
             </panel>
         </layer>
