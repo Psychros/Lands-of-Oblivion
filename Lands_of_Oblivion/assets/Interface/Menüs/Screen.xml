@@ -128,7 +128,7 @@
                     <interact onClick="chooseBuilding(Kirche)" onMouseOver="mouseOver(kirche. Interface/Menüs/Baumenü/Gesellschaft/ButtonKirche2.png. Interface/Menüs/Baumenü/Gesellschaft/ButtonKirche.png)"/>
                 </image>
                 
-                <image id="zurück2"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="75%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="zurück2"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchBack(buttonsGesellschaft)" onMouseOver="mouseOver(zurück2. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
             </panel>
@@ -167,4 +167,14 @@
         </layer>
     </screen>
     
+    
+    <screen id="lager" controller="oblivionengine.appstates.Screens">
+        <layer id="background" childLayout="absolute">
+            <image filename="Interface/Menüs/Lagermenü/Lager.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+                <interact onMouseOver="resetMouseOver()"/>
+                    
+        </layer>
+    </screen>
 </nifty>

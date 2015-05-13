@@ -39,8 +39,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     NiftyJmeDisplay niftyDisplay;
     String name; NiftyImage img;   //Ausgewählter Button und dessen Name
     private Nifty nifty;
-    private byte cheatmenüControl = 0;
-    private byte baumenüControl   = 0;
+    private byte menüControl   = 0;
     
     Node tree;
     
@@ -137,6 +136,30 @@ public class Screens extends AbstractAppState implements ScreenController{
     }
     
     
+    //Zu einem Menü wechseln
+    public void switchToMenu(String menu){
+        if (menüControl == 0){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
+                menüControl++;
+            }
+        } else if (menüControl == 1){
+            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
+                menüControl++;
+                goToMenu(menu);
+            }
+        } else if (menüControl == 2){
+            if (nifty.getCurrentScreen().getScreenId().equals(menu)){
+                menüControl++;
+            }
+        } else if (menüControl == 3){
+            if (nifty.getCurrentScreen().getScreenId().equals(menu)){
+                menüControl = 0;
+                goToGame();
+            }
+        }
+    }
+    
+    
     //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
     public void goToGame(){
         Game.game.mapState.addInputMappings();
@@ -223,29 +246,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     /*
      * Cheatmenü
-     */
-    public void switchToCheatmenü(){
-        if (cheatmenüControl == 0){
-            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
-                cheatmenüControl++;
-            }
-        } else if (cheatmenüControl == 1){
-            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
-                cheatmenüControl++;
-                goToMenu("cheatmenü");
-            }
-        } else if (cheatmenüControl == 2){
-            if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
-                cheatmenüControl++;
-            }
-        } else if (cheatmenüControl == 3){
-            if (nifty.getCurrentScreen().getScreenId().equals("cheatmenü")){
-                cheatmenüControl = 0;
-                goToGame();
-            }
-        }
-    }
-    
+     */  
     public void cheat(String cheat){
         
     }
@@ -254,29 +255,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     /*
      * Baumenü
-     */
-    public void switchToBaumenü(){
-        if (baumenüControl == 0){
-            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){
-                baumenüControl++;
-            }
-        } else if (baumenüControl == 1){
-            if (nifty.getCurrentScreen().getScreenId().equals("inGame")){   
-                baumenüControl++;
-                goToMenu("baumenü");
-            }
-        } else if (baumenüControl == 2){
-            if (nifty.getCurrentScreen().getScreenId().equals("baumenü")){
-                baumenüControl++;
-            }
-        } else if (baumenüControl == 3){
-            if (nifty.getCurrentScreen().getScreenId().equals("baumenü")){
-                baumenüControl = 0;
-                goToGame();
-            }
-        }
-    }
-    
+     */ 
     //Gebäude auswählen
     public void chooseBuilding(String buildingID){
         //ID des Gebäudes auswählen
@@ -286,7 +265,7 @@ public class Screens extends AbstractAppState implements ScreenController{
             Player.selectedBuildingID = buildingID;
         
         //Zum Spiel zurückkehren
-        baumenüControl = 0;
+        menüControl = 0;
         goToGame();
     }
     

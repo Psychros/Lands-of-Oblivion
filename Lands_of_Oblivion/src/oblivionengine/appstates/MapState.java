@@ -48,7 +48,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public static enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, Cheatmenü, Return, Baumenü;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, Cheatmenü, Return, Baumenü, Lagermenü;
     }
     
     //--------------------------------------------------------------------------
@@ -181,9 +181,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.Build.name(), new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
         
         //Mappings, die auch in einem Menü benutzt werden können
-        inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_J));
+        inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_C));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
+        inputManager.addMapping(InputMapping.Lagermenü.name(), new KeyTrigger(KeyInput.KEY_V));
         
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
@@ -214,7 +215,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         //Cheatmenü
         if (parseKeys(name)) return;    
         //Baumenü
-        if(name.equals(InputMapping.Baumenü.name()))Game.game.screens.switchToBaumenü(); 
+        if(name.equals(InputMapping.Baumenü.name()))Game.game.screens.switchToMenu("baumenü"); 
+        else if(name.equals(InputMapping.Lagermenü.name()))Game.game.screens.switchToMenu("lager"); 
         
         //Alle anderen Mappings
         if(player != null){
@@ -393,7 +395,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private boolean parseKeys(String name){
         boolean returned = false;
         if (name.equals(InputMapping.Cheatmenü.name())){
-            Game.game.getScreens().switchToCheatmenü();
+            Game.game.getScreens().switchToMenu("cheatmenü");
             returned = true;
         } else if (name.equals(InputMapping.Return.name())){
             if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
