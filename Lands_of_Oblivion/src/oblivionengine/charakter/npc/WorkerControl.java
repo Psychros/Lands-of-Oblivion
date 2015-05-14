@@ -69,7 +69,8 @@ public class WorkerControl extends NPCControl{
                 
                 //Job einstellen
                 setJob(workPlace.getJob());
-                job.setWorker(this);
+                if(job != null)
+                    job.setWorker(this);
             }
         }
         

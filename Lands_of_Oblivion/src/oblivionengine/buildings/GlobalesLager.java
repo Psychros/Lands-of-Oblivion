@@ -31,7 +31,7 @@ public class GlobalesLager {
             addRessourcen(i, 10); //Startwert für alle Ressourcen
         }
         
-        addRessourcen(Ressourcen.Food, -10);
+        addRessourcen(Ressourcen.Fish, -10);
         addRessourcen(Ressourcen.Belief, -10);
     }
 
@@ -87,9 +87,16 @@ public class GlobalesLager {
     
     //Aktualisiere die Anzeige
     public void actualizeText(int id){
-        if(id == Ressourcen.Wood.ordinal())
+        if(id == Ressourcen.Wood.ordinal()){
             Game.game.screens.setText("inGame", "Baumstämme", ressourcen[id]);
-        else if(id == Ressourcen.Stone.ordinal())
+            Game.game.screens.setText("lager",  "Holz", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Stone.ordinal()){
             Game.game.screens.setText("inGame", "Stein", ressourcen[id]);
+            Game.game.screens.setText("lager", "Stein", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Fish.ordinal()){
+            Game.game.screens.setText("lager", "Fisch", ressourcen[id]);
+        }
     }
 }

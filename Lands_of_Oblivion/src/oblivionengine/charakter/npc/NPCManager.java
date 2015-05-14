@@ -38,7 +38,7 @@ public class NPCManager {
     
     //Alle Anfangsbedürfnisse
     static{
-        addBedürnis(Bedürfnis.FOOD);
+        addBedürnis(Bedürfnis.FISH);
         addBedürnis(Bedürfnis.BELIEf);
     }
     

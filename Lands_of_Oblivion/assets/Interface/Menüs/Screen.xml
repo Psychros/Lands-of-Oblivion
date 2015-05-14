@@ -175,6 +175,9 @@
         <layer id="foreground" childLayout="absolute">
                 <interact onMouseOver="resetMouseOver()"/>
                     
+                <control id="Holz"  name="label" text="0" x="85px"  y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Stein" name="label" text="0" x="300px" y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Fisch" name="label" text="0" x="85px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
         </layer>
     </screen>
 </nifty>

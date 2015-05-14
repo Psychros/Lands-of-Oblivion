@@ -54,6 +54,6 @@ public class BuildingFischer extends WorkBuilding{
     public void finishBuilding() {
         super.finishBuilding(); 
         
-        control.setRessource(Ressourcen.Food);
+        control.setRessource(Ressourcen.Fish);
     }
 }
