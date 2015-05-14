@@ -128,7 +128,7 @@ public class JobHolzfäller extends Job{
         tree.scale(0.1f);
         int rotation = (int)(Math.random()*360);
         tree.rotate(0, rotation* FastMath.DEG_TO_RAD, 0);
-        Game.game.mapState.getMap().getTrees().attachChild(tree);
+        Game.game.mapState.getMap().attachChild(tree);
         building.getTrees()[numberTree] = tree;
 
         //Schatten einstellen
