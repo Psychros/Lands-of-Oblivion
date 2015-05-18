@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings;
+package oblivionengine.buildings.einwohner;
 
+import oblivionengine.buildings.Building;
 import oblivionengine.charakter.npc.NPCControl;
 import oblivionengine.charakter.npc.NPCManager;
 

@@ -159,11 +159,61 @@
                 <image id="fischer" filename="Interface/Menüs/Baumenü/Waren/ButtonFischer.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Fischer)" onMouseOver="mouseOver(fischer. Interface/Menüs/Baumenü/Waren/ButtonFischer2.png. Interface/Menüs/Baumenü/Waren/ButtonFischer.png)"/>
                 </image>
+                <image id="bier" filename="Interface/Menüs/Baumenü/Waren/ButtonBier.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchTo(buttonsWaren. buttonsBier)" onMouseOver="mouseOver(bier. Interface/Menüs/Baumenü/Waren/ButtonBier2.png. Interface/Menüs/Baumenü/Waren/ButtonBier.png)"/>
+                </image>
+                <image id="brot" filename="Interface/Menüs/Baumenü/Waren/ButtonBrot.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="switchTo(buttonsWaren. buttonsBrot)" onMouseOver="mouseOver(brot. Interface/Menüs/Baumenü/Waren/ButtonBrot2.png. Interface/Menüs/Baumenü/Waren/ButtonBrot.png)"/>
+                </image>
                 
                 <image id="zurück4"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchBack(buttonsWaren)" onMouseOver="mouseOver(zurück4. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
             </panel>
+            
+                <!-->Kategorie Waren - Bier<-->
+                <panel id="buttonsBier" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
+                    <interact onMouseOver="resetMouseOver()"/>
+                    
+                    <image id="hopfenfarm" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonHopfenfarm.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Hopfenfarm)" onMouseOver="mouseOver(hopfenfarm. Interface/Menüs/Baumenü/Waren/Bier/ButtonHopfenfarm2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonHopfenfarm.png)"/>
+                    </image>
+                    <image id="getreidefarm" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Getreidefarm)" onMouseOver="mouseOver(getreidefarm. Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm.png)"/>
+                    </image>
+                    <image id="brunnen" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Brunnen)" onMouseOver="mouseOver(brunnen. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen.png)"/>
+                    </image>
+                    <image id="brauerei" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonBrauerei.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Brauerei)" onMouseOver="mouseOver(brauerei. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrauerei2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrauerei.png)"/>
+                    </image>
+
+                    <image id="zurück5"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="switchTo(buttonsBier. buttonsWaren)" onMouseOver="mouseOver(zurück5. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                    </image>
+                </panel>
+                
+                <!-->Kategorie Waren - Brot<-->
+                <panel id="buttonsBrot" x="64%" y="0%" height="100%" width="36%" childLayout="absolute" visible="false">
+                    <interact onMouseOver="resetMouseOver()"/>
+                    
+                    <image id="getreidefarm2" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Getreidefarm)" onMouseOver="mouseOver(getreidefarm2. Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonGetreidefarm.png)"/>
+                    </image>
+                    <image id="mühle" filename="Interface/Menüs/Baumenü/Waren/Brot/ButtonMühle.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Mühle)" onMouseOver="mouseOver(mühle. Interface/Menüs/Baumenü/Waren/Brot/ButtonMühle2.png. Interface/Menüs/Baumenü/Waren/Brot/ButtonMühle.png)"/>
+                    </image>
+                    <image id="brunnen2" filename="Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Brunnen)" onMouseOver="mouseOver(brunnen2. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen2.png. Interface/Menüs/Baumenü/Waren/Bier/ButtonBrunnen.png)"/>
+                    </image>
+                    <image id="bäcker" filename="Interface/Menüs/Baumenü/Waren/Brot/ButtonBäcker.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="chooseBuilding(Bäcker)" onMouseOver="mouseOver(bäcker. Interface/Menüs/Baumenü/Waren/Brot/ButtonBäcker2.png. Interface/Menüs/Baumenü/Waren/Brot/ButtonBäcker.png)"/>
+                    </image>
+
+                    <image id="zurück6"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="5%" y="85%" height="8%" width="64%" visibleToMouse="true"> 
+                        <interact onClick="switchTo(buttonsBrot. buttonsWaren)" onMouseOver="mouseOver(zurück6. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                    </image>
+                </panel>
         </layer>
     </screen>
     
@@ -175,9 +225,16 @@
         <layer id="foreground" childLayout="absolute">
                 <interact onMouseOver="resetMouseOver()"/>
                     
-                <control id="Holz"  name="label" text="0" x="85px"  y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Stein" name="label" text="0" x="300px" y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Fisch" name="label" text="0" x="85px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Lager"    name="label" text="0" x="85px"    y="25px"   height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Holz"     name="label" text="0" x="85px"    y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Stein"    name="label" text="0" x="285px"   y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Fisch"    name="label" text="0" x="85px"    y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Wasser"   name="label" text="0" x="285px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Getreide" name="label" text="0" x="485px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Hopfen"   name="label" text="0" x="685px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Bier"     name="label" text="0" x="885px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Mehl"     name="label" text="0" x="1085px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Brot"     name="label" text="0" x="1285px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
         </layer>
     </screen>
 </nifty>

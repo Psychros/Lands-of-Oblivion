@@ -16,7 +16,7 @@ import com.jme3.scene.Node;
 import oblivionengine.Game;
 import oblivionengine.TreeCutControl;
 import oblivionengine.TreePlantControl;
-import oblivionengine.buildings.workbuildings.BuildingHolzfäller;
+import oblivionengine.buildings.baumaterial.BuildingHolzfäller;
 
 /**
  *

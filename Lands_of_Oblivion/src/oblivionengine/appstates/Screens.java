@@ -163,6 +163,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
     public void goToGame(){
         Game.game.mapState.addInputMappings();
+        resetMouseOver();
         
         nifty.gotoScreen("inGame");
         Game.game.getInputManager().setCursorVisible(false);
@@ -264,6 +265,9 @@ public class Screens extends AbstractAppState implements ScreenController{
         else
             Player.selectedBuildingID = buildingID;
         
+        //Zum Obermenü zurückkehren
+        switchBack(category);
+        
         //Zum Spiel zurückkehren
         menüControl = 0;
         goToGame();
@@ -278,6 +282,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.getCurrentScreen().findElementByName("buttons").setVisible(false);
         
         nifty.getCurrentScreen().layoutLayers();
+        category = name;
     }
     
     //Zurück zum Obermenü wechseln
@@ -289,5 +294,23 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.getCurrentScreen().findElementByName(name).setVisible(false);
         
         nifty.getCurrentScreen().layoutLayers();
+        category = "";
+    }
+    
+    //Zu einer Kategorie wechseln
+    //names[1]: Aufrufendes Menü
+    //names[0]: Zielmenü
+    public void switchTo(String name){
+        
+        String[] names = name.split(". ");
+        //Position des Obermenüs wechseln
+        nifty.getCurrentScreen().findElementByName(names[1]).setVisible(true);
+        
+        //Position des Untermenüs wechseln
+        nifty.getCurrentScreen().findElementByName(names[0]).setVisible(false);
+        
+        nifty.getCurrentScreen().layoutLayers();
+        
+        category = names[1];
     }
 }

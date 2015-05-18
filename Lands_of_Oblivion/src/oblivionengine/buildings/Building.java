@@ -32,11 +32,12 @@ public class Building extends Node{
      * Größen aller Gebäude
      * //x, z, höhe
      */
-    public static final int[] SIZE_LAGER      = {7, 4, 7};   
-    public static final int[] SIZE_HOLZFÄLLER = {10, 10, 8};   
-    public static final int[] SIZE_STEINMETZ  = {10, 10, 8};
-    public static final int[] SIZE_FISCHER    = {5, 10, 10}; 
-    public static final int[] SIZE_KIRCHE     = {10, 20, 20}; 
+    public static final int[] SIZE_LAGER       = {7, 4, 7};   
+    public static final int[] SIZE_HOLZFÄLLER  = {10, 10, 8};   
+    public static final int[] SIZE_STEINMETZ   = {10, 10, 8};
+    public static final int[] SIZE_FISCHER     = {5, 10, 10}; 
+    public static final int[] SIZE_KIRCHE      = {10, 20, 20}; 
+    public static final int[] SIZE_BRUNNEN     = {5, 5, 6}; 
     
     public static final int[] SIZE_HOLZHAUS   = {5, 5, 5};
     public static final int[] SIZE_STEINHAUS  = {5, 5, 10};
@@ -47,16 +48,16 @@ public class Building extends Node{
      * Baukosten werden in 2dimensionalen int-Arrays festgehalten
      * Der erste Wert ist die Rohstoff-ID und der zweite Wert die Anzahl
      */
-    public static final int[][] PRICE_LAGER      = {{Ressourcen.Wood.ordinal(), 10}};  
-    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Wood.ordinal(), 10}}; 
-    public static final int[][] PRICE_STEINMETZ  = {{Ressourcen.Wood.ordinal(), 15}};
-    public static final int[][] PRICE_FISCHER    = {{Ressourcen.Wood.ordinal(), 10}};
-    public static final int[][] PRICE_KIRCHE     = {{Ressourcen.Wood.ordinal(), 1},
-                                                    {Ressourcen.Stone.ordinal(), 1}};
+    public static final int[][] PRICE_LAGER      = {{Ressourcen.Holz.ordinal(), 10}};  
+    public static final int[][] PRICE_HOLZFÄLLER = {{Ressourcen.Holz.ordinal(), 10}}; 
+    public static final int[][] PRICE_STEINMETZ  = {{Ressourcen.Holz.ordinal(), 15}};
+    public static final int[][] PRICE_FISCHER    = {{Ressourcen.Holz.ordinal(), 10}};
+    public static final int[][] PRICE_KIRCHE     = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_BRUNNEN    = {{Ressourcen.Stein.ordinal(), 6}};
     
-    public static final int[][] PRICE_HOLZHAUS   = {{Ressourcen.Wood.ordinal(), 5}};
-    public static final int[][] PRICE_STEINHAUS  = {{Ressourcen.Wood.ordinal(), 5},
-                                                    {Ressourcen.Stone.ordinal(), 8}};
+    public static final int[][] PRICE_HOLZHAUS   = {{Ressourcen.Holz.ordinal(), 5}};
+    public static final int[][] PRICE_STEINHAUS  = {{Ressourcen.Holz.ordinal(), 5},
+                                                    {Ressourcen.Stein.ordinal(), 8}};
     
     public static enum IDs{
         Lager, Holzfäller, Steinmetz, Fischer, Holzhaus, Steinhaus
@@ -121,7 +122,7 @@ public class Building extends Node{
                 return false;
         }
         
-        Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
+        Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Holz));
         return true;
     }
     

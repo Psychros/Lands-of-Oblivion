@@ -8,8 +8,8 @@ package oblivionengine.charakter.npc;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import oblivionengine.buildings.Building;
-import oblivionengine.buildings.BuildingHaus;
-import oblivionengine.buildings.workbuildings.WorkBuilding;
+import oblivionengine.buildings.einwohner.BuildingHaus;
+import oblivionengine.buildings.WorkBuilding;
 
 /**
  *

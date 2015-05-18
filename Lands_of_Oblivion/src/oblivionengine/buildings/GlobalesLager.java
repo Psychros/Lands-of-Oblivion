@@ -27,12 +27,8 @@ public class GlobalesLager {
         setGröße(größe);
         
         //Startwert für die Ressourcen setzen
-        for (int i = 0; i < ressourcen.length; i++) {
-            addRessourcen(i, 10); //Startwert für alle Ressourcen
-        }
-        
-        addRessourcen(Ressourcen.Fish, -10);
-        addRessourcen(Ressourcen.Belief, -10);
+        addRessourcen(Ressourcen.Holz, 10);
+        addRessourcen(Ressourcen.Stein, 10);
     }
 
     
@@ -55,6 +51,7 @@ public class GlobalesLager {
     public void setGröße(int größe) {
         this.größe = größe;
         Game.game.screens.setText("inGame", "Lager", größe);
+        Game.game.screens.setText("lager", "Lager", größe);
     } 
     
     
@@ -87,16 +84,34 @@ public class GlobalesLager {
     
     //Aktualisiere die Anzeige
     public void actualizeText(int id){
-        if(id == Ressourcen.Wood.ordinal()){
+        if(id == Ressourcen.Holz.ordinal()){
             Game.game.screens.setText("inGame", "Baumstämme", ressourcen[id]);
             Game.game.screens.setText("lager",  "Holz", ressourcen[id]);
         }
-        else if(id == Ressourcen.Stone.ordinal()){
+        else if(id == Ressourcen.Stein.ordinal()){
             Game.game.screens.setText("inGame", "Stein", ressourcen[id]);
             Game.game.screens.setText("lager", "Stein", ressourcen[id]);
         }
-        else if(id == Ressourcen.Fish.ordinal()){
+        else if(id == Ressourcen.Fisch.ordinal()){
             Game.game.screens.setText("lager", "Fisch", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Wasser.ordinal()){
+            Game.game.screens.setText("lager", "Wasser", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Getreide.ordinal()){
+            Game.game.screens.setText("lager", "Getreide", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Hopfen.ordinal()){
+            Game.game.screens.setText("lager", "Hopfen", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Bier.ordinal()){
+            Game.game.screens.setText("lager", "Bier", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Mehl.ordinal()){
+            Game.game.screens.setText("lager", "Mehl", ressourcen[id]);
+        }
+        else if(id == Ressourcen.Brot.ordinal()){
+            Game.game.screens.setText("lager", "Brot", ressourcen[id]);
         }
     }
 }

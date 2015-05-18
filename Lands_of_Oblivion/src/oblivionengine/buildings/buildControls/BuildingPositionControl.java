@@ -15,7 +15,7 @@ import com.jme3.scene.control.AbstractControl;
 import com.jme3.terrain.geomipmap.TerrainPatch;
 import oblivionengine.Game;
 import oblivionengine.buildings.Building;
-import oblivionengine.buildings.workbuildings.BuildingFischer;
+import oblivionengine.buildings.waren.BuildingFischer;
 
 /**
  * Dieser Control aktuallisiert die Position eines zu bauenden Gebäudes, das noch nicht gesetzt wurde auf

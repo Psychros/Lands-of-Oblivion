@@ -3,39 +3,40 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings;
+package oblivionengine.buildings.baumaterial;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_LAGER;
 import static oblivionengine.buildings.Building.testRessources;
-import oblivionengine.charakter.player.Player;
+import oblivionengine.buildings.Ressourcen;
+import oblivionengine.buildings.WorkBuilding;
 
 /**
  *
  * @author To
  */
-public class BuildingLager extends Building{
+public class BuildingSteinmetz extends WorkBuilding{
     //Objektvariablen
-    public static final int SIZE = 20; //Größe der neuen Lagerkapazität
+    
 
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public BuildingLager() {
+    public BuildingSteinmetz() {
         super();
-         if(testRessources(PRICE_LAGER)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
-            setSize(SIZE_LAGER);
-            setPRICE(PRICE_LAGER);
-
-            Box boxMesh = new Box(7f,6f,4f); 
+        
+         if(testRessources(PRICE_STEINMETZ)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+            setSize(SIZE_STEINMETZ);
+            setPRICE(PRICE_STEINMETZ);
+            
+            Box boxMesh = new Box(10f,8f,10f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
             boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Green); 
-            boxMat.setColor("Diffuse", ColorRGBA.Green); 
+            boxMat.setColor("Ambient", ColorRGBA.Gray); 
+            boxMat.setColor("Diffuse", ColorRGBA.Gray); 
             boxGeo.setMaterial(boxMat); 
             attachChild(boxGeo);
          }
@@ -50,7 +51,8 @@ public class BuildingLager extends Building{
     @Override
     public void finishBuilding() {
         super.finishBuilding(); 
-        Player.lager.setGröße(Player.lager.getGröße()+SIZE);
+        
+        control.setRessource(Ressourcen.Stein);
     }
     
 }

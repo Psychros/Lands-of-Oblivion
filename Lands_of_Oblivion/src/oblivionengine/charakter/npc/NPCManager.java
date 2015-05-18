@@ -10,7 +10,7 @@ import com.jme3.scene.Node;
 import java.util.ArrayList;
 import oblivionengine.Game;
 import oblivionengine.buildings.Building;
-import oblivionengine.buildings.workbuildings.WorkBuilding;
+import oblivionengine.buildings.WorkBuilding;
 import oblivionengine.charakter.bedürfnisse.Bedürfnis;
 
 /**

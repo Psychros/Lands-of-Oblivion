@@ -15,15 +15,16 @@ import com.jme3.scene.Spatial;
 import oblivionengine.Game;
 import oblivionengine.TreeCutControl;
 import oblivionengine.buildings.Building;
-import oblivionengine.buildings.workbuildings.BuildingHolzfäller;
-import oblivionengine.buildings.BuildingHolzhaus;
-import oblivionengine.buildings.BuildingLager;
-import oblivionengine.buildings.BuildingSteinhaus;
-import oblivionengine.buildings.workbuildings.BuildingSteinmetz;
+import oblivionengine.buildings.baumaterial.BuildingHolzfäller;
+import oblivionengine.buildings.einwohner.BuildingHolzhaus;
+import oblivionengine.buildings.waren.BuildingLager;
+import oblivionengine.buildings.einwohner.BuildingSteinhaus;
+import oblivionengine.buildings.baumaterial.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
-import oblivionengine.buildings.workbuildings.BuildingFischer;
-import oblivionengine.buildings.workbuildings.BuildingKirche;
+import oblivionengine.buildings.waren.BuildingFischer;
+import oblivionengine.buildings.gesellschaft.BuildingKirche;
+import oblivionengine.buildings.waren.BuildingBrunnen;
 
 /**
  *
@@ -85,10 +86,10 @@ public class Player extends CharakterControl{
                 
                 
                 //Das GlobalesLager mit Holz füllen
-                lager.addRessourcen(Ressourcen.Wood, 1);
+                lager.addRessourcen(Ressourcen.Holz, 1);
                 
                 //Text ändern
-                Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Wood));
+                Game.game.screens.setText("inGame", "Baumstämme", lager.getAnzahlRessourcen(Ressourcen.Holz));
             }
         }
     }
@@ -102,13 +103,14 @@ public class Player extends CharakterControl{
                 
                 //ID des zu bauenden Gebäudes überprüfen
                 switch(selectedBuildingID){
-                    case "Lager":      if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
-                    case "Holzfäller": if(Building.testRessources(Building.PRICE_HOLZFÄLLER))selectedBuilding = new BuildingHolzfäller(); break;
-                    case "Steinmetz":  if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
-                    case "Holzhaus":   if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
-                    case "Steinhaus":  if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
-                    case "Fischer":    if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
-                    case "Kirche":     if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;    
+                    case "Lager":       if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
+                    case "Holzfäller":  if(Building.testRessources(Building.PRICE_HOLZFÄLLER))selectedBuilding = new BuildingHolzfäller(); break;
+                    case "Steinmetz":   if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
+                    case "Holzhaus":    if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
+                    case "Steinhaus":   if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
+                    case "Fischer":     if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
+                    case "Kirche":      if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;    
+                    case "Brunnen":     if(Building.testRessources(Building.PRICE_BRUNNEN))selectedBuilding = new BuildingBrunnen(); break;    
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt

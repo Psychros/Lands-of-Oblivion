@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings.workbuildings;
+package oblivionengine.buildings.gesellschaft;
 
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
@@ -13,32 +12,32 @@ import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
-import oblivionengine.buildings.buildControls.BuildBuildingControl;
-import static oblivionengine.charakter.player.Player.selectedBuilding;
+import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
  * @author To
  */
-public class BuildingFischer extends WorkBuilding{
+public class BuildingKirche extends WorkBuilding{
     //Objektvariablen
     
 
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public BuildingFischer() {
+    public BuildingKirche() {
         super();
         
-         if(testRessources(PRICE_FISCHER)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
-            setSize(SIZE_FISCHER);
-            setPRICE(PRICE_FISCHER);
+         if(testRessources(PRICE_KIRCHE)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+            setSize(SIZE_KIRCHE);
+            setPRICE(PRICE_KIRCHE);
             
-            Box boxMesh = new Box(5f,8f,10f); 
+            Box boxMesh = new Box(10f,20f,20f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
             boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Blue); 
-            boxMat.setColor("Diffuse", ColorRGBA.Blue); 
+            boxMat.setColor("Ambient", ColorRGBA.DarkGray); 
+            boxMat.setColor("Diffuse", ColorRGBA.DarkGray); 
             boxGeo.setMaterial(boxMat); 
             attachChild(boxGeo);
          }
@@ -54,6 +53,9 @@ public class BuildingFischer extends WorkBuilding{
     public void finishBuilding() {
         super.finishBuilding(); 
         
-        control.setRessource(Ressourcen.Fish);
+        control.setRessource(Ressourcen.Glaube);
+        control.setTime(3);
+        NPCManager.setIsChurch(true);
     }
+    
 }

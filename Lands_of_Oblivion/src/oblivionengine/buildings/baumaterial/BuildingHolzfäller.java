@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings.workbuildings;
+package oblivionengine.buildings.baumaterial;
 
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -17,6 +17,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
+import oblivionengine.buildings.WorkBuilding;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.charakter.npc.Job;
 import oblivionengine.charakter.npc.JobHolzfäller;

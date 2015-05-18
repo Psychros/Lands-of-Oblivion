@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings.workbuildings;
+package oblivionengine.buildings;
 
 import oblivionengine.buildings.Building;
 import oblivionengine.buildings.Ressourcen;
@@ -42,7 +42,7 @@ public class WorkBuilding extends Building{
         super.finishBuilding(); 
         
         //Controll hinzufügen, der Waren produziert
-        control = new WorkBuildingControl(Ressourcen.Wood, 30);
+        control = new WorkBuildingControl(Ressourcen.Holz, 30);
         addControl(control);
         
         NPCManager.addFreeBuildings(this);

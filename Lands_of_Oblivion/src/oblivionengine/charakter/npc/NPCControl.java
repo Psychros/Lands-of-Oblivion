@@ -19,7 +19,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import java.util.ArrayList;
 import oblivionengine.Game;
-import oblivionengine.buildings.BuildingHaus;
+import oblivionengine.buildings.einwohner.BuildingHaus;
 import oblivionengine.charakter.player.Player;
 
 /**

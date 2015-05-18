@@ -10,5 +10,12 @@ package oblivionengine.buildings;
  * @author To
  */
 public enum Ressourcen{
-    Wood, Stone, Fish, Belief
+    //Baumaterial
+    Holz, Stein, 
+    
+    //Nahrung
+    Fisch, Hopfen, Getreide, Bier, Wasser, Mehl, Brot,
+    
+    //Güter
+    Glaube
 }

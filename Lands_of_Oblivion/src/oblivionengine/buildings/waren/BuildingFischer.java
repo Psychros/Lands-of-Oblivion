@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine.buildings.workbuildings;
+package oblivionengine.buildings.waren;
 
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -12,30 +12,31 @@ import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.buildings.WorkBuilding;
 
 /**
  *
  * @author To
  */
-public class BuildingSteinmetz extends WorkBuilding{
+public class BuildingFischer extends WorkBuilding{
     //Objektvariablen
     
 
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public BuildingSteinmetz() {
+    public BuildingFischer() {
         super();
         
-         if(testRessources(PRICE_STEINMETZ)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
-            setSize(SIZE_STEINMETZ);
-            setPRICE(PRICE_STEINMETZ);
+         if(testRessources(PRICE_FISCHER)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+            setSize(SIZE_FISCHER);
+            setPRICE(PRICE_FISCHER);
             
-            Box boxMesh = new Box(10f,8f,10f); 
+            Box boxMesh = new Box(5f,8f,10f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
             boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Gray); 
-            boxMat.setColor("Diffuse", ColorRGBA.Gray); 
+            boxMat.setColor("Ambient", ColorRGBA.Blue); 
+            boxMat.setColor("Diffuse", ColorRGBA.Blue); 
             boxGeo.setMaterial(boxMat); 
             attachChild(boxGeo);
          }
@@ -51,7 +52,6 @@ public class BuildingSteinmetz extends WorkBuilding{
     public void finishBuilding() {
         super.finishBuilding(); 
         
-        control.setRessource(Ressourcen.Stone);
+        control.setRessource(Ressourcen.Fisch);
     }
-    
 }
