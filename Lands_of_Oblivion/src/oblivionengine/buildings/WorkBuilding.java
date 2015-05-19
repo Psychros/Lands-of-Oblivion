@@ -33,6 +33,10 @@ public class WorkBuilding extends Building{
     public void setWorker(WorkerControl worker) {
         this.worker = worker;
     } 
+
+    public WorkBuildingControl getControl() {
+        return control;
+    }
     
     
     //--------------------------------------------------------------------------

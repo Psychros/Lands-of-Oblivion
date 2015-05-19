@@ -26,6 +26,7 @@ import oblivionengine.buildings.waren.BuildingFischer;
 import oblivionengine.buildings.gesellschaft.BuildingKirche;
 import oblivionengine.buildings.waren.BuildingBrunnen;
 import oblivionengine.buildings.waren.BuildingGetreidefarm;
+import oblivionengine.buildings.waren.BuildingHopfenfarm;
 
 /**
  *
@@ -112,7 +113,8 @@ public class Player extends CharakterControl{
                     case "Fischer":     if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
                     case "Kirche":      if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;    
                     case "Brunnen":     if(Building.testRessources(Building.PRICE_BRUNNEN))selectedBuilding = new BuildingBrunnen(); break;    
-                    case "Getreidefarm":if(Building.testRessources(Building.PRICE_GETREDEFARM))selectedBuilding = new BuildingGetreidefarm(); break;    
+                    case "Getreidefarm":if(Building.testRessources(Building.PRICE_GETREDEFARM))selectedBuilding = new BuildingGetreidefarm(); break;  
+                    case "Hopfenfarm":  if(Building.testRessources(Building.PRICE_HOPFENFARM))selectedBuilding = new BuildingHopfenfarm(); break;
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt

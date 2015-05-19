@@ -39,6 +39,7 @@ public class Building extends Node{
     public static final int[] SIZE_KIRCHE         = {10, 20, 20}; 
     public static final int[] SIZE_BRUNNEN        = {5, 5, 6}; 
     public static final int[] SIZE_GETREIDEFARM   = {15, 15, 8}; 
+    public static final int[] SIZE_HOPFENFARM     = {15, 15, 8}; 
     
     public static final int[] SIZE_HOLZHAUS       = {5, 5, 5};
     public static final int[] SIZE_STEINHAUS      = {5, 5, 10};
@@ -56,6 +57,7 @@ public class Building extends Node{
     public static final int[][] PRICE_KIRCHE      = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
     public static final int[][] PRICE_BRUNNEN     = {{Ressourcen.Stein.ordinal(), 6}};
     public static final int[][] PRICE_GETREDEFARM = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_HOPFENFARM  = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
     
     public static final int[][] PRICE_HOLZHAUS    = {{Ressourcen.Holz.ordinal(), 5}};
     public static final int[][] PRICE_STEINHAUS   = {{Ressourcen.Holz.ordinal(), 5}, {Ressourcen.Stein.ordinal(), 8}};

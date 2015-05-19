@@ -10,8 +10,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_BRUNNEN;
-import static oblivionengine.buildings.Building.SIZE_BRUNNEN;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
@@ -55,5 +53,6 @@ public class BuildingGetreidefarm extends WorkBuilding{
         super.finishBuilding(); 
         
         control.setRessource(Ressourcen.Getreide);
+        control.setPrice(Ressourcen.Wasser, 1);
     }
 }

@@ -8,7 +8,6 @@ package oblivionengine.buildings;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
-import oblivionengine.buildings.Ressourcen;
 import oblivionengine.charakter.npc.NPCManager;
 import oblivionengine.charakter.player.Player;
 
@@ -20,7 +19,10 @@ public class WorkBuildingControl extends AbstractControl{
     //Objektvariablen
     private int time = 15;
     private float timer = 0;
-    private Ressourcen ressource = null; //Zu produzierende Ressource
+    
+    private Ressourcen ressource = null;         //Zu produzierende Ressource
+    private Ressourcen ressourcePrice = null;    //Kosten, um den Rohstoff zu produzieren
+    private int price = 0;                       //Anzahl der benötigten Rohstoffe
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -52,6 +54,28 @@ public class WorkBuildingControl extends AbstractControl{
     public void setRessource(Ressourcen ressource) {
         this.ressource = ressource;
     }
+
+    public Ressourcen getRessourcePrice() {
+        return ressourcePrice;
+    }
+
+    public void setRessourcePrice(Ressourcen ressourcePrice) {
+        this.ressourcePrice = ressourcePrice;
+    }
+
+    public int getNumberPrice() {
+        return price;
+    }
+
+    public void setNumberPrice(int numberPrice) {
+        this.price = numberPrice;
+    }
+    
+    //Am besten diese Methode für den Preis verwenden
+    public void setPrice(Ressourcen ressource, int price){
+        this.ressourcePrice = ressource;
+        this.price = price;
+    }
     
 
     //--------------------------------------------------------------------------
@@ -60,11 +84,21 @@ public class WorkBuildingControl extends AbstractControl{
     protected void controlUpdate(float tpf) {
         WorkBuilding building = (WorkBuilding)spatial;
         
+        //Produkt herstellen
         if(building.getWorker() != null){
             timer += tpf;
+            
             if(timer >= time){
-                timer = 0 - (time * (1- NPCManager.getMoral()));
-                Player.lager.addRessourcen(ressource, 1);
+                //Testen, ob andere Ressourcen zur Herstellung gebraucht werden
+                if(ressourcePrice != null && Player.lager.getAnzahlRessourcen(ressourcePrice) >= price){
+                    timer = 0 - (time * (1- NPCManager.getMoral()));
+                    Player.lager.addRessourcen(ressource, 1);
+                    Player.lager.addRessourcen(ressourcePrice, -price);
+                }
+                else{
+                    timer = 0 - (time * (1- NPCManager.getMoral()));
+                    Player.lager.addRessourcen(ressource, 1);
+                }
             }
         }
     }
