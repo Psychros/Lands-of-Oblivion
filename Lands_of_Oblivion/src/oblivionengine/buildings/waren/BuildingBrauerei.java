@@ -20,25 +20,25 @@ import oblivionengine.buildings.WorkBuilding;
  *
  * @author To
  */
-public class BuildingHopfenfarm extends WorkBuilding{
+public class BuildingBrauerei extends WorkBuilding{
     //Objektvariablen
     
 
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public BuildingHopfenfarm() {
+    public BuildingBrauerei() {
         super();
         
-         if(testRessources(PRICE_HOPFENFARM)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
-            setSize(SIZE_HOPFENFARM);
-            setPRICE(PRICE_HOPFENFARM);
+         if(testRessources(PRICE_BRAUEREI)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+            setSize(SIZE_BRAUEREI);
+            setPRICE(PRICE_BRAUEREI);
             
-            Box boxMesh = new Box(15f,8f,15f); 
+            Box boxMesh = new Box(10f,13f,8f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
             Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
             boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Green); 
-            boxMat.setColor("Diffuse", ColorRGBA.Green); 
+            boxMat.setColor("Ambient", ColorRGBA.Yellow); 
+            boxMat.setColor("Diffuse", ColorRGBA.Yellow); 
             boxGeo.setMaterial(boxMat); 
             attachChild(boxGeo);
          }
@@ -54,7 +54,9 @@ public class BuildingHopfenfarm extends WorkBuilding{
     public void finishBuilding() {
         super.finishBuilding(); 
         
-        control.setRessource(Ressourcen.Hopfen);
-        control.addPrice(Ressourcen.Wasser, 2);
+        control.setRessource(Ressourcen.Bier);
+        control.addPrice(Ressourcen.Wasser, 1);
+        control.addPrice(Ressourcen.Getreide, 1);
+        control.addPrice(Ressourcen.Hopfen, 1);
     }
 }

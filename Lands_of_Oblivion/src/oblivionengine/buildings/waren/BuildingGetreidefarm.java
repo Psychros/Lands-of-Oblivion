@@ -53,6 +53,6 @@ public class BuildingGetreidefarm extends WorkBuilding{
         super.finishBuilding(); 
         
         control.setRessource(Ressourcen.Getreide);
-        control.setPrice(Ressourcen.Wasser, 1);
+        control.addPrice(Ressourcen.Wasser, 1);
     }
 }
