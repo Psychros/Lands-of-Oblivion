@@ -17,6 +17,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
+import com.jme3.terrain.geomipmap.TerrainLodControl;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
 import com.jme3.terrain.heightmap.HillHeightMap;
@@ -114,8 +115,9 @@ public class Map extends Node{
         //Terain
         terrain = new TerrainQuad("terrain", 65, (int)size+1, heightMap.getHeightMap());
         terrain.setShadowMode(ShadowMode.Receive);
-        // TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
-        //terrain.addControl(lodControl);
+        TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
+        lodControl.setEnabled(true);
+        terrain.addControl(lodControl);
         this.attachChild(terrain);
         
         /*

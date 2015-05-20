@@ -46,6 +46,8 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         
         head.setLocalTranslation(0, 1.9f, 0);    
         rigidBody.setFriction(0.5f); 
+        rigidBody.setGravity(new Vector3f(0, -9.81f, 0));
+        setJumpForce(new Vector3f(0, 200f, 0));
     }
     
 
