@@ -58,7 +58,7 @@ public class NPCControl extends AbstractControl{
         NPCManager.numberNPCs++;
         
         //Timer einstellen
-        for (int i = 0; i < NPCManager.getBedürfnisse().size(); i++) {
+        for (int i = 0; i < NPCManager.getBedürfnisseSek().size(); i++) {
             timerBedürfnisse.add(new Float(0));
         }
     }
@@ -185,25 +185,48 @@ public class NPCControl extends AbstractControl{
     }
     
     
-    //Güter werden verbraucht
+    //Güter werden verbraucht un Bedürfnisse gestillt
     private void consumeProducts(float tpf){
-        for (int i = 0; i < NPCManager.getBedürfnisse().size(); i++) {
+       
+        //Sekundäre Bedürfnisse
+        for (int i = 0; i < NPCManager.getBedürfnisseSek().size(); i++) {
             //Timer aktualisieren
             float timer = timerBedürfnisse.get(i);
             timer += tpf;
             timerBedürfnisse.set(i, timer);
             
             //Bedürfnis überprüfen und Moral anpassen
-            if(timer >= NPCManager.getBedürfnisse().get(i).getTime()){
-            timer = 0;
-            timerBedürfnisse.set(i, timer);
+            if(timer >= NPCManager.getBedürfnisseSek().get(i).getTime()){
+                timer = 0;
+                timerBedürfnisse.set(i, timer);
 
-                if(Player.lager.getAnzahlRessourcen(NPCManager.getBedürfnisse().get(i).getRessource()) > 0){
+                if(Player.lager.getAnzahlRessourcen(NPCManager.getBedürfnisseSek().get(i).getRessource()) > 0){
                     NPCManager.addMoral(0.01f);
-                    Player.lager.addRessourcen(NPCManager.getBedürfnisse().get(i).getRessource(), -1);
+                    Player.lager.addRessourcen(NPCManager.getBedürfnisseSek().get(i).getRessource(), -1);
                 }
                 else{
                     NPCManager.addMoral(-0.01f);
+                }
+            } 
+        }
+        
+        //Primäre Bedürfnisse
+        for (int i = 0; i < NPCManager.getBedürfnisseSek().size(); i++) {
+            //Timer aktualisieren
+            float timer = timerBedürfnisse.get(i);
+            timer += tpf;
+            timerBedürfnisse.set(i, timer);
+            
+            //Bedürfnis überprüfen und Moral anpassen
+            if(timer >= NPCManager.getBedürfnissePrim().get(i).getTime()){
+                timer = 0;
+                timerBedürfnisse.set(i, timer);
+
+                if(Player.lager.getAnzahlRessourcen(NPCManager.getBedürfnissePrim().get(i).getRessource()) > 0){
+                    Player.lager.addRessourcen(NPCManager.getBedürfnissePrim().get(i).getRessource(), -1);
+                }
+                else{
+                    NPCManager.addMoral(-0.03f);
                 }
             } 
         }

@@ -26,8 +26,10 @@ import oblivionengine.buildings.waren.BuildingFischer;
 import oblivionengine.buildings.gesellschaft.BuildingKirche;
 import oblivionengine.buildings.waren.BuildingBrauerei;
 import oblivionengine.buildings.waren.BuildingBrunnen;
+import oblivionengine.buildings.waren.BuildingBäcker;
 import oblivionengine.buildings.waren.BuildingGetreidefarm;
 import oblivionengine.buildings.waren.BuildingHopfenfarm;
+import oblivionengine.buildings.waren.BuildingMühle;
 
 /**
  *
@@ -106,17 +108,24 @@ public class Player extends CharakterControl{
                 
                 //ID des zu bauenden Gebäudes überprüfen
                 switch(selectedBuildingID){
+                    //Lager
                     case "Lager":       if(Building.testRessources(Building.PRICE_LAGER))selectedBuilding = new BuildingLager(); break;
+                    
+                    //Arbeitsgebäude
+                    case "Bäcker":      if(Building.testRessources(Building.PRICE_BÄCKER))selectedBuilding = new BuildingBäcker(); break;
+                    case "Brauerei":    if(Building.testRessources(Building.PRICE_BRAUEREI))selectedBuilding = new BuildingBrauerei(); break;
+                    case "Brunnen":     if(Building.testRessources(Building.PRICE_BRUNNEN))selectedBuilding = new BuildingBrunnen(); break;  
+                    case "Fischer":     if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;   
+                    case "Getreidefarm":if(Building.testRessources(Building.PRICE_GETREIDEFARM))selectedBuilding = new BuildingGetreidefarm(); break;       
                     case "Holzfäller":  if(Building.testRessources(Building.PRICE_HOLZFÄLLER))selectedBuilding = new BuildingHolzfäller(); break;
-                    case "Steinmetz":   if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;
+                    case "Hopfenfarm":  if(Building.testRessources(Building.PRICE_HOPFENFARM))selectedBuilding = new BuildingHopfenfarm(); break;
+                    case "Kirche":      if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;      
+                    case "Mühle":       if(Building.testRessources(Building.PRICE_MÜHLE))selectedBuilding = new BuildingMühle(); break;
+                    case "Steinmetz":   if(Building.testRessources(Building.PRICE_STEINMETZ))selectedBuilding = new BuildingSteinmetz(); break;                
+                
+                    //Einwohner
                     case "Holzhaus":    if(Building.testRessources(Building.PRICE_HOLZHAUS))selectedBuilding = new BuildingHolzhaus(); break;
                     case "Steinhaus":   if(Building.testRessources(Building.PRICE_STEINHAUS))selectedBuilding = new BuildingSteinhaus(); break;
-                    case "Fischer":     if(Building.testRessources(Building.PRICE_FISCHER))selectedBuilding = new BuildingFischer(); break;    
-                    case "Kirche":      if(Building.testRessources(Building.PRICE_KIRCHE))selectedBuilding = new BuildingKirche(); break;    
-                    case "Brunnen":     if(Building.testRessources(Building.PRICE_BRUNNEN))selectedBuilding = new BuildingBrunnen(); break;    
-                    case "Getreidefarm":if(Building.testRessources(Building.PRICE_GETREDEFARM))selectedBuilding = new BuildingGetreidefarm(); break;  
-                    case "Hopfenfarm":  if(Building.testRessources(Building.PRICE_HOPFENFARM))selectedBuilding = new BuildingHopfenfarm(); break;
-                    case "Brauerei":    if(Building.testRessources(Building.PRICE_BRAUEREI))selectedBuilding = new BuildingBrauerei(); break;
                 }
                 
                 //Dafür sorgen, dass das Building der Mausposition folgt

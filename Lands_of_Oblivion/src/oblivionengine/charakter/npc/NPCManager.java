@@ -31,15 +31,17 @@ public class NPCManager {
     private static float moral = 1.00f;  
     private static float maxMoral = 1.50f;
     
-    private static boolean isChurch = false; //Ist eine Kirche gebaut?
+    //Wurde ein Gebäude schon gebaut?
+    private static boolean isChurch = false;
     
-    
-    private static ArrayList<Bedürfnis> bedürfnisse = new ArrayList<Bedürfnis>();
+    //Bedürfnisse
+    private static ArrayList<Bedürfnis> bedürfnisseSek = new ArrayList<Bedürfnis>();  //Diese Bedürfnisse steigern Moral und können diese senkem
+    private static ArrayList<Bedürfnis> bedürfnissePrim = new ArrayList<Bedürfnis>();    //Diese Bedürfnisse können Moral nur senken
     
     //Alle Anfangsbedürfnisse
     static{
-        addBedürnis(Bedürfnis.FISH);
-        addBedürnis(Bedürfnis.BELIEf);
+        addBedürfnis(Bedürfnis.FISCH, bedürfnissePrim);
+        addBedürfnis(Bedürfnis.GLAUBE, bedürfnisseSek);
     }
     
     
@@ -133,13 +135,17 @@ public class NPCManager {
         NPCManager.isChurch = isChurch;
     } 
 
-    public static ArrayList<Bedürfnis> getBedürfnisse() {
-        return bedürfnisse;
+    public static ArrayList<Bedürfnis> getBedürfnisseSek() {
+        return bedürfnisseSek;
+    }
+
+    public static ArrayList<Bedürfnis> getBedürfnissePrim() {
+        return bedürfnissePrim;
     }
     
     //Umbedingt nutzen, um ein Bedürfnis hinzuzufürgen, da dadurch die Timer der NPCs aktualisiert werden
-    public static void addBedürfnis(Bedürfnis b){
-        bedürfnisse.add(b);
+    public static void addBedürfnis(Bedürfnis b, ArrayList list){
+        list.add(b);
         
         //Timer aktualisieren
         for (NPCControl npc : freeNPCs) {
@@ -185,9 +191,5 @@ public class NPCManager {
         
         String text = freePeople + "/" + workingPeople + " (" + (int)(moral*100) + "%)";
         Game.game.screens.setText("inGame", "Einwohner", text);
-    }
-    
-    public static void addBedürnis(Bedürfnis b){
-        bedürfnisse.add(b);
     }
 }

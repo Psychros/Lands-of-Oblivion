@@ -27,9 +27,9 @@ public class BuildingGetreidefarm extends WorkBuilding{
     public BuildingGetreidefarm() {
         super();
         
-         if(testRessources(PRICE_GETREDEFARM)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
+         if(testRessources(PRICE_GETREIDEFARM)){  //Das Gebäude kann nur gebaut werden, wenn genug Ressourcen zur Verfügung stehen
             setSize(SIZE_GETREIDEFARM);
-            setPRICE(PRICE_GETREDEFARM);
+            setPRICE(PRICE_GETREIDEFARM);
             
             Box boxMesh = new Box(15f,8f,15f); 
             Geometry boxGeo = new Geometry("Colored Box", boxMesh); 

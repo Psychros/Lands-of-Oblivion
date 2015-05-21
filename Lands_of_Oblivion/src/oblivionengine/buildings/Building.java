@@ -32,16 +32,22 @@ public class Building extends Node{
      * Größen aller Gebäude
      * //x, z, höhe
      */
+    //Lager
     public static final int[] SIZE_LAGER          = {7, 4, 7};   
-    public static final int[] SIZE_HOLZFÄLLER     = {10, 10, 8};   
-    public static final int[] SIZE_STEINMETZ      = {10, 10, 8};
-    public static final int[] SIZE_FISCHER        = {5, 10, 10}; 
-    public static final int[] SIZE_KIRCHE         = {10, 20, 20}; 
-    public static final int[] SIZE_BRUNNEN        = {5, 5, 6}; 
-    public static final int[] SIZE_GETREIDEFARM   = {15, 15, 8}; 
-    public static final int[] SIZE_HOPFENFARM     = {15, 15, 8}; 
-    public static final int[] SIZE_BRAUEREI       = {10, 8, 13}; 
     
+    //Arbeitsgebäude
+    public static final int[] SIZE_BÄCKER         = {8, 10, 8}; 
+    public static final int[] SIZE_BRAUEREI       = {10, 8, 13}; 
+    public static final int[] SIZE_BRUNNEN        = {5, 5, 6}; 
+    public static final int[] SIZE_FISCHER        = {5, 10, 10}; 
+    public static final int[] SIZE_GETREIDEFARM   = {15, 15, 8}; 
+    public static final int[] SIZE_HOLZFÄLLER     = {10, 10, 8}; 
+    public static final int[] SIZE_HOPFENFARM     = {15, 15, 8}; 
+    public static final int[] SIZE_KIRCHE         = {10, 20, 20}; 
+    public static final int[] SIZE_MÜHLE          = {8, 8, 16}; 
+    public static final int[] SIZE_STEINMETZ      = {10, 10, 8};
+    
+    //Einwohnergebäude
     public static final int[] SIZE_HOLZHAUS       = {5, 5, 5};
     public static final int[] SIZE_STEINHAUS      = {5, 5, 10};
     
@@ -51,22 +57,24 @@ public class Building extends Node{
      * Baukosten werden in 2dimensionalen int-Arrays festgehalten
      * Der erste Wert ist die Rohstoff-ID und der zweite Wert die Anzahl
      */
-    public static final int[][] PRICE_LAGER       = {{Ressourcen.Holz.ordinal(), 10}};  
-    public static final int[][] PRICE_HOLZFÄLLER  = {{Ressourcen.Holz.ordinal(), 10}}; 
-    public static final int[][] PRICE_STEINMETZ   = {{Ressourcen.Holz.ordinal(), 15}};
-    public static final int[][] PRICE_FISCHER     = {{Ressourcen.Holz.ordinal(), 10}};
-    public static final int[][] PRICE_KIRCHE      = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
-    public static final int[][] PRICE_BRUNNEN     = {{Ressourcen.Stein.ordinal(), 6}};
-    public static final int[][] PRICE_GETREDEFARM = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
-    public static final int[][] PRICE_HOPFENFARM  = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
-    public static final int[][] PRICE_BRAUEREI    = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    //Lager
+    public static final int[][] PRICE_LAGER       = {{Ressourcen.Holz.ordinal(), 10}}; 
     
+    //Arbeitsgebäude
+    public static final int[][] PRICE_BÄCKER      = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_BRAUEREI    = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_BRUNNEN     = {{Ressourcen.Stein.ordinal(), 6}};
+    public static final int[][] PRICE_FISCHER     = {{Ressourcen.Holz.ordinal(), 10}};
+    public static final int[][] PRICE_GETREIDEFARM= {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_HOLZFÄLLER  = {{Ressourcen.Holz.ordinal(), 10}};
+    public static final int[][] PRICE_HOPFENFARM  = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_KIRCHE      = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_MÜHLE       = {{Ressourcen.Holz.ordinal(), 1}, {Ressourcen.Stein.ordinal(), 1}};
+    public static final int[][] PRICE_STEINMETZ   = {{Ressourcen.Holz.ordinal(), 15}};
+    
+    //Einwohnergebäude
     public static final int[][] PRICE_HOLZHAUS    = {{Ressourcen.Holz.ordinal(), 5}};
     public static final int[][] PRICE_STEINHAUS   = {{Ressourcen.Holz.ordinal(), 5}, {Ressourcen.Stein.ordinal(), 8}};
-    
-    public static enum IDs{
-        Lager, Holzfäller, Steinmetz, Fischer, Holzhaus, Steinhaus
-    }
 
     
     //--------------------------------------------------------------------------
