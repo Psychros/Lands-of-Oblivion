@@ -13,6 +13,7 @@ import oblivionengine.Game;
 import oblivionengine.buildings.Building;
 import static oblivionengine.buildings.Building.PRICE_LAGER;
 import static oblivionengine.buildings.Building.testRessources;
+import oblivionengine.charakter.npc.NPCManager;
 import oblivionengine.charakter.player.Player;
 
 /**
@@ -52,6 +53,8 @@ public class BuildingLager extends Building{
     public void finishBuilding() {
         super.finishBuilding(); 
         Player.lager.setGröße(Player.lager.getGröße()+SIZE);
+        
+        NPCManager.addZiviisationsPunkte(3);
     }
     
 }

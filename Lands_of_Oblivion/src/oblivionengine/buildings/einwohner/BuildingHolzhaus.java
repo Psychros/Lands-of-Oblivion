@@ -11,6 +11,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
 import static oblivionengine.buildings.Building.PRICE_LAGER;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -50,6 +51,7 @@ public class BuildingHolzhaus extends BuildingHaus{
         super.finishBuilding(); 
         
         setNumberpeople(2);
+        NPCManager.addZiviisationsPunkte(1);
     }
     
 }

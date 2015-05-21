@@ -7,6 +7,7 @@ package oblivionengine.charakter.npc;
 
 import com.jme3.animation.AnimControl;
 import com.jme3.scene.Node;
+import de.lessvoid.nifty.tools.SizeValue;
 import java.util.ArrayList;
 import oblivionengine.Game;
 import oblivionengine.buildings.Building;
@@ -18,10 +19,12 @@ import oblivionengine.charakter.bedürfnisse.Bedürfnis;
  * @author To
  */
 public class NPCManager {
+    //NPCs
     private static ArrayList<NPCControl> freeNPCs = new ArrayList<NPCControl>();    //Nicht arbeitende NPCs
     private static ArrayList<WorkerControl> workingNPCs = new ArrayList<WorkerControl>(); //Arbeitende NPCs
     public static int numberNPCs = 0;
     
+    //Gebäude
     private static ArrayList<WorkBuilding> freeBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die noch eine Arbeitskraft brauchen
     private static ArrayList<WorkBuilding> workingBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die eine Arbeitskraft besitzen
     public static int numberBuildings = 0;
@@ -37,6 +40,10 @@ public class NPCManager {
     //Bedürfnisse
     private static ArrayList<Bedürfnis> bedürfnisseSek = new ArrayList<Bedürfnis>();  //Diese Bedürfnisse steigern Moral und können diese senkem
     private static ArrayList<Bedürfnis> bedürfnissePrim = new ArrayList<Bedürfnis>();    //Diese Bedürfnisse können Moral nur senken
+    
+    //Zivilisationspunkte
+    private static int zivilisationsPunkte = 0;
+    private static int zivilisationsStufe  = 0;
     
     //Alle Anfangsbedürfnisse
     static{
@@ -155,7 +162,17 @@ public class NPCManager {
             npc.getTimerBedürfnisse().add(new Float(0));
         }
     }
+
+    public static int getZivilisationsPunkte() {
+        return zivilisationsPunkte;
+    }
     
+    public static void addZiviisationsPunkte(int p){
+        zivilisationsPunkte += p;
+        
+        //Neue Gebäude freischalten
+        testZivilisationsPunkte();
+    }
     
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden 
@@ -191,5 +208,28 @@ public class NPCManager {
         
         String text = freePeople + "/" + workingPeople + " (" + (int)(moral*100) + "%)";
         Game.game.screens.setText("inGame", "Einwohner", text);
+    }
+    
+    //Testen, ob die Zivilisationspunkte neue Gebäude und Bedürfniss freischalten
+    public static void testZivilisationsPunkte(){
+        switch(zivilisationsStufe){
+            case 0:  if(zivilisationsPunkte >= 10){
+                        addBedürfnis(Bedürfnis.BROT, bedürfnisseSek);
+                        enableBuilding("bier");
+                     } break;
+            case 1:  if(zivilisationsPunkte >= 20){
+                        addBedürfnis(Bedürfnis.BIER, bedürfnissePrim);
+                        enableBuilding("brot");
+                     }break;
+        }
+    }
+    
+    //Eine Zivilisationsstufe aufsteigen und Gebäude freischalten
+    public static void enableBuilding(String name){
+        Game.game.screens.getNifty().getScreen("baumenü").findElementByName(name).setConstraintX(new SizeValue("5%"));
+        Game.game.screens.getNifty().getScreen("baumenü").layoutLayers();
+        
+        zivilisationsStufe++;
+        testZivilisationsPunkte();
     }
 }

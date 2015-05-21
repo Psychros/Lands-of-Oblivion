@@ -159,10 +159,10 @@
                 <image id="fischer" filename="Interface/Menüs/Baumenü/Waren/ButtonFischer.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="chooseBuilding(Fischer)" onMouseOver="mouseOver(fischer. Interface/Menüs/Baumenü/Waren/ButtonFischer2.png. Interface/Menüs/Baumenü/Waren/ButtonFischer.png)"/>
                 </image>
-                <image id="bier" filename="Interface/Menüs/Baumenü/Waren/ButtonBier.png"     x="5%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="bier" filename="Interface/Menüs/Baumenü/Waren/ButtonBier.png"     x="500%" y="35%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchTo(buttonsWaren. buttonsBier)" onMouseOver="mouseOver(bier. Interface/Menüs/Baumenü/Waren/ButtonBier2.png. Interface/Menüs/Baumenü/Waren/ButtonBier.png)"/>
                 </image>
-                <image id="brot" filename="Interface/Menüs/Baumenü/Waren/ButtonBrot.png"     x="5%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
+                <image id="brot" filename="Interface/Menüs/Baumenü/Waren/ButtonBrot.png"     x="500%" y="45%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchTo(buttonsWaren. buttonsBrot)" onMouseOver="mouseOver(brot. Interface/Menüs/Baumenü/Waren/ButtonBrot2.png. Interface/Menüs/Baumenü/Waren/ButtonBrot.png)"/>
                 </image>
                 

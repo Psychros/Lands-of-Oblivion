@@ -21,6 +21,7 @@ import oblivionengine.buildings.WorkBuilding;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.charakter.npc.Job;
 import oblivionengine.charakter.npc.JobHolzfäller;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -109,6 +110,8 @@ public class BuildingHolzfäller extends WorkBuilding{
             trees[i].addControl(control);
             Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().add(control);
         }
+        
+        NPCManager.addZiviisationsPunkte(1);
     }   
 
     //Dem Worker eine Tätigkeit geben

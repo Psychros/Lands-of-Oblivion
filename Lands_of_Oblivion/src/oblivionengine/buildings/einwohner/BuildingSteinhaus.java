@@ -10,6 +10,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -50,6 +51,7 @@ public class BuildingSteinhaus extends BuildingHaus{
         super.finishBuilding(); 
         
         setNumberpeople(4);
+        NPCManager.addZiviisationsPunkte(2);
     }
     
 }

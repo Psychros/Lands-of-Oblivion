@@ -56,6 +56,7 @@ public class BuildingKirche extends WorkBuilding{
         control.setRessource(Ressourcen.Glaube);
         control.setTime(3);
         NPCManager.setIsChurch(true);
+        NPCManager.addZiviisationsPunkte(4);
     }
     
 }

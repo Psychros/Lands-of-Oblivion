@@ -15,6 +15,7 @@ import static oblivionengine.buildings.Building.SIZE_GETREIDEFARM;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -58,5 +59,7 @@ public class BuildingBrauerei extends WorkBuilding{
         control.addPrice(Ressourcen.Wasser, 1);
         control.addPrice(Ressourcen.Getreide, 1);
         control.addPrice(Ressourcen.Hopfen, 1);
+        
+        NPCManager.addZiviisationsPunkte(3);
     }
 }

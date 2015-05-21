@@ -13,6 +13,7 @@ import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -53,5 +54,7 @@ public class BuildingFischer extends WorkBuilding{
         super.finishBuilding(); 
         
         control.setRessource(Ressourcen.Fisch);
+        
+        NPCManager.addZiviisationsPunkte(1);
     }
 }

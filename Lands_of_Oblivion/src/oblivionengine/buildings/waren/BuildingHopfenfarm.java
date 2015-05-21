@@ -15,6 +15,7 @@ import static oblivionengine.buildings.Building.SIZE_GETREIDEFARM;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -56,5 +57,7 @@ public class BuildingHopfenfarm extends WorkBuilding{
         
         control.setRessource(Ressourcen.Hopfen);
         control.addPrice(Ressourcen.Wasser, 2);
+        
+        NPCManager.addZiviisationsPunkte(2);
     }
 }

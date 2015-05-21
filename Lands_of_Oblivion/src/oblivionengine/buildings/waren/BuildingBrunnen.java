@@ -15,6 +15,7 @@ import static oblivionengine.buildings.Building.SIZE_FISCHER;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -56,5 +57,6 @@ public class BuildingBrunnen extends WorkBuilding{
         
         control.setRessource(Ressourcen.Wasser);
         control.setTime(6);
+        NPCManager.addZiviisationsPunkte(2);
     }
 }

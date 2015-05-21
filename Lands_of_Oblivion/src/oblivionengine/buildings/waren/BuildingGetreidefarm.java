@@ -13,6 +13,7 @@ import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -54,5 +55,7 @@ public class BuildingGetreidefarm extends WorkBuilding{
         
         control.setRessource(Ressourcen.Getreide);
         control.addPrice(Ressourcen.Wasser, 1);
+        
+        NPCManager.addZiviisationsPunkte(2);
     }
 }

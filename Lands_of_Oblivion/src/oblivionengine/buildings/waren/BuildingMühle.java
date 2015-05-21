@@ -13,6 +13,7 @@ import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -55,5 +56,7 @@ public class BuildingMühle extends WorkBuilding{
         control.setRessource(Ressourcen.Mehl);
         control.addPrice(Ressourcen.Getreide, 1);
         control.setTime(10);
+        
+        NPCManager.addZiviisationsPunkte(3);
     }
 }

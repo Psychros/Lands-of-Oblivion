@@ -13,6 +13,7 @@ import oblivionengine.Game;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -55,5 +56,7 @@ public class BuildingBäcker extends WorkBuilding{
         control.setRessource(Ressourcen.Brot);
         control.addPrice(Ressourcen.Mehl, 3);
         control.addPrice(Ressourcen.Wasser, 1);
+        
+        NPCManager.addZiviisationsPunkte(3);
     }
 }

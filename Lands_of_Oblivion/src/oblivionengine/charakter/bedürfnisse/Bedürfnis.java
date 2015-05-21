@@ -17,9 +17,10 @@ public class Bedürfnis {
     private int time;   //Zeit in Sekunden, nach der die Ressource benötigt wird
     
     //Vorgefertigte Bedürfnisse
-    public static final Bedürfnis FISCH = new Bedürfnis(Ressourcen.Fisch, 120);
+    public static final Bedürfnis FISCH  = new Bedürfnis(Ressourcen.Fisch, 120);
     public static final Bedürfnis GLAUBE = new Bedürfnis(Ressourcen.Glaube, 120);
-
+    public static final Bedürfnis BROT   = new Bedürfnis(Ressourcen.Brot, 120);
+    public static final Bedürfnis BIER   = new Bedürfnis(Ressourcen.Bier, 120);
     
     
     //--------------------------------------------------------------------------
