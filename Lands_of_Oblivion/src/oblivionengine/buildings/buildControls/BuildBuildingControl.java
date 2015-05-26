@@ -24,10 +24,11 @@ public class BuildBuildingControl extends AbstractControl {
     private int [][] price; int index = 0;  //Preis des Gebäude und der Index der aktuell verwendeten Ressource
     private Building building;
     private boolean isBuild = false;
+    private float step = 0;             //Schrittweite pro Sekunde
+    private float step2 = 0;
     
     public BuildBuildingControl(Building building){
         this.building = building;
-        building.setLocalTranslation(new Vector3f(building.getLocalTranslation().x, building.getLocalTranslation().y-building.getHeight(), building.getLocalTranslation().z));
         
         //Anzahl der benötigten Ressourcen ermitteln
         price = building.getPRICE();
@@ -36,6 +37,9 @@ public class BuildBuildingControl extends AbstractControl {
         for (int i = 0; i < price.length; i++) {
             time += timePerRessource * price[i][1];
         }
+        
+        step = building.getHeight()/time;
+        System.out.println(step);
     }
     
     @Override
@@ -70,9 +74,11 @@ public class BuildBuildingControl extends AbstractControl {
 
             timer += tpf;
             
-            //Building langsam aus dem Boden kommen lassen
-            float newHeight = spatial.getLocalTranslation().y + ((float)building.getHeight()/(float)time)*tpf;
-            spatial.move(0, ((float)building.getHeight()/(float)time)*tpf, 0);
+            //Building langsam aus dem Boden kommen lassen, bis die richtige Höhe erreicht ist
+            if(step2 < building.getHeight()){
+                spatial.move(0, step*tpf, 0);
+                step2 += step*tpf;
+            }
         }
     }
     

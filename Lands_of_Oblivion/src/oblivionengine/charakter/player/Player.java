@@ -11,6 +11,7 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import oblivionengine.Game;
 import oblivionengine.TreeCutControl;
@@ -47,6 +48,9 @@ public class Player extends CharakterControl{
     public static Building selectedBuilding;
     public static boolean isBuildingSelected = false;
     public boolean canBeBuild = false;
+    
+    //Wird ein Gebäude abgerissen?
+    private boolean isBuildingDelete = false;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -161,33 +165,55 @@ public class Player extends CharakterControl{
     
     //Gebäude abreißen
     public void deleteBuilding(){
-        CollisionResults results = new CollisionResults();
-        Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
-        Game.game.mapState.getMap().getBuildings().collideWith(ray, results);
-        
-        if(results.size() != 0){
-            Building b = (Building)results.getClosestCollision().getGeometry().getParent();
-            
-            //Physikalischen Körper entfernen
-            Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
-        
-            //Gebäude von der Map entfernen
-            b.removeFromParent();
-            
-            //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
-            if(b instanceof WorkBuilding){
-                WorkBuilding wB = (WorkBuilding)b;
-                NPCManager.removeNPCFromBuilding(wB.getWorker());
+        if(!isBuildingDelete)
+            isBuildingDelete = true;
+        else{
+            CollisionResults results = new CollisionResults();
+            Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
+            Game.game.mapState.getMap().getBuildings().collideWith(ray, results);
+
+            Abreißen:
+            if(results.size() != 0){
+                Node n = (Node)results.getClosestCollision().getGeometry().getParent();
                 
-                //Gebäude entfernen
-                NPCManager.removeWorkingBuildings(b);
+                //Oberste Node herausfinden
+                int i = 10;
+                Schleife:
+                while((n instanceof Building) == false){
+                    n = n.getParent();
+                    
+                    if(i == 0)
+                        break Abreißen;
+                    i--;
+                }
+                
+                //Node in ein Gebäude umwandeln
+                Building b = (Building)n;
+                System.out.println("Abreißen");
+                
+                //Physikalischen Körper entfernen
+                Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
+
+                //Gebäude von der Map entfernen
+                b.removeFromParent();
+
+                //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
+                if(b instanceof WorkBuilding){
+                    WorkBuilding wB = (WorkBuilding)b;
+                    
+                    if(wB.getWorker() != null)
+                        NPCManager.removeNPCFromBuilding(wB.getWorker());
+
+                    //Gebäude entfernen
+                    NPCManager.removeWorkingBuildings(b);
+                }
+                else{
+                    //Gebäude entfernen
+                    NPCManager.removeFreeBuildings(b);
+                }
+
+                NPCManager.numberBuildings--;
             }
-            else{
-                //Gebäude entfernen
-                NPCManager.removeFreeBuildings(b);
-            }
-            
-            NPCManager.numberBuildings--;
         }
     }
 }

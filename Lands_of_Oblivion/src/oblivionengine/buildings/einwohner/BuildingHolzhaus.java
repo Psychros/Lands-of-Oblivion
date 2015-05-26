@@ -5,12 +5,8 @@
 
 package oblivionengine.buildings.einwohner;
 
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
+import com.jme3.scene.Node;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_LAGER;
 import oblivionengine.charakter.npc.NPCManager;
 
 /**
@@ -29,14 +25,11 @@ public class BuildingHolzhaus extends BuildingHaus{
             setSize(SIZE_HOLZHAUS);
             setPRICE(PRICE_HOLZHAUS);
             
-            Box boxMesh = new Box(5f,5f,5f); 
-            Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
-            Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
-            boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Brown); 
-            boxMat.setColor("Diffuse", ColorRGBA.Brown); 
-            boxGeo.setMaterial(boxMat); 
-            attachChild(boxGeo);
+            Node haus = (Node)Game.game.getAssetManager().loadModel("Models/Buildings/Holzhaus/Holzhaus.j3o");
+            
+            attachChild(haus);
+            
+            scale(2.6f);
         }
     }
 

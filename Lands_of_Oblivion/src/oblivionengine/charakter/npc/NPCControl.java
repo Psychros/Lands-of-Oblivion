@@ -211,7 +211,7 @@ public class NPCControl extends AbstractControl{
         }
         
         //Primäre Bedürfnisse
-        for (int i = 0; i < NPCManager.getBedürfnisseSek().size(); i++) {
+        for (int i = 0; i < NPCManager.getBedürfnissePrim().size(); i++) {
             //Timer aktualisieren
             float timer = timerBedürfnisse.get(i);
             timer += tpf;

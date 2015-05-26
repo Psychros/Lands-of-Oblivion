@@ -23,7 +23,7 @@ import static oblivionengine.charakter.player.Player.selectedBuilding;
  */
 public class Building extends Node{
 
-    protected int[] size ={0, 0, 0};      //Größe des Gebäudes
+    protected float[] size ={0, 0, 0};      //Größe des Gebäudes
     protected int[][] PRICE = {};         //Preis des Gebäudes
     
     public static final int RAND = 6;   //Rand, der um ein Gebäude herum ist
@@ -33,23 +33,23 @@ public class Building extends Node{
      * //x, z, höhe
      */
     //Lager
-    public static final int[] SIZE_LAGER          = {7, 4, 7};   
+    public static final float[] SIZE_LAGER          = {7, 4, 7};   
     
     //Arbeitsgebäude
-    public static final int[] SIZE_BÄCKER         = {8, 10, 8}; 
-    public static final int[] SIZE_BRAUEREI       = {10, 8, 13}; 
-    public static final int[] SIZE_BRUNNEN        = {5, 5, 6}; 
-    public static final int[] SIZE_FISCHER        = {5, 10, 10}; 
-    public static final int[] SIZE_GETREIDEFARM   = {15, 15, 8}; 
-    public static final int[] SIZE_HOLZFÄLLER     = {10, 10, 8}; 
-    public static final int[] SIZE_HOPFENFARM     = {15, 15, 8}; 
-    public static final int[] SIZE_KIRCHE         = {10, 20, 20}; 
-    public static final int[] SIZE_MÜHLE          = {8, 8, 16}; 
-    public static final int[] SIZE_STEINMETZ      = {10, 10, 8};
+    public static final float[] SIZE_BÄCKER         = {8, 10, 8}; 
+    public static final float[] SIZE_BRAUEREI       = {10, 8, 13}; 
+    public static final float[] SIZE_BRUNNEN        = {5, 5, 6}; 
+    public static final float[] SIZE_FISCHER        = {5, 10, 10}; 
+    public static final float[] SIZE_GETREIDEFARM   = {15, 15, 8}; 
+    public static final float[] SIZE_HOLZFÄLLER     = {10, 10, 8}; 
+    public static final float[] SIZE_HOPFENFARM     = {15, 15, 8}; 
+    public static final float[] SIZE_KIRCHE         = {10, 20, 20}; 
+    public static final float[] SIZE_MÜHLE          = {8, 8, 16}; 
+    public static final float[] SIZE_STEINMETZ      = {10, 10, 8};
     
     //Einwohnergebäude
-    public static final int[] SIZE_HOLZHAUS       = {5, 5, 5};
-    public static final int[] SIZE_STEINHAUS      = {5, 5, 10};
+    public static final float[] SIZE_HOLZHAUS       = {8.164f, 4.68f, 7.384f};
+    public static final float[] SIZE_STEINHAUS      = {5, 5, 10};
     
     
     /*
@@ -94,15 +94,15 @@ public class Building extends Node{
         setLocalTranslation(pos.x, Game.game.mapState.getMap().getTerrain().getHeight(pos), pos.y);
     }
     
-    public void setSize(int[] size){
+    public void setSize(float[] size){
         this.size = size;
     }
 
-    public int[] getSize() {
+    public float[] getSize() {
         return size;
     } 
     
-    public int getHeight(){
+    public float getHeight(){
         return size[2];
     }
 
