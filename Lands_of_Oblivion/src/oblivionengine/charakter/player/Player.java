@@ -165,54 +165,56 @@ public class Player extends CharakterControl{
     
     //Gebäude abreißen
     public void deleteBuilding(){
-        if(!isBuildingDelete)
-            isBuildingDelete = true;
-        else{
-            CollisionResults results = new CollisionResults();
-            Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
-            Game.game.mapState.getMap().getBuildings().collideWith(ray, results);
+        if(selectedBuildingID == null || selectedBuildingID.equals("")){
+            if(!isBuildingDelete)
+                isBuildingDelete = true;
+            else{
+                CollisionResults results = new CollisionResults();
+                Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
+                Game.game.mapState.getMap().getBuildings().collideWith(ray, results);
 
-            Abreißen:
-            if(results.size() != 0){
-                Node n = (Node)results.getClosestCollision().getGeometry().getParent();
-                
-                //Oberste Node herausfinden
-                int i = 10;
-                Schleife:
-                while((n instanceof Building) == false){
-                    n = n.getParent();
-                    
-                    if(i == 0)
-                        break Abreißen;
-                    i--;
+                Abreißen:
+                if(results.size() != 0){
+                    Node n = (Node)results.getClosestCollision().getGeometry().getParent();
+
+                    //Oberste Node herausfinden
+                    int i = 10;
+                    Schleife:
+                    while((n instanceof Building) == false){
+                        n = n.getParent();
+
+                        if(i == 0)
+                            break Abreißen;
+                        i--;
+                    }
+
+                    //Node in ein Gebäude umwandeln
+                    Building b = (Building)n;
+                    System.out.println("Abreißen");
+
+                    //Physikalischen Körper entfernen
+                    Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
+
+                    //Gebäude von der Map entfernen
+                    b.removeFromParent();
+
+                    //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
+                    if(b instanceof WorkBuilding){
+                        WorkBuilding wB = (WorkBuilding)b;
+
+                        if(wB.getWorker() != null)
+                            NPCManager.removeNPCFromBuilding(wB.getWorker());
+
+                        //Gebäude entfernen
+                        NPCManager.removeWorkingBuildings(b);
+                    }
+                    else{
+                        //Gebäude entfernen
+                        NPCManager.removeFreeBuildings(b);
+                    }
+
+                    NPCManager.numberBuildings--;
                 }
-                
-                //Node in ein Gebäude umwandeln
-                Building b = (Building)n;
-                System.out.println("Abreißen");
-                
-                //Physikalischen Körper entfernen
-                Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
-
-                //Gebäude von der Map entfernen
-                b.removeFromParent();
-
-                //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
-                if(b instanceof WorkBuilding){
-                    WorkBuilding wB = (WorkBuilding)b;
-                    
-                    if(wB.getWorker() != null)
-                        NPCManager.removeNPCFromBuilding(wB.getWorker());
-
-                    //Gebäude entfernen
-                    NPCManager.removeWorkingBuildings(b);
-                }
-                else{
-                    //Gebäude entfernen
-                    NPCManager.removeFreeBuildings(b);
-                }
-
-                NPCManager.numberBuildings--;
             }
         }
     }

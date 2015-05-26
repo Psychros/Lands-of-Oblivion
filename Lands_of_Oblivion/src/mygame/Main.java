@@ -31,7 +31,7 @@ public class Main extends Game {
        
        //Appsettings anpassen
        AppSettings settings = new AppSettings(true);
-       settings.setFullscreen(false);
+       settings.setFullscreen(true);
        settings.setTitle("Lands of Oblivion");
        settings.setSettingsDialogImage("Interface/SplashScreen2.png");
        settings.setResolution(1920, 1080);

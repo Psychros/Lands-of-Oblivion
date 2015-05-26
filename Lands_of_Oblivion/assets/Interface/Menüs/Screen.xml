@@ -36,10 +36,10 @@
     <screen id="inGame" controller="oblivionengine.appstates.Screens">
         <layer id="Anzeige" childLayout="absolute">
             <image filename="Interface/Menüs/InGame/inGame.png" height="100%" width="100%"></image>
-            <control id="Lager" name="label" text="0" x="70px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
-            <control id="Baumstämme" name="label" text="0" x="260px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
-            <control id="Stein" name="label" text="0" x="450px" y="5px" height="60px" width="120px" font="Interface/Fonts/Arial.fnt"/>
-            <control id="Einwohner" name="label" text="0/0 (100%)" x="85px" y="80px" height="60px" width="300px" font="Interface/Fonts/Arial.fnt"/>
+            <control id="Lager" name="label" text="0"              x="3.65%"  y="0.46%" height="5.56%" width="6.25%"  font="Interface/Fonts/Arial.fnt"/>
+            <control id="Baumstämme" name="label" text="0"         x="13.54%" y="0.46%" height="5.56%" width="6.25%"  font="Interface/Fonts/Arial.fnt"/>
+            <control id="Stein" name="label" text="0"              x="23.44%" y="0.46%" height="5.56%" width="6.25%"  font="Interface/Fonts/Arial.fnt"/>
+            <control id="Einwohner" name="label" text="0/0 (100%)" x="4.43%"  y="7.41%" height="5.56%" width="15.63%" font="Interface/Fonts/Arial.fnt"/>
         </layer>
     </screen>
     
@@ -53,7 +53,7 @@
         <layer id="foreground" childLayout="absolute">
                 <interact onMouseOver="resetMouseOver()"/>
                     
-                <control id="Mausempfindlichkeit" name="horizontalScrollbar" x="670px" y="55px" width="400" worldMax="400.0" worldPageSize="200.0" initial="25.0" buttonStepSize="2.0" />
+                <control id="Mausempfindlichkeit" name="horizontalScrollbar" x="30%" y="8%" width="400" worldMax="400.0" worldPageSize="200.0" initial="25.0" buttonStepSize="2.0" />
                 
                 <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="69%" y="90%" height="8%" width="26%" visibleToMouse="true"> 
                     <interact onClick="backToStartScreen()" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
@@ -222,19 +222,19 @@
         <layer id="background" childLayout="absolute">
             <image filename="Interface/Menüs/Lagermenü/Lager.png" height="100%" width="100%"></image>
         </layer>
-        <layer id="foreground" childLayout="absolute">
+        <layer id="foreground" childLayout="absolute"  x="0%" y="0%">
                 <interact onMouseOver="resetMouseOver()"/>
                     
-                <control id="Lager"    name="label" text="0" x="85px"    y="25px"   height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Holz"     name="label" text="0" x="85px"    y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Stein"    name="label" text="0" x="285px"   y="100px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Fisch"    name="label" text="0" x="85px"    y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Wasser"   name="label" text="0" x="285px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Getreide" name="label" text="0" x="485px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Hopfen"   name="label" text="0" x="685px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Bier"     name="label" text="0" x="885px"   y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Mehl"     name="label" text="0" x="1085px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
-                <control id="Brot"     name="label" text="0" x="1285px"  y="165px"  height="60px" width="140px" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Lager"    name="label" text="0" x="5.43%"    y="-1.68%"   height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Holz"     name="label" text="0" x="5.43%"    y="5.26%"   height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Stein"    name="label" text="0" x="15.84%"   y="5.26%"   height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Fisch"    name="label" text="0" x="5.43%"    y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Wasser"   name="label" text="0" x="15.84%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Getreide" name="label" text="0" x="26.26%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Hopfen"   name="label" text="0" x="37.10%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Bier"     name="label" text="0" x="47.09%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Mehl"     name="label" text="0" x="57.51%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
+                <control id="Brot"     name="label" text="0" x="67.93%"   y="11.28%"  height="12.96%" width="3.13%" font="Interface/Fonts/Arial.fnt"/>
         </layer>
     </screen>
 </nifty>
