@@ -22,6 +22,7 @@ import oblivionengine.buildings.einwohner.BuildingSteinhaus;
 import oblivionengine.buildings.baumaterial.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
+import oblivionengine.buildings.WorkBuilding;
 import oblivionengine.buildings.waren.BuildingFischer;
 import oblivionengine.buildings.gesellschaft.BuildingKirche;
 import oblivionengine.buildings.waren.BuildingBrauerei;
@@ -30,6 +31,7 @@ import oblivionengine.buildings.waren.BuildingBäcker;
 import oblivionengine.buildings.waren.BuildingGetreidefarm;
 import oblivionengine.buildings.waren.BuildingHopfenfarm;
 import oblivionengine.buildings.waren.BuildingMühle;
+import oblivionengine.charakter.npc.NPCManager;
 
 /**
  *
@@ -67,11 +69,13 @@ public class Player extends CharakterControl{
     public void onAction(String name, boolean isPressed, float tpf) {
         super.onAction(name, isPressed, tpf);
         
-        //Baum fällen
         if(name.equals("CutTree")){
             cutTree();
-        } else if(name.equals("Build"))
+        } else if(name.equals("Build")){
             build();
+        } else if(name.equals("DeleteBuilding"))
+            deleteBuilding();
+        
     }
     
     //Baum fällen
@@ -150,9 +154,40 @@ public class Player extends CharakterControl{
                 }
                 
                 isBuildingSelected = false;
+            }     
+        }
+    }
+    
+    
+    //Gebäude abreißen
+    public void deleteBuilding(){
+        CollisionResults results = new CollisionResults();
+        Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
+        Game.game.mapState.getMap().getBuildings().collideWith(ray, results);
+        
+        if(results.size() != 0){
+            Building b = (Building)results.getClosestCollision().getGeometry().getParent();
+            
+            //Physikalischen Körper entfernen
+            Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
+        
+            //Gebäude von der Map entfernen
+            b.removeFromParent();
+            
+            //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
+            if(b instanceof WorkBuilding){
+                WorkBuilding wB = (WorkBuilding)b;
+                NPCManager.removeNPCFromBuilding(wB.getWorker());
+                
+                //Gebäude entfernen
+                NPCManager.removeWorkingBuildings(b);
+            }
+            else{
+                //Gebäude entfernen
+                NPCManager.removeFreeBuildings(b);
             }
             
+            NPCManager.numberBuildings--;
         }
-        
     }
 }

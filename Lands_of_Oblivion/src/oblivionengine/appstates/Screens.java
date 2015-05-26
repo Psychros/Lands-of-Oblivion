@@ -20,7 +20,6 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-import de.lessvoid.nifty.tools.SizeValue;
 import oblivionengine.Game;
 import oblivionengine.appstates.MapState.InputMapping;
 import oblivionengine.charakter.player.CharakterControl;
@@ -130,6 +129,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         inputManager.deleteMapping(InputMapping.Run.name());
         inputManager.deleteMapping(InputMapping.CutTree.name());
         inputManager.deleteMapping(InputMapping.Build.name());
+        inputManager.deleteMapping(InputMapping.DeleteBuilding.name());
         
         //Den Spieler anhalten, wenn er sich bewegt
         Game.game.mapState.getPlayer().stopPlayer();
@@ -260,13 +260,14 @@ public class Screens extends AbstractAppState implements ScreenController{
     //Gebäude auswählen
     public void chooseBuilding(String buildingID){
         //ID des Gebäudes auswählen
-        if(buildingID.equals("Nichts"))
+        if(buildingID.equals("Abreißen"))
             Player.selectedBuildingID = null;
         else
             Player.selectedBuildingID = buildingID;
         
         //Zum Obermenü zurückkehren
-        switchBack(category);
+        if(category != null && !category.equals("") && !category.equals("baumenü"))
+            switchBack(category);
         
         //Zum Spiel zurückkehren
         menüControl = 0;

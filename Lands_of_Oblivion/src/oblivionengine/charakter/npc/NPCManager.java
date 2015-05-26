@@ -56,7 +56,6 @@ public class NPCManager {
     //Getter und Setter
     public static void addFreeNPC(NPCControl npc) {
          freeNPCs.add(npc);
-         workingNPCs.remove(npc);
          
          referNPCToBuilding();
          actualizeText();
@@ -198,6 +197,24 @@ public class NPCManager {
             //NPC zum Arbeitsplatz laufen lassen
             npc.goToWorkPlace();
         }
+    }
+    
+    //Arbeitenden NPC wieder entfernen
+    public static void removeNPCFromBuilding(WorkerControl npc){
+        NPCControl freeNPC = new NPCControl(npc.getHome());
+        freeNPC.setIsWalkingRandom(true);
+
+
+        //NPCControl austauschen
+        Node node = npc.getNode();
+        freeNPC.setAnimControl(npc.getNode().getControl(AnimControl.class));
+        freeNPC.setSpatial(node);
+        node.addControl(freeNPC);
+        node.removeControl(WorkerControl.class);     
+
+        //Intere Listen neu organisieren
+        addFreeNPC(freeNPC);
+        removeWorkingNPCs(npc);
     }
     
     

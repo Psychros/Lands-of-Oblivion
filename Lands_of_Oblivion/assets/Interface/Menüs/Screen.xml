@@ -87,8 +87,8 @@
             <panel id="buttons" x="64%" y="0%" height="100%" width="36%" childLayout="absolute">
                 <interact onMouseOver="resetMouseOver()"/>
                 
-                <image id="nichts"     filename="Interface/Menüs/Baumenü/ButtonNichts.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
-                    <interact onClick="chooseBuilding(Nichts)" onMouseOver="mouseOver(nichts. Interface/Menüs/Baumenü/ButtonNichts2.png. Interface/Menüs/Baumenü/ButtonNichts.png)"/>
+                <image id="abreißen"     filename="Interface/Menüs/Baumenü/ButtonAbreißen.png"     x="5%" y="15%" height="8%" width="64%" visibleToMouse="true"> 
+                    <interact onClick="chooseBuilding(Abreißen)" onMouseOver="mouseOver(abreißen. Interface/Menüs/Baumenü/ButtonAbreißen2.png. Interface/Menüs/Baumenü/ButtonAbreißen.png)"/>
                 </image>
                 <image id="einwohner"  filename="Interface/Menüs/Baumenü/ButtonEinwohner.png"     x="5%" y="25%" height="8%" width="64%" visibleToMouse="true"> 
                     <interact onClick="switchCategory(buttonsEinwohner)" onMouseOver="mouseOver(einwohner. Interface/Menüs/Baumenü/ButtonEinwohner2.png. Interface/Menüs/Baumenü/ButtonEinwohner.png)"/>
