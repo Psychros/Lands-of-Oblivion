@@ -50,8 +50,8 @@ public class BuildingKirche extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Glaube);
         control.setTime(3);

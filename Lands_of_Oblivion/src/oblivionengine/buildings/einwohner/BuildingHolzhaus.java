@@ -5,7 +5,8 @@
 
 package oblivionengine.buildings.einwohner;
 
-import com.jme3.scene.Node;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
 import oblivionengine.Game;
 import oblivionengine.charakter.npc.NPCManager;
 
@@ -25,11 +26,9 @@ public class BuildingHolzhaus extends BuildingHaus{
             setSize(SIZE_HOLZHAUS);
             setPRICE(PRICE_HOLZHAUS);
             
-            Node haus = (Node)Game.game.getAssetManager().loadModel("Models/Buildings/Holzhaus/Holzhaus.j3o");
-            
+            Geometry haus = (Geometry)Game.game.getAssetManager().loadModel("Models/Buildings/Holzhaus.j3o");      
             attachChild(haus);
-            
-            scale(2.6f);
+            scale(3f);
         }
     }
 
@@ -40,8 +39,8 @@ public class BuildingHolzhaus extends BuildingHaus{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         setNumberpeople(2);
         NPCManager.addZiviisationsPunkte(1);

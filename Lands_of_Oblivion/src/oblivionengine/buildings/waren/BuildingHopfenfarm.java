@@ -52,8 +52,8 @@ public class BuildingHopfenfarm extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Hopfen);
         control.addPrice(Ressourcen.Wasser, 2);

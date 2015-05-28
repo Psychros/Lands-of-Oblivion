@@ -47,8 +47,8 @@ public class BuildingSteinhaus extends BuildingHaus{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         setNumberpeople(4);
         NPCManager.addZiviisationsPunkte(2);

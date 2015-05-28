@@ -50,8 +50,8 @@ public class BuildingGetreidefarm extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Getreide);
         control.addPrice(Ressourcen.Wasser, 1);

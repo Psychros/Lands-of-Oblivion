@@ -50,8 +50,8 @@ public class BuildingLager extends Building{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         Player.lager.setGröße(Player.lager.getGröße()+SIZE);
         
         NPCManager.addZiviisationsPunkte(3);

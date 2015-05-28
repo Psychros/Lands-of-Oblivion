@@ -42,8 +42,8 @@ public class WorkBuilding extends Building{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
      @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         //Controll hinzufügen, der Waren produziert
         control = new WorkBuildingControl(Ressourcen.Holz, 30);

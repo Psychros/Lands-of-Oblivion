@@ -52,8 +52,8 @@ public class BuildingBrauerei extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Bier);
         control.addPrice(Ressourcen.Wasser, 1);

@@ -24,6 +24,7 @@ import oblivionengine.buildings.baumaterial.BuildingSteinmetz;
 import oblivionengine.buildings.buildControls.BuildingPositionControl;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.buildings.buildControls.DemolishBuildingControl;
 import oblivionengine.buildings.waren.BuildingFischer;
 import oblivionengine.buildings.gesellschaft.BuildingKirche;
 import oblivionengine.buildings.waren.BuildingBrauerei;
@@ -50,7 +51,7 @@ public class Player extends CharakterControl{
     public boolean canBeBuild = false;
     
     //Wird ein Gebäude abgerissen?
-    private boolean isBuildingDelete = false;
+    private int deleteCount = 0;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -77,8 +78,10 @@ public class Player extends CharakterControl{
             cutTree();
         } else if(name.equals("Build")){
             build();
-        } else if(name.equals("DeleteBuilding"))
+        } else if(name.equals("DeleteBuilding")){
             deleteBuilding();
+        } else if(name.equals("CancelDeleteBuilding"))
+            deleteCount = 0;
         
     }
     
@@ -166,8 +169,8 @@ public class Player extends CharakterControl{
     //Gebäude abreißen
     public void deleteBuilding(){
         if(selectedBuildingID == null || selectedBuildingID.equals("")){
-            if(!isBuildingDelete)
-                isBuildingDelete = true;
+            if(deleteCount <3)
+                deleteCount++;
             else{
                 CollisionResults results = new CollisionResults();
                 Ray ray = new Ray(Game.game.getCam().getLocation(), Game.game.getCam().getDirection());
@@ -190,13 +193,12 @@ public class Player extends CharakterControl{
 
                     //Node in ein Gebäude umwandeln
                     Building b = (Building)n;
-                    System.out.println("Abreißen");
 
                     //Physikalischen Körper entfernen
                     Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
 
                     //Gebäude von der Map entfernen
-                    b.removeFromParent();
+                    b.addControl(new DemolishBuildingControl(b));
 
                     //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
                     if(b instanceof WorkBuilding){
@@ -214,6 +216,7 @@ public class Player extends CharakterControl{
                     }
 
                     NPCManager.numberBuildings--;
+                    deleteCount = 0;
                 }
             }
         }

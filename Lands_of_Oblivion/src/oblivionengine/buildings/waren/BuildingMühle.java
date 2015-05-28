@@ -50,8 +50,8 @@ public class BuildingMühle extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Mehl);
         control.addPrice(Ressourcen.Getreide, 1);

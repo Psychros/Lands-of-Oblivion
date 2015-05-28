@@ -166,6 +166,7 @@ public class Building extends Node{
         terrain.recalculateAllNormals();
         
         //Physikalischen Körper aktualisieren
+        Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(terrain.getControl(RigidBodyControl.class));
         terrain.getControl(RigidBodyControl.class).destroy();
         RigidBodyControl undergroundPhysic = new RigidBodyControl(0);
         terrain.addControl(undergroundPhysic);  
@@ -193,7 +194,12 @@ public class Building extends Node{
     }
     
     //Gebäude fertigstellen und den Bauprozess beenden
-    public void finishBuilding(){
+    public void finish(){
+        
+    }
+    
+    //Gebäude abreißen
+    public void demolish(){
         
     }
 }

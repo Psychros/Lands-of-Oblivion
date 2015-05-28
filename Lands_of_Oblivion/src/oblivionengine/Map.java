@@ -246,7 +246,7 @@ public class Map extends Node{
     public void setSunLight(boolean isSunLight){
         if(sunLight == null && isSunLight){
             sunLight = new DirectionalLight();
-            sunLight.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
+            sunLight.setDirection((new Vector3f(-5f, -1f, 0)).normalizeLocal());
             sunLight.setColor(ColorRGBA.Yellow);
             addLight(sunLight); 
         } else if(sunLight != null && !isSunLight){

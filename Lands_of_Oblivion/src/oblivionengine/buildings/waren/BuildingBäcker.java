@@ -50,8 +50,8 @@ public class BuildingBäcker extends WorkBuilding{
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden
     @Override
-    public void finishBuilding() {
-        super.finishBuilding(); 
+    public void finish() {
+        super.finish(); 
         
         control.setRessource(Ressourcen.Brot);
         control.addPrice(Ressourcen.Mehl, 3);

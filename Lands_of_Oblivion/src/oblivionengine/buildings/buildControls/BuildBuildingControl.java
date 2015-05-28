@@ -4,7 +4,6 @@
  */
 package oblivionengine.buildings.buildControls;
 
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.AbstractControl;
@@ -39,7 +38,6 @@ public class BuildBuildingControl extends AbstractControl {
         }
         
         step = building.getHeight()/time;
-        System.out.println(step);
     }
     
     @Override
@@ -59,7 +57,7 @@ public class BuildBuildingControl extends AbstractControl {
 
                     //Wenn das Gebäude fertig ist, kann dieser Control entfernt werden und es wird ein Kollisionsmodell erzeugt
                     if(index >= price.length-1){
-                        building.finishBuilding();
+                        building.finish();
                         spatial.removeControl(this);
                         return;
                     } else{
