@@ -23,6 +23,7 @@ public class DemolishBuildingControl extends AbstractControl{
     private int [][] price; int index = 0;  //Preis des Gebäude und der Index der aktuell verwendeten Ressource
     private Building building;
     private float step = 0;             //Schrittweite pro Sekunde
+    private boolean isBuild = true;
     
     public DemolishBuildingControl(Building building){
         this.building = building;
@@ -36,6 +37,13 @@ public class DemolishBuildingControl extends AbstractControl{
         }
         
         step = building.getHeight()/time;
+        
+        //Falls noch gebaut wird wird der Bauvorgang abgebrochen
+        if(building.getControl(BuildBuildingControl.class) != null){
+            building.removeControl(BuildBuildingControl.class);
+            isBuild = false;
+        }
+        
     }
     
     @Override
@@ -43,7 +51,9 @@ public class DemolishBuildingControl extends AbstractControl{
 
         //Nach dem Versinken die Gebäudespeziefischen Abreißvorgänge starten
         if(timer >= time){
-            building.demolish();
+            //Nur Gebäudespezifische Abreißvorgänge starten, wenn es schon fertig gebau tist
+            if(isBuild)
+                building.demolish();
             spatial.removeFromParent();
             spatial.removeControl(this);
             
@@ -51,7 +61,7 @@ public class DemolishBuildingControl extends AbstractControl{
         }
         
         //Building langsam aus dem Boden kommen lassen, bis die richtige Höhe erreicht ist
-        spatial.move(0, -step*tpf, 0);
+        spatial.setLocalTranslation(spatial.getLocalTranslation().add(0, -step*tpf, 0));
         timer += tpf;
     }
     

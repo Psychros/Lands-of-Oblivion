@@ -113,4 +113,16 @@ public class BuildingHolzfäller extends WorkBuilding{
         job.setBuilding(this);
         return job;
     }
+
+    @Override
+    public void demolish() {
+        super.demolish(); //To change body of generated methods, choose Tools | Templates.
+        
+        //Bäume können wieder gefällt werden
+        for (Node tree : trees) {
+            Game.game.mapState.getMap().getTrees().attachChild(tree);
+        }
+    }
+    
+    
 }

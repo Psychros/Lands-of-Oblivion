@@ -107,7 +107,14 @@ public class Building extends Node{
     }
 
     public int[][] getPRICE() {
-        return PRICE;
+        //Klonen des Preises, damit nicht der Originalpreis verändert werden kann
+        int[][] price = new int[PRICE.length][2];
+        for (int i = 0; i < PRICE.length; i++) {
+            price[i][0] = PRICE[i][0];
+            price[i][1] = PRICE[i][1];
+        }
+        
+        return price;
     }
 
     public void setPRICE(int[][] PRICE) {

@@ -180,8 +180,8 @@ public class Player extends CharakterControl{
                 if(results.size() != 0){
                     Node n = (Node)results.getClosestCollision().getGeometry().getParent();
 
-                    //Oberste Node herausfinden
-                    int i = 10;
+                    //Oberste Node des Gebäudes herausfinden
+                    int i = 100;
                     Schleife:
                     while((n instanceof Building) == false){
                         n = n.getParent();
