@@ -10,6 +10,7 @@ import oblivionengine.buildings.GlobalesLager;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -80,9 +81,12 @@ public class Player extends CharakterControl{
             build();
         } else if(name.equals("DeleteBuilding")){
             deleteBuilding();
-        } else if(name.equals("CancelDeleteBuilding"))
+        } else if(name.equals("CancelDeleteBuilding")){
             deleteCount = 0;
-        
+        } else if(name.equals("ResetPlayerPosition")){
+            warp(new Vector3f(spatial.getLocalTranslation().x, Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)), spatial.getLocalTranslation().z));
+            System.out.println("Warp");
+        }
     }
     
     //Baum fällen

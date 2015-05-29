@@ -131,6 +131,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         inputManager.deleteMapping(InputMapping.Build.name());
         inputManager.deleteMapping(InputMapping.DeleteBuilding.name());
         inputManager.deleteMapping(InputMapping.CancelDeleteBuilding.name());
+        inputManager.deleteMapping(InputMapping.ResetPlayerPosition.name());
         
         //Den Spieler anhalten, wenn er sich bewegt
         Game.game.mapState.getPlayer().stopPlayer();
