@@ -65,7 +65,7 @@ public class WorkerControl extends NPCControl{
             if(v1.distance(v2) < 1){
                 setWalkDirection(Vector2f.ZERO);
                 isGoingToWorkplace = false;
-                workPlace.setWorker(this);
+                workPlace.setHasWorker(true);
                 
                 //Job einstellen
                 setJob(workPlace.getJob());

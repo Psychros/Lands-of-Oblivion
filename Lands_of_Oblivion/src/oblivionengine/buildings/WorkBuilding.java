@@ -5,8 +5,6 @@
 
 package oblivionengine.buildings;
 
-import oblivionengine.buildings.Building;
-import oblivionengine.buildings.Ressourcen;
 import oblivionengine.charakter.npc.Job;
 import oblivionengine.charakter.npc.NPCManager;
 import oblivionengine.charakter.npc.WorkerControl;
@@ -19,6 +17,7 @@ public class WorkBuilding extends Building{
     //Objektvariablen
     private WorkerControl worker = null;
     protected WorkBuildingControl control = null;
+    private boolean hasWorker = false;
 
     
     //--------------------------------------------------------------------------
@@ -36,6 +35,14 @@ public class WorkBuilding extends Building{
 
     public WorkBuildingControl getControl() {
         return control;
+    }
+
+    public boolean hasWorker() {
+        return hasWorker;
+    }
+
+    public void setHasWorker(boolean hasWorker) {
+        this.hasWorker = hasWorker;
     }
     
     

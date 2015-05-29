@@ -182,9 +182,9 @@ public class NPCManager {
             
             
             //NPCControl austauschen
-            Node node = freeNPCs.get(0).getNode();
-            npc = new WorkerControl(node.getControl(NPCControl.class).getHome(), building);
-            npc.setAnimControl(freeNPCs.get(0).getNode().getControl(AnimControl.class));
+            Node node = (Node)freeNPCs.get(0).getSpatial();
+            npc = new WorkerControl(freeNPCs.get(0).getHome(), building);
+            npc.setAnimControl(freeNPCs.get(0).getSpatial().getControl(AnimControl.class));
             node.addControl(npc);
             node.removeControl(NPCControl.class);
             npc.setSpatial(node);        
@@ -192,6 +192,8 @@ public class NPCManager {
             //NPCControl im Wohnhaus austauschen
             freeNPCs.get(0).getHome().getNpcs()[freeNPCs.get(0).getHome().getIndex(freeNPCs.get(0))] = npc;
             
+            //Dem Gebäude einen Arbeiter zuteilen
+            building.setWorker(npc);
             
             //Intere Listen neu organisieren
             addWorkingNPCs(npc);
@@ -212,6 +214,7 @@ public class NPCManager {
         //NPCControl austauschen
         Node node = (Node)npc.getSpatial();
         freeNPC.setAnimControl(npc.getAnimControl());
+        freeNPC.setHome(npc.getHome());
         freeNPC.setSpatial(node);
         node.addControl(freeNPC);
         node.removeControl(WorkerControl.class);     
@@ -219,6 +222,9 @@ public class NPCManager {
         //NPCControl im Wohnhaus austauschen
         npc.getHome().getNpcs()[npc.getHome().getIndex(npc)] = freeNPC;
 
+        //Arbeit einstellen
+        npc.getWorkPlace().setHasWorker(false);
+        
         //Intere Listen neu organisieren
         addFreeNPC(freeNPC);
         removeWorkingNPCs(npc);

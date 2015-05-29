@@ -70,7 +70,7 @@ public class WorkBuildingControl extends AbstractControl{
         WorkBuilding building = (WorkBuilding)spatial;
         
         //Produkt herstellen
-        if(building.getWorker() != null){
+        if(building.hasWorker()){
             timer += tpf;
             
             if(timer >= time){

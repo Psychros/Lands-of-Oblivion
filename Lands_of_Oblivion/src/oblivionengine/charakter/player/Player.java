@@ -197,26 +197,28 @@ public class Player extends CharakterControl{
                     //Physikalischen Körper entfernen
                     Game.game.mapState.getMap().getBulletAppState().getPhysicsSpace().remove(b.getControl(RigidBodyControl.class));
 
-                    //Gebäude von der Map entfernen
-                    b.addControl(new DemolishBuildingControl(b));
-
                     //Falls es sich um ein Arbeitsgebäude handelt, muss der Arbeiter entfernt werden
                     if(b instanceof WorkBuilding){
                         WorkBuilding wB = (WorkBuilding)b;
 
-                        if(wB.getWorker() != null)
-                            NPCManager.removeNPCFromBuilding(wB.getWorker());
-
                         //Gebäude entfernen
                         NPCManager.removeWorkingBuildings(b);
+                        
+                        //NPC zum Arbeitslosen machensssss
+                        if(wB.getWorker() != null)
+                            NPCManager.removeNPCFromBuilding(wB.getWorker());                       
                     }
                     else{
                         //Gebäude entfernen
                         NPCManager.removeFreeBuildings(b);
                     }
-
+                    
+                    //Der Gebäude zähler wird zurückgesetzt
                     NPCManager.numberBuildings--;
                     deleteCount = 0;
+                    
+                    //Gebäude von der Map entfernen
+                    b.addControl(new DemolishBuildingControl(b));
                 }
             }
         }
