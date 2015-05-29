@@ -189,6 +189,10 @@ public class NPCManager {
             node.removeControl(NPCControl.class);
             npc.setSpatial(node);        
             
+            //NPCControl im Wohnhaus austauschen
+            freeNPCs.get(0).getHome().getNpcs()[freeNPCs.get(0).getHome().getIndex(freeNPCs.get(0))] = npc;
+            
+            
             //Intere Listen neu organisieren
             addWorkingNPCs(npc);
             removeFreeNPC(freeNPCs.get(0));
@@ -207,10 +211,13 @@ public class NPCManager {
 
         //NPCControl austauschen
         Node node = (Node)npc.getSpatial();
-        freeNPC.setAnimControl(npc.getSpatial().getControl(AnimControl.class));
+        freeNPC.setAnimControl(npc.getAnimControl());
         freeNPC.setSpatial(node);
         node.addControl(freeNPC);
         node.removeControl(WorkerControl.class);     
+        
+        //NPCControl im Wohnhaus austauschen
+        npc.getHome().getNpcs()[npc.getHome().getIndex(npc)] = freeNPC;
 
         //Intere Listen neu organisieren
         addFreeNPC(freeNPC);

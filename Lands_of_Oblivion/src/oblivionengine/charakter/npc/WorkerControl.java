@@ -33,7 +33,7 @@ public class WorkerControl extends NPCControl{
     
     //--------------------------------------------------------------------------
     //Getter und Setter
-    public Building getWorkPlace() {
+    public WorkBuilding getWorkPlace() {
         return workPlace;
     }
 

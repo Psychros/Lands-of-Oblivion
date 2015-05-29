@@ -8,7 +8,7 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 
 /**
@@ -21,12 +21,12 @@ public class TreeCutControl extends AbstractControl {
     private float timer = 0;
     private float timerTime = 4;
     
-    private Geometry tree;
+    private Spatial tree;
     private Vector3f fallDirection;
     private boolean isCut = false; 
     
 
-    public TreeCutControl(Geometry tree) {
+    public TreeCutControl(Spatial tree) {
         super();
         
         this.tree = tree;
