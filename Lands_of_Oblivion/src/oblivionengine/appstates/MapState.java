@@ -397,8 +397,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //Zum Cheatmenü wechseln
     private boolean parseKeys(String name){
         boolean returned = false;
-        if (name.equals(InputMapping.Cheatmenü.name())){
-            Game.game.getScreens().switchToMenu("cheatmenü");
+        if (name.equals(InputMapping.Cheatmenü.name()) && !Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
+            Game.game.getScreens().goToMenu("cheatmenü");
             returned = true;
         } else if (name.equals(InputMapping.Return.name())){
             if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){

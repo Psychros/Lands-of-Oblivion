@@ -161,6 +161,10 @@ public class Screens extends AbstractAppState implements ScreenController{
         }
     }
     
+    public void resetHudToInGame(){
+        
+    }
+    
     
     //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
     public void goToGame(){
@@ -315,5 +319,9 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.getCurrentScreen().layoutLayers();
         
         category = names[1];
+    }
+    
+    public void test(String test){
+        System.out.println(test);
     }
 }
