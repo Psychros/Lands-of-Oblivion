@@ -36,7 +36,6 @@ public class Main extends Game {
        settings.setSettingsDialogImage("Interface/SplashScreen2.png");
        settings.setResolution(1920, 1080);
        game.setSettings(settings);
-       
        game.start();
     }
 

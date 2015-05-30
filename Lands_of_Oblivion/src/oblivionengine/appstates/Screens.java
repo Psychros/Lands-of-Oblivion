@@ -108,8 +108,8 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     
     //Der Spieler befindet sich in einem Menü und soll den Player nicht mehr bewegen können
-    public void goToMenu(String menü){
-        nifty.gotoScreen(menü);
+    public void goToMenu(String menu){
+        nifty.gotoScreen(menu);
         Game.game.getInputManager().setCursorVisible(true);
         nifty.setIgnoreKeyboardEvents(false);
         nifty.setIgnoreMouseEvents(false);
