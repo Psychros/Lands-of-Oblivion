@@ -8,5 +8,6 @@ import oblivionengine.Game;
  * @author Tobi
  */
 public interface Cheat {
-    public boolean doCheat(Game game, String cheat);
+    public String getIdentification();
+    public boolean doCheat(Game game, String cheatText);
 }

@@ -161,10 +161,6 @@ public class Screens extends AbstractAppState implements ScreenController{
         }
     }
     
-    public void resetHudToInGame(){
-        
-    }
-    
     
     //Der Spieler befindet sich im Spiel und soll den Player wieder bewegen können
     public void goToGame(){

@@ -9,13 +9,27 @@ import oblivionengine.Game;
  */
 public class Cheatmanager implements Cheat {
     ArrayList<Cheat> cheats = new ArrayList<Cheat>();
+    private byte cheatcounter;
     
     public Cheatmanager(){
-        throw new UnsupportedOperationException("Not supported yet");
+        this.cheatcounter = 0;
+        loadCheats();
+    }
+
+    
+    public String getIdentification(){
+        return "This is Cheatmanager";
     }
 
     @Override
-    public boolean doCheat(Game game, String cheat) {
-        return true;
+    public boolean doCheat(Game game, String cheatText) {
+        for (Cheat curCheat : cheats){
+            if (curCheat.doCheat(game, cheatText)) return false;
+        }
+        return false;
+    }
+    
+    private void loadCheats(){
+        
     }
 }

@@ -72,9 +72,14 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private BasicShadowRenderer bsr;
     private PssmShadowRenderer pssm;
     
+    
+    //Cheatmenu
+    private byte cheatcounter;
+    
     //--------------------------------------------------------------------------
     //Konstruktoren
     public MapState() {       
+        this.cheatcounter = 0;
         //FilterPostProcessor initialisieren
         effects = new FilterPostProcessor(Game.game.getAssetManager());
         Game.game.getViewPort().addProcessor(effects);
@@ -402,12 +407,15 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             returned = true;
         } else if (name.equals(InputMapping.Return.name())){
             if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
-                //String ta = nifty.getScreen("SGScreen").findNiftyControl("h1nameselect", TextField.class).getText();
-                String cheat = Game.game.getScreens().getNifty()
-                        .getCurrentScreen().findNiftyControl("cheatfield", TextField.class).getText();
-                
-                System.out.println("A Cheat has been activated: " + cheat);
-                returned = true;
+                if (cheatcounter%2 == 1){
+                    cheatcounter++;
+                    String cheat = Game.game.getScreens().getNifty()
+                        .getCurrentScreen().findNiftyControl("cheatfield", TextField.class).getDisplayedText();
+                    System.out.println("A Cheat has been activated: " + cheat);
+                    returned = true;
+                } else if (cheatcounter%2 == 0){
+                    cheatcounter = 0;
+                }
             }
         }
         return returned;
