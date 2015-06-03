@@ -33,6 +33,7 @@ public class NPCControl extends AbstractControl{
     
     //Laufrichtung & Geschwindigkeit
     private int moveSpeed = 15;
+    protected ArrayList<Vector2f> path;
     protected Vector2f walkDirection = new Vector2f(0, 0);
     private float timeChangeDirection = 1;
     private float timerChangeDirection = 0;
@@ -126,6 +127,21 @@ public class NPCControl extends AbstractControl{
     public ArrayList<Float> getTimerBedürfnisse() {
         return timerBedürfnisse;
     }
+
+    public ArrayList<Vector2f> getPath() {
+        return path;
+    }
+
+    public void setPath(ArrayList<Vector2f> path) {
+        this.path = path;
+        setIsWalkingRandom(false);
+        
+        //Neuen Richtungsvektor festlegen
+        if(path != null && path.size() > 0){
+            setWalkDirection(path.get(0).subtract(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z))); 
+            System.out.println("Erster Richtungsvektor: " + walkDirection + " , " + spatial.getLocalTranslation() + "/ " + path.get(0));
+        }
+    }
     
 
     //--------------------------------------------------------------------------
@@ -143,7 +159,7 @@ public class NPCControl extends AbstractControl{
         animControl = spatial.getControl(AnimControl.class);
         
         //Schatten
-        node.setShadowMode(ShadowMode.CastAndReceive);  
+        node.setShadowMode(ShadowMode.Off);  
     }
 
     @Override
@@ -153,11 +169,24 @@ public class NPCControl extends AbstractControl{
             //Spatial bewegen
             Vector3f walkDirection = new Vector3f(this.walkDirection.x, 0, this.walkDirection.y);
             spatial.move(walkDirection.normalize().mult(tpf).mult(3));
-            spatial.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)));
+            spatial.getLocalTranslation().setY(Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z))); 
         }
         
-        //Bewegungsrichtung in einem festen Intervall zufällig ändern
-        if(isWalkingRandom){
+        //Einem Pfad folgen
+        if(path != null && path.size() > 0){
+            Vector2f pos = new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z);
+            
+            if(pos.distance(path.get(0)) < 2f || (path.size() > 1 && pos.distance(path.get(0)) > 4f)){
+                //Neuen Weg festlegen oder anhalten
+               setWalkDirection(new Vector2f(path.get(0)).subtract(pos));
+               
+               path.remove(0);
+               path.trimToSize();
+               if(path.size() == 0)
+                   path = null;
+            }
+        }
+        else if(isWalkingRandom){    //Bewegungsrichtung in einem festen Intervall zufällig ändern
             timerChangeDirection += tpf;
             if(timerChangeDirection >= timeChangeDirection){
                 timerChangeDirection = 0;
@@ -172,8 +201,11 @@ public class NPCControl extends AbstractControl{
                 } else if(i == 1){
                     setWalkDirection(new Vector2f(0, 0));
                 }
+                
+                NPCManager.referNPCToBuilding();
             }
         }
+        
         
         //Güter verbrauchen
         consumeProducts(tpf);

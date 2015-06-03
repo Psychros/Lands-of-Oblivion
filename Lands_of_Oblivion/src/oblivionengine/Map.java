@@ -41,6 +41,8 @@ public class Map extends Node{
     
     private float gravity;
     private BulletAppState bulletAppState;
+    
+    private boolean[][] fields = new boolean[1000][1000];
 
     
     //--------------------------------------------------------------------------
@@ -89,6 +91,18 @@ public class Map extends Node{
         //Gebäudenode initialisieren
         buildings = new Node("Buildings");
         attachChild(buildings);
+        
+        //festlegen, wo NPCs langlaufen dürfen
+        for (int x = 0; x < fields.length; x++) {
+            for (int z = 0; z < fields[0].length; z++) {
+                //NPCs dürfen nur übers Festland laufen
+                if(terrain.getHeight(new Vector2f(x-500, z-500)) > 5){
+                    fields[x][z] = true;
+                } else{
+                    fields[x][z] = false;
+                }
+            }
+        }
     }
     
     
@@ -116,6 +130,7 @@ public class Map extends Node{
         terrain = new TerrainQuad("terrain", 65, (int)size+1, heightMap.getHeightMap());
         terrain.setShadowMode(ShadowMode.Receive);
         TerrainLodControl lodControl = new TerrainLodControl(terrain, Game.game.getCamera());
+        lodControl.getLodCalculator().usesVariableLod();
         lodControl.setEnabled(true);
         terrain.addControl(lodControl);
         this.attachChild(terrain);
@@ -281,6 +296,22 @@ public class Map extends Node{
 
     public Node getBuildings() {
         return buildings;
+    }
+
+    public boolean[][] getFields() {
+        //Array kopieren
+        boolean[][] fields2 = new boolean[fields.length][fields[0].length];
+        for (int x = 0; x < fields.length; x++) {
+            for (int z = 0; z < fields[0].length; z++) {
+                fields2[x][z] = fields[x][z];
+            }
+        }
+        
+        return fields2;
+    }
+
+    public void setField(int x, int z, boolean value) {
+        fields[x+500][z+500] = value;
     }
     
     

@@ -183,7 +183,7 @@ public class NPCManager {
             
             //NPCControl austauschen
             Node node = (Node)freeNPCs.get(0).getSpatial();
-            npc = new WorkerControl(freeNPCs.get(0).getHome(), building);
+            npc = new WorkerControl(freeNPCs.get(0).getHome(), building, node);
             npc.setAnimControl(freeNPCs.get(0).getSpatial().getControl(AnimControl.class));
             node.addControl(npc);
             node.removeControl(NPCControl.class);

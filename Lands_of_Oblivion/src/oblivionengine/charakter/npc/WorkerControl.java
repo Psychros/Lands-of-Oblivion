@@ -7,9 +7,11 @@ package oblivionengine.charakter.npc;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
-import oblivionengine.buildings.Building;
+import com.jme3.scene.Spatial;
 import oblivionengine.buildings.einwohner.BuildingHaus;
 import oblivionengine.buildings.WorkBuilding;
+import oblivionengine.charakter.npc.pathfinding.Node;
+import oblivionengine.charakter.npc.pathfinding.PathFinder;
 
 /**
  *
@@ -23,11 +25,9 @@ public class WorkerControl extends NPCControl{
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public WorkerControl(BuildingHaus home, WorkBuilding workPlace) { 
+    public WorkerControl(BuildingHaus home, WorkBuilding workPlace, Spatial spatial) { 
         super(home);
         this.workPlace = workPlace;
-        
-        setIsWalkingRandom(false);
     }
     
     
@@ -64,6 +64,7 @@ public class WorkerControl extends NPCControl{
             
             if(v1.distance(v2) < 1){
                 setWalkDirection(Vector2f.ZERO);
+                setPath(null);
                 isGoingToWorkplace = false;
                 workPlace.setHasWorker(true);
                 
@@ -82,10 +83,14 @@ public class WorkerControl extends NPCControl{
     
     //Der NPC läuft in Richtung Arbeitsplatz
     public void goToWorkPlace(){
-        Vector3f walkDirection = new Vector3f(workPlace.getLocalTranslation().x, 0, workPlace.getLocalTranslation().z).subtract(new Vector3f(this.spatial.getLocalTranslation().x, 0, this.spatial.getLocalTranslation().z));
-        setWalkDirection(new Vector2f(walkDirection.x, walkDirection.z));
-
-        //NPC zur WalkDirection drehen
-        rotateSpatialToWalkDirection(new Vector2f(walkDirection.x, walkDirection.z));
+        //Pfad generieren
+        PathFinder pF = new PathFinder(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z), new Vector2f(workPlace.getLocalTranslation().x, workPlace.getLocalTranslation().z), this);
+        Node n = pF.generatePath();
+        if(n != null)
+            setPath(pF.makeListFromPath(n));
+        else{
+            NPCManager.removeNPCFromBuilding(this);
+            System.out.println("Der NPC ist eingesperrt!");
+        }
     }
 }

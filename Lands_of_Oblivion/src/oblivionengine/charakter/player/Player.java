@@ -85,7 +85,6 @@ public class Player extends CharakterControl{
             deleteCount = 0;
         } else if(name.equals("ResetPlayerPosition")){
             warp(new Vector3f(spatial.getLocalTranslation().x, Game.game.mapState.getMap().getTerrain().getHeight(new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z)), spatial.getLocalTranslation().z));
-            System.out.println("Warp");
         }
     }
     
