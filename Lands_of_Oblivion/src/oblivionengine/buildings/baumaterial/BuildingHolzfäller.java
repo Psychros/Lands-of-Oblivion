@@ -42,16 +42,6 @@ public class BuildingHolzfäller extends WorkBuilding{
             Geometry haus = (Geometry)Game.game.getAssetManager().loadModel("Models/Buildings/Holzfäller.j3o");      
             attachChild(haus);
             scale(3.5f);
-            
-            //Größe testen
-            Box boxMesh = new Box(3f,1f,1f); 
-            Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
-            Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
-            boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.Gray); 
-            boxMat.setColor("Diffuse", ColorRGBA.Gray); 
-            boxGeo.setMaterial(boxMat); 
-            attachChild(boxGeo);
          }
     }
 

@@ -6,13 +6,10 @@
 package oblivionengine.charakter.npc.pathfinding;
 
 import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.Collections;
 import oblivionengine.Game;
 import oblivionengine.charakter.npc.NPCControl;
-import oblivionengine.charakter.npc.NPCManager;
-import oblivionengine.charakter.npc.WorkerControl;
 
 /**
  *

@@ -10,8 +10,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import oblivionengine.Game;
-import static oblivionengine.buildings.Building.PRICE_FISCHER;
-import static oblivionengine.buildings.Building.SIZE_FISCHER;
 import static oblivionengine.buildings.Building.testRessources;
 import oblivionengine.buildings.Ressourcen;
 import oblivionengine.buildings.WorkBuilding;
@@ -34,14 +32,9 @@ public class BuildingBrunnen extends WorkBuilding{
             setSize(SIZE_BRUNNEN);
             setPRICE(PRICE_BRUNNEN);
             
-            Box boxMesh = new Box(5f,6f,5f); 
-            Geometry boxGeo = new Geometry("Colored Box", boxMesh); 
-            Material boxMat = new Material(Game.game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md"); 
-            boxMat.setBoolean("UseMaterialColors", true); 
-            boxMat.setColor("Ambient", ColorRGBA.LightGray); 
-            boxMat.setColor("Diffuse", ColorRGBA.LightGray); 
-            boxGeo.setMaterial(boxMat); 
-            attachChild(boxGeo);
+            Geometry haus = (Geometry)Game.game.getAssetManager().loadModel("Models/Buildings/Brunnen.j3o");      
+            attachChild(haus);
+            scale(3.5f);
          }
     }
 

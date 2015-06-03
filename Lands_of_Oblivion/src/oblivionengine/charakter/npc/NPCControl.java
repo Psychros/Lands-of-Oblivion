@@ -33,7 +33,8 @@ public class NPCControl extends AbstractControl{
     
     //Laufrichtung & Geschwindigkeit
     private int moveSpeed = 15;
-    protected ArrayList<Vector2f> path;
+    protected ArrayList<Vector2f> path; 
+    protected int pathIndex = 0;
     protected Vector2f walkDirection = new Vector2f(0, 0);
     private float timeChangeDirection = 1;
     private float timerChangeDirection = 0;
@@ -173,18 +174,19 @@ public class NPCControl extends AbstractControl{
         }
         
         //Einem Pfad folgen
-        if(path != null && path.size() > 0){
+        if(path != null && pathIndex < path.size()){
             Vector2f pos = new Vector2f(spatial.getLocalTranslation().x, spatial.getLocalTranslation().z);
             
-            if(pos.distance(path.get(0)) < 2f || (path.size() > 1 && pos.distance(path.get(0)) > 4f)){
+            if(pos.distance(path.get(pathIndex)) < 2f || (pathIndex < path.size()-1 && pos.distance(path.get(pathIndex)) > 4f)){
                 //Neuen Weg festlegen oder anhalten
-               setWalkDirection(new Vector2f(path.get(0)).subtract(pos));
+               setWalkDirection(new Vector2f(path.get(pathIndex)).subtract(pos));
                
-               path.remove(0);
-               path.trimToSize();
-               if(path.size() == 0)
+               //Nächste Position ansteuern
+               pathIndex++;
+
+               if(pathIndex == path.size())
                    path = null;
-            }
+            } 
         }
         else if(isWalkingRandom){    //Bewegungsrichtung in einem festen Intervall zufällig ändern
             timerChangeDirection += tpf;
@@ -201,8 +203,6 @@ public class NPCControl extends AbstractControl{
                 } else if(i == 1){
                     setWalkDirection(new Vector2f(0, 0));
                 }
-                
-                NPCManager.referNPCToBuilding();
             }
         }
         
