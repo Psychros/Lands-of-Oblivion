@@ -27,7 +27,7 @@ public class ChangeRunningVelocityCheat implements Cheat{
     @Override
     public boolean doCheat(Game game, String cheatText) {
         String tempStr;
-        ouble tempDbl;
+        double tempDbl;
         if (cheatText.startsWith(identifier)){
             tempStr = cheatText.substring(identifier.length() + 1);
             try{
