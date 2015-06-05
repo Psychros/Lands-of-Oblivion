@@ -27,7 +27,7 @@ public class ChangeRunningVelocityCheat implements Cheat{
     @Override
     public boolean doCheat(Game game, String cheatText) {
         String tempStr;
-        Double tempDbl;
+        ouble tempDbl;
         if (cheatText.startsWith(identifier)){
             tempStr = cheatText.substring(identifier.length() + 1);
             try{
@@ -35,7 +35,10 @@ public class ChangeRunningVelocityCheat implements Cheat{
             } catch (Exception e){
                 return false;
             }
-            System.out.println(.numberBuildings);
+            game.mapState.getPlayer().setMoveSpeed(((float) tempDbl));
+            return true;
+        } else {
+            return false;
         }
     }
     
