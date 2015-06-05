@@ -250,7 +250,7 @@ public class NPCManager {
             case 1:  if(zivilisationsPunkte >= 20){
                         addBedürfnis(Bedürfnis.BIER, bedürfnissePrim);
                         enableBuilding("brot");
-                     }break;
+                     } break;
         }
     }
     

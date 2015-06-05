@@ -95,7 +95,7 @@ public class PathFinder {
         nodes.trimToSize();
         
         //Nodes nach Kosten sortieren mittels Bubblesort
-        nodes.sort(new NodeCostComparator());
+        Collections.sort(nodes, new NodeCostComparator());
         nodes.removeAll(Collections.singleton(null));
         nodes.trimToSize();
         

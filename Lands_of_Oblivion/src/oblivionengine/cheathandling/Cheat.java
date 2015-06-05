@@ -1,5 +1,5 @@
 
-package oblivionengine.cheats;
+package oblivionengine.cheathandling;
 
 import oblivionengine.Game;
 
