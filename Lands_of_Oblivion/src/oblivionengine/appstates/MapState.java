@@ -38,6 +38,7 @@ import com.jme3.ui.Picture;
 import de.lessvoid.nifty.controls.TextField;
 import oblivionengine.Game;
 import oblivionengine.Map;
+import oblivionengine.buildings.waren.BuildingBrunnen;
 import oblivionengine.charakter.player.Player;
 
 /**
@@ -83,6 +84,8 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         //FilterPostProcessor initialisieren
         effects = new FilterPostProcessor(Game.game.getAssetManager());
         Game.game.getViewPort().addProcessor(effects);
+        
+        loadClasses();
     }
     
     //--------------------------------------------------------------------------
@@ -419,5 +422,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             }
         }
         return returned;
+    }
+    
+    public void loadClasses(){
+        //Gebäude laden
+        BuildingBrunnen.loadModel();
     }
 }

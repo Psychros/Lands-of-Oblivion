@@ -30,7 +30,6 @@ public class BuildingHolzhaus extends BuildingHaus{
             
             Geometry haus = (Geometry)Game.game.getAssetManager().loadModel("Models/Buildings/Holzhaus.j3o");      
             attachChild(haus);
-            scale(3f);
         }
     }
 

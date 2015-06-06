@@ -142,11 +142,11 @@ public class PathFinder {
         list.trimToSize();
         
         //Ziel und Start wurden am Anfang vertauscht
-        System.out.println("Start: " +  this.goal.subtract(500, 500) + "  Ziel: " + this.start.subtract(500, 500));
+        //System.out.println("Start: " +  this.goal.subtract(500, 500) + "  Ziel: " + this.start.subtract(500, 500));
         
-        for (Vector2f v : list) {
-            System.out.println(v);
-        }
+        //for (Vector2f v : list) {
+        //    System.out.println(v);
+        //}
         
         return list;
     }
