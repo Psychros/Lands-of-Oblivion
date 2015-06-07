@@ -9,7 +9,9 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
@@ -21,7 +23,6 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import oblivionengine.Game;
-import oblivionengine.appstates.MapState.InputMapping;
 import oblivionengine.charakter.player.CharakterControl;
 import oblivionengine.charakter.player.Player;
 
@@ -61,6 +62,9 @@ public class Screens extends AbstractAppState implements ScreenController{
         this.stateManager = stateManager;
         this.assetManager = app.getAssetManager();
         
+        //Alle vorgefertigten KeyMappings entfernen
+        Game.game.getInputManager().clearMappings();
+        
         //Niftygui initialisieren
         niftyDisplay = new NiftyJmeDisplay(assetManager, app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
@@ -68,14 +72,12 @@ public class Screens extends AbstractAppState implements ScreenController{
         app.getGuiViewPort().addProcessor(niftyDisplay);
         Game.game.getFlyCam().setEnabled(false);
         
-        tree = (Node)Game.game.getAssetManager().loadModel("Models/Landschaft/Baum.j3o");
-        tree.scale(0.5f);
-        tree.setLocalTranslation(-3.5f, -4, 0);
-        Game.game.getRootNode().attachChild(tree);
+        initHauptmenü();
     }
     
     @Override
     public void update(float tpf) {
+        //Baum rotieren lassen
         tree.rotate(0, 5 * FastMath.DEG_TO_RAD*tpf, 0);
     }
 
@@ -116,22 +118,8 @@ public class Screens extends AbstractAppState implements ScreenController{
         
         //Mappings entfernen, die eine Aktion des Players darstellen
         InputManager inputManager = Game.game.getInputManager();
-        
-        inputManager.deleteMapping(InputMapping.RotateLeft.name());
-        inputManager.deleteMapping(InputMapping.RotateRight.name());
-        inputManager.deleteMapping(InputMapping.LookDown.name());
-        inputManager.deleteMapping(InputMapping.LookUp.name());
-        inputManager.deleteMapping(InputMapping.StrafeLeft.name());
-        inputManager.deleteMapping(InputMapping.StrafeRight.name());
-        inputManager.deleteMapping(InputMapping.MoveBackward.name());
-        inputManager.deleteMapping(InputMapping.MoveForward.name());       
-        inputManager.deleteMapping(InputMapping.Jump.name());
-        inputManager.deleteMapping(InputMapping.Run.name());
-        inputManager.deleteMapping(InputMapping.CutTree.name());
-        inputManager.deleteMapping(InputMapping.Build.name());
-        inputManager.deleteMapping(InputMapping.DeleteBuilding.name());
-        inputManager.deleteMapping(InputMapping.CancelDeleteBuilding.name());
-        inputManager.deleteMapping(InputMapping.ResetPlayerPosition.name());
+        inputManager.clearMappings();
+        Game.game.mapState.addMenuInputMappings();
         
         //Den Spieler anhalten, wenn er sich bewegt
         Game.game.mapState.getPlayer().stopPlayer();
@@ -171,6 +159,8 @@ public class Screens extends AbstractAppState implements ScreenController{
         Game.game.getInputManager().setCursorVisible(false);
         nifty.setIgnoreKeyboardEvents(true);
         nifty.setIgnoreMouseEvents(true);
+        
+        menüControl=0;
     }
     
     //Ausgewählten Button wieder entfärben, wenn der Cursor ihn nicht mehr auswählt
@@ -224,12 +214,35 @@ public class Screens extends AbstractAppState implements ScreenController{
         Game.game.getRootNode().detachAllChildren();
     }
     
+    public void loadGame(){
+        
+    }
+    
     public void stopGame(){
         Game.game.stop();
     }
     
     public void options(){
         nifty.gotoScreen("optionen");
+    }
+    
+    //Hauptmenü initialisieren
+    public void initHauptmenü(){
+        Game.game.getRootNode().detachAllChildren();
+        
+        //Baum im Hauptmenü erstellen
+        tree = (Node)Game.game.getAssetManager().loadModel("Models/Landschaft/Baum.j3o");
+        tree.scale(0.5f);
+        tree.setLocalTranslation(-3.5f, -4, 0);
+        Game.game.getRootNode().attachChild(tree);
+        
+        //Ins Hauptmenü wechseln
+        nifty.gotoScreen("start");
+        
+        //Den AppState wechseln
+        if(Game.game.getStateManager().hasState(Game.game.mapState))    
+            Game.game.getStateManager().detach(Game.game.mapState);
+        Game.game.getStateManager().attach(this);
     }
     
     
@@ -245,6 +258,33 @@ public class Screens extends AbstractAppState implements ScreenController{
         
         nifty.gotoScreen("start");
     }
+    
+    
+        
+    
+    /*
+     * Pausemenü
+     */
+    public void goToHauptmenü(){
+        //Die Map von der rootNode entfernen
+        Game.game.mapState.getMap().removeFromParent();
+        
+        //Viewport neu einstellen
+        Game.game.getViewPort().clearProcessors();
+        Game.game.getViewPort().setBackgroundColor(ColorRGBA.Black);
+        
+        //Kameraposition ändern
+        Game.game.getCamera().setLocation(new Vector3f(-6.5f, 0, -10));
+        Game.game.getCamera().lookAtDirection(Vector3f.UNIT_Z, Vector3f.UNIT_Y);
+        
+        initHauptmenü();
+        menüControl = 0;
+    }
+    
+    public void speichern(){
+        
+    }
+    
     
     
     /*

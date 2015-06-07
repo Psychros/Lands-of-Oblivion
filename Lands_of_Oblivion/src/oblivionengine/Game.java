@@ -160,8 +160,8 @@ abstract public class Game extends SimpleApplication{
     public void start(){
         super.start();
         game = this;
-    }
-    
+    } 
+   
     //Initialisiert einen MapState, welcher den Ablauf des Spieles verwaltet
     public void initMapState(MapState mapState){
         this.mapState = mapState;

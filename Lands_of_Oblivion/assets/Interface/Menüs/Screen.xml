@@ -17,12 +17,13 @@
                 <image id="start"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png"    x="7%" y="15%" height="8%" width="80%" visibleToMouse="true"> 
                     <interact onClick="startGame()" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png)"/> 
                 </image>
-                
-                <image id="optionen" filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png" x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
+                <image id="laden"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden.png"    x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="loadGame()" onMouseOver="mouseOver(laden. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden.png)"/> 
+                </image>
+                <image id="optionen" filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png" x="7%" y="35%" height="8%" width="80%" visibleToMouse="true"> 
                     <interact onClick="options()"   onMouseOver="mouseOver(optionen. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonOptionen.png)"/> 
                 </image>
-                
-                <image id="ende"     filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png"     x="7%" y="35%" height="8%" width="80%" visibleToMouse="true"> 
+                <image id="ende"     filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png"     x="7%" y="45%" height="8%" width="80%" visibleToMouse="true"> 
                     <interact onClick="stopGame()"  onMouseOver="mouseOver(ende. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png)"/> 
                 </image>
                 
@@ -40,6 +41,27 @@
             <control id="Baumstämme" name="label" text="0"         x="13.54%" y="0.46%" height="5.56%" width="6.25%"  font="Interface/Fonts/Arial.fnt"/>
             <control id="Stein" name="label" text="0"              x="23.44%" y="0.46%" height="5.56%" width="6.25%"  font="Interface/Fonts/Arial.fnt"/>
             <control id="Einwohner" name="label" text="0/0 (100%)" x="4.43%"  y="7.41%" height="5.56%" width="15.63%" font="Interface/Fonts/Arial.fnt"/>
+        </layer>
+    </screen>
+    
+    
+    <screen id="pause" controller="oblivionengine.appstates.Screens">
+        <layer id="Pause" childLayout="absolute" width="100%" height="100%">
+                <image filename="Interface/Menüs/InGame/Pausemenü/Pausemenü.png" height="100%" width="100%"></image>
+                <interact onMouseOver="resetMouseOver()"/>
+                
+                <image id="fortsetzen"    filename="Interface/Menüs/InGame/Pausemenü/ButtonFortsetzen.png"    x="30%" y="15%" height="8%" width="40%" visibleToMouse="true"> 
+                    <interact onClick="goToGame()" onMouseOver="mouseOver(fortsetzen. Interface/Menüs/InGame/Pausemenü/ButtonFortsetzen2.png. Interface/Menüs/InGame/Pausemenü/ButtonFortsetzen.png)"/> 
+                </image>
+                <image id="speichern"    filename="Interface/Menüs/InGame/Pausemenü/ButtonSpeichern.png"    x="30%" y="25%" height="8%" width="40%" visibleToMouse="true"> 
+                    <interact onClick="speichern()" onMouseOver="mouseOver(speichern. Interface/Menüs/InGame/Pausemenü/ButtonSpeichern2.png. Interface/Menüs/InGame/Pausemenü/ButtonSpeichern.png)"/> 
+                </image>
+                <image id="hauptmenü"    filename="Interface/Menüs/InGame/Pausemenü/ButtonHauptmenü.png"    x="30%" y="35%" height="8%" width="40%" visibleToMouse="true"> 
+                    <interact onClick="goToHauptmenü()" onMouseOver="mouseOver(hauptmenü. Interface/Menüs/InGame/Pausemenü/ButtonHauptmenü2.png. Interface/Menüs/InGame/Pausemenü/ButtonHauptmenü.png)"/> 
+                </image>
+                <image id="beenden"    filename="Interface/Menüs/InGame/Pausemenü/ButtonBeenden.png"    x="30%" y="45%" height="8%" width="40%" visibleToMouse="true"> 
+                    <interact onClick="stopGame()" onMouseOver="mouseOver(beenden. Interface/Menüs/InGame/Pausemenü/ButtonBeenden2.png. Interface/Menüs/InGame/Pausemenü/ButtonBeenden.png)"/> 
+                </image>
         </layer>
     </screen>
     

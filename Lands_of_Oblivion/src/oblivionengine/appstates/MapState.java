@@ -49,7 +49,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public static enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenü, Return, Baumenü, Lagermenü, ResetPlayerPosition;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenü, Pausemenü, Return, Baumenü, Lagermenü, ResetPlayerPosition;
     }
     
     //--------------------------------------------------------------------------
@@ -192,10 +192,22 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         inputManager.addMapping(InputMapping.ResetPlayerPosition.name(), new KeyTrigger(KeyInput.KEY_P));
         
         //Mappings, die auch in einem Menü benutzt werden können
+        addMenuInputMappings();
+        
+        //Listener aktivieren
+        for(InputMapping i: InputMapping.values()){
+            inputManager.addListener(this, i.name());
+        }
+    }
+    
+    //Menümappings
+    public void addMenuInputMappings(){
+        //Mappings, die auch in einem Menü benutzt werden können
         inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_C));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
         inputManager.addMapping(InputMapping.Lagermenü.name(), new KeyTrigger(KeyInput.KEY_V));
+        inputManager.addMapping(InputMapping.Pausemenü.name(), new KeyTrigger(KeyInput.KEY_ESCAPE));
         
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
@@ -226,8 +238,12 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         //Cheatmenü
         if (parseKeys(name)) return;    
         //Baumenü
-        if(name.equals(InputMapping.Baumenü.name()))Game.game.screens.switchToMenu("baumenü"); 
-        else if(name.equals(InputMapping.Lagermenü.name()))Game.game.screens.switchToMenu("lager"); 
+        if(name.equals(InputMapping.Baumenü.name()))
+            Game.game.screens.switchToMenu("baumenü"); 
+        else if(name.equals(InputMapping.Lagermenü.name()))
+            Game.game.screens.switchToMenu("lager"); 
+        else if(name.equals(InputMapping.Pausemenü.name()))
+            Game.game.screens.switchToMenu("pause"); 
         
         //Alle anderen Mappings
         if(player != null){
