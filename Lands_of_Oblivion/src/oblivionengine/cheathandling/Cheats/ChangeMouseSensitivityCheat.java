@@ -33,7 +33,7 @@ public class ChangeMouseSensitivityCheat implements Cheat{
             try{
                 tempStr = cheatText.substring(identifier.length() + 1);
                 tempDbl = Double.parseDouble(tempStr);
-            } catch (Exception e){
+            } catch (Throwable e){
                 System.out.println("Execution failed");
                 return false;
             }

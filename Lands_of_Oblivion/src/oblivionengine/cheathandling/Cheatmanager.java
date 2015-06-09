@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oblivionengine.Game;
+import oblivionengine.cheathandling.Cheats.ChangeGravityCheat;
+import oblivionengine.cheathandling.Cheats.ChangeJumpForceCheat;
 import oblivionengine.cheathandling.Cheats.ChangeMouseSensitivityCheat;
 import oblivionengine.cheathandling.Cheats.ChangeRunningVelocityCheat;
 
@@ -74,5 +76,7 @@ public class Cheatmanager extends Thread implements Runnable, Cheat {
     private void loadCheats(){
       cheats.add(new ChangeRunningVelocityCheat());
       cheats.add(new ChangeMouseSensitivityCheat());
+      cheats.add(new ChangeGravityCheat());
+      cheats.add(new ChangeJumpForceCheat());
     }
 }
