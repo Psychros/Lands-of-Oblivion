@@ -5,25 +5,25 @@
 package oblivionengine.cheathandling.Cheats;
 
 import oblivionengine.Game;
-import oblivionengine.charakter.npc.NPCManager;
+import oblivionengine.charakter.player.Player;
 import oblivionengine.cheathandling.Cheat;
 
 /**
  *
  * @author Tobi
  */
-public class ChangeRunningVelocityCheat implements Cheat{
-    private static final String identifier = "Change running velocity";
+public class ChangeMouseSensitivityCheat implements Cheat{
+    private final String identifier = "Change mouse sensitivity";
     
-    public ChangeRunningVelocityCheat(){
+    public ChangeMouseSensitivityCheat(){
         //doNothing()
     }
 
     @Override
     public String getIdentification() {
-        return identifier;
+        return this.identifier;
     }
-
+    
     @Override
     public boolean doCheat(Game game, String cheatText) {
         String tempStr;
@@ -37,11 +37,12 @@ public class ChangeRunningVelocityCheat implements Cheat{
                 System.out.println("Execution failed");
                 return false;
             }
-            game.mapState.getPlayer().setMoveSpeed(((float) tempDbl));
-            System.out.println("New move speed: " + game.mapState.getPlayer().getMoveSpeed());
+            Player.setMouseSensitivity((float) tempDbl);
+            System.out.println("New Mouse sensitivity: " + tempDbl);
             return true;
         } else {
             return false;
         }
     }
+    
 }
