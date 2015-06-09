@@ -86,7 +86,7 @@
 
 
 
-    <screen id="cheatmenü" controller="oblivionengine.appstates.Screens">
+    <screen id="cheatmenu" controller="oblivionengine.appstates.Screens">
         <layer id="GLayer0" childLayout="absolute">
             <panel id="GPanel0" childLayout="absolute" x="1%" y="1%" width="98%" style="nifty-panel-simple" height="98%">
                 <control id="GScrollPanel1" x="1%" y="1%" width="98%" height="90%" horizontal="true" vertical="true" name="scrollPanel"/>

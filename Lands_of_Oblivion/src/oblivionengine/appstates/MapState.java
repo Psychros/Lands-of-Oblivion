@@ -49,7 +49,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public static enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenü, Pausemenü, Return, Baumenü, Lagermenü, ResetPlayerPosition;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenu, Pausemenü, Return, Baumenü, Lagermenü, ResetPlayerPosition;
     }
     
     //--------------------------------------------------------------------------
@@ -203,7 +203,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //Menümappings
     public void addMenuInputMappings(){
         //Mappings, die auch in einem Menü benutzt werden können
-        inputManager.addMapping(InputMapping.Cheatmenü.name(), new KeyTrigger(KeyInput.KEY_C));
+        inputManager.addMapping(InputMapping.Cheatmenu.name(), new KeyTrigger(KeyInput.KEY_C));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
         inputManager.addMapping(InputMapping.Lagermenü.name(), new KeyTrigger(KeyInput.KEY_V));
@@ -235,7 +235,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        //Cheatmenü
+        //Cheatmenu
         if (parseKeys(name)) return;    
         //Baumenü
         if(name.equals(InputMapping.Baumenü.name()))
@@ -418,19 +418,20 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         }
     }
     
-    //Zum Cheatmenü wechseln
+    //Zum Cheatmenu wechseln
     private boolean parseKeys(String name){
         boolean returned = false;
-        if (name.equals(InputMapping.Cheatmenü.name()) && !Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
-            Game.game.getScreens().goToMenu("cheatmenü");
+        if (name.equals(InputMapping.Cheatmenu.name()) && !Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenu")){
+            Game.game.getScreens().goToMenu("cheatmenu");
             returned = true;
         } else if (name.equals(InputMapping.Return.name())){
-            if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenü")){
+            if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenu")){
+                cheatcounter++;
                 if (cheatcounter%2 == 1){
-                    cheatcounter++;
+                    System.out.println("cheat");
                     String cheat = Game.game.getScreens().getNifty()
                         .getCurrentScreen().findNiftyControl("cheatfield", TextField.class).getDisplayedText();
-                    System.out.println("A Cheat has been activated: " + cheat);
+                    Game.game.cheatmanager.doCheat(Game.game, cheat);
                     returned = true;
                 } else if (cheatcounter%2 == 0){
                     cheatcounter = 0;

@@ -16,6 +16,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.system.AppSettings;
 import oblivionengine.appstates.MapState;
 import oblivionengine.appstates.Screens;
+import oblivionengine.cheathandling.Cheatmanager;
 
 /**
  *
@@ -29,6 +30,7 @@ abstract public class Game extends SimpleApplication{
     public static Game game;
     public Screens screens;
     public MapState mapState;
+    public Cheatmanager cheatmanager;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -160,6 +162,7 @@ abstract public class Game extends SimpleApplication{
     public void start(){
         super.start();
         game = this;
+        cheatmanager = new Cheatmanager();
     } 
    
     //Initialisiert einen MapState, welcher den Ablauf des Spieles verwaltet

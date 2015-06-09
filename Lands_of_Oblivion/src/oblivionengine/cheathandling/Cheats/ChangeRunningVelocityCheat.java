@@ -28,19 +28,19 @@ public class ChangeRunningVelocityCheat implements Cheat{
     public boolean doCheat(Game game, String cheatText) {
         String tempStr;
         double tempDbl;
-        if (cheatText.startsWith(identifier)){
-            tempStr = cheatText.substring(identifier.length() + 1);
+        if (util.StringUtil.startsWithIgnoreCase(cheatText, identifier)){
+            System.out.println("Cheat is to be executed");
             try{
+                tempStr = cheatText.substring(identifier.length() + 1);
                 tempDbl = Double.parseDouble(tempStr);
             } catch (Exception e){
                 return false;
             }
             game.mapState.getPlayer().setMoveSpeed(((float) tempDbl));
+            System.out.println(game.mapState.getPlayer().getMoveSpeed());
             return true;
         } else {
             return false;
         }
     }
-    
-    
 }
