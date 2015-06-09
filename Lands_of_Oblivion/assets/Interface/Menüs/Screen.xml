@@ -15,7 +15,7 @@
                 <interact onMouseOver="resetMouseOver()"/>
                 
                 <image id="start"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png"    x="7%" y="15%" height="8%" width="80%" visibleToMouse="true"> 
-                    <interact onClick="startGame()" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png)"/> 
+                    <interact onClick="goToMenu(levels)" onMouseOver="mouseOver(start. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonStart.png)"/> 
                 </image>
                 <image id="laden"    filename="Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden.png"    x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
                     <interact onClick="loadGame()" onMouseOver="mouseOver(laden. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonLaden.png)"/> 
@@ -27,6 +27,49 @@
                     <interact onClick="stopGame()"  onMouseOver="mouseOver(ende. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde2.png. Interface/Menüs/Hauptmenü/Startbildschirm/ButtonEnde.png)"/> 
                 </image>
                 
+            </panel>
+        </layer>
+    </screen>
+    
+    
+    
+    
+    <screen id="optionen" controller="oblivionengine.appstates.Screens">
+        <layer id="background" childLayout="absolute">
+            <image filename="Interface/Menüs/Hauptmenü/Optionen/Optionen.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+                <interact onMouseOver="resetMouseOver()"/>
+                    
+                <control id="Mausempfindlichkeit" name="horizontalScrollbar" x="30%" y="8%" width="400" worldMax="400.0" worldPageSize="200.0" initial="25.0" buttonStepSize="2.0" />
+                
+                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="69%" y="90%" height="8%" width="26%" visibleToMouse="true"> 
+                    <interact onClick="backToStartScreen()" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                </image>
+        </layer>
+    </screen>
+    
+    
+    
+    
+    <screen id="levels" controller="oblivionengine.appstates.Screens">
+        <layer id="background" childLayout="horizontal">
+            <image filename="Interface/Menüs/Hauptmenü/Startbildschirm/Hauptmenü.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+            <panel id="buttons" x="50%" y="0%" height="100%" width="50%" childLayout="absolute">
+                <interact onMouseOver="resetMouseOver()"/>
+
+                <image id="tutorial"    filename="Interface/Menüs/Hauptmenü/Levelauswahl/ButtonTutorial.png"    x="7%" y="15%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="startGame(Tutorial)" onMouseOver="mouseOver(tutorial. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonTutorial2.png. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonTutorial.png)"/> 
+                </image>
+                <image id="sonneninsel"    filename="Interface/Menüs/Hauptmenü/Levelauswahl/ButtonSonneninsel.png"    x="7%" y="25%" height="8%" width="80%" visibleToMouse="true"> 
+                    <interact onClick="startGame(Sonneninsel)" onMouseOver="mouseOver(sonneninsel. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonSonneninsel2.png. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonSonneninsel.png)"/> 
+                </image>
+                
+                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="7%" y="90%" width="80%" height="8%" visibleToMouse="true"> 
+                    <interact onClick="goToMenu(start)" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
+                </image>
             </panel>
         </layer>
     </screen>
@@ -61,24 +104,6 @@
                 </image>
                 <image id="beenden"    filename="Interface/Menüs/InGame/Pausemenü/ButtonBeenden.png"    x="30%" y="45%" height="8%" width="40%" visibleToMouse="true"> 
                     <interact onClick="stopGame()" onMouseOver="mouseOver(beenden. Interface/Menüs/InGame/Pausemenü/ButtonBeenden2.png. Interface/Menüs/InGame/Pausemenü/ButtonBeenden.png)"/> 
-                </image>
-        </layer>
-    </screen>
-    
-    
-    
-    
-    <screen id="optionen" controller="oblivionengine.appstates.Screens">
-        <layer id="background" childLayout="absolute">
-            <image filename="Interface/Menüs/Hauptmenü/Optionen/Optionen.png" height="100%" width="100%"></image>
-        </layer>
-        <layer id="foreground" childLayout="absolute">
-                <interact onMouseOver="resetMouseOver()"/>
-                    
-                <control id="Mausempfindlichkeit" name="horizontalScrollbar" x="30%" y="8%" width="400" worldMax="400.0" worldPageSize="200.0" initial="25.0" buttonStepSize="2.0" />
-                
-                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="69%" y="90%" height="8%" width="26%" visibleToMouse="true"> 
-                    <interact onClick="backToStartScreen()" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
         </layer>
     </screen>

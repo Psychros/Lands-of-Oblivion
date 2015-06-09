@@ -193,7 +193,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     /*
      * Hauptmenü
      */
-    public void startGame(){
+    public void startGame(String map){
         //zum inGame Screen wechseln
         nifty.gotoScreen("inGame");
         
@@ -202,7 +202,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.setIgnoreMouseEvents(true);
         
         //Den MapState initialisieren und Tastendrücke aktivieren
-        MapState mapState = new MapState();
+        MapState mapState = new MapState(map);
         Game.game.initMapState(mapState);
         
         
@@ -220,6 +220,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     public void stopGame(){
         Game.game.stop();
+        System.exit(0);
     }
     
     public void options(){

@@ -58,6 +58,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private Player player;
     private Node playerNode;
     
+    private String mapPath = "";
     private Map map;    //Ist eine Referenz auf activeMap in der Klasse Game
     private Picture cursor;
     
@@ -79,13 +80,15 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //--------------------------------------------------------------------------
     //Konstruktoren
-    public MapState() {       
+    public MapState(String path) {       
         this.cheatcounter = 0;
         //FilterPostProcessor initialisieren
         effects = new FilterPostProcessor(Game.game.getAssetManager());
         Game.game.getViewPort().addProcessor(effects);
         
         loadClasses();
+        
+        this.mapPath = path;
     }
     
     //--------------------------------------------------------------------------
@@ -118,7 +121,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         super.initialize(stateManager, app);
         
         //Map erstellen
-        Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Insel1.j3o");
+        Node a = (Node)Game.game.getAssetManager().loadModel("Scenes/Maps/" + mapPath + ".j3o");
         map = new Map((TerrainQuad)a.getChild(0), "Startinsel");
         Game.game.setActiveMap(map);
         
