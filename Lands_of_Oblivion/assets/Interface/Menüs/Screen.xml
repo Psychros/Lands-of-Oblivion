@@ -116,9 +116,6 @@
             <panel id="GPanel0" childLayout="absolute" x="1%" y="1%" width="98%" style="nifty-panel-simple" height="98%">
                 <control id="GScrollPanel1" x="1%" y="1%" width="98%" height="90%" horizontal="true" vertical="true" name="scrollPanel"/>
                 <control id="cheatfield" x="1%" y="91%" width="98%" height="9%" name="textfield"/>
-                <control id="quitCheatmenuBtn" x="95%" y="0%" width="5%" height="5%" name="button" label="X" align="center" valign="center" visibleToMouse="true" > 
-                    <interact onClick="goToGame()"/>
-                </control>
             </panel>
         </layer>
     </screen>

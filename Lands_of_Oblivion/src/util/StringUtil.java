@@ -17,11 +17,6 @@ public class StringUtil {
      * @return boolean
      */
     public static boolean startsWithIgnoreCase(String paramString1, String paramString2){
-        paramString1 = paramString1.toLowerCase();
-        paramString2 = paramString2.toLowerCase();
-        
-        System.out.println(paramString1 + " -->" + paramString2);
-        
-        return paramString1.startsWith(paramString2);
+        return paramString1.toLowerCase().startsWith(paramString2.toLowerCase());
     }
 }

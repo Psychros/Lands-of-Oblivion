@@ -14,7 +14,7 @@ import oblivionengine.cheathandling.Cheats.ChangeRunningVelocityCheat;
  * @author Tobi
  */
 public class Cheatmanager extends Thread implements Runnable, Cheat {
-    public static final String identifierCheatmanager = "This is Cheatmanager";
+    private static final String identifierCheatmanager = "This is Cheatmanager";
     private final Object syncObj;
     private ArrayList<Cheat> cheats;
     private ArrayList<GameCheatstringContainer> cheatQueue;
@@ -42,24 +42,7 @@ public class Cheatmanager extends Thread implements Runnable, Cheat {
         }
     }
     
-    private void doTasks(){
-        while(cheatQueue.size() > 0){
-            GameCheatstringContainer tempCont;
-            synchronized(syncObj){
-                tempCont = cheatQueue.get(0);
-                cheatQueue.remove(0);
-            }
-            executeCheat(tempCont);
-        }
-    }
-    
-    private void executeCheat(GameCheatstringContainer localCont){
-        for (Cheat tempCheat : cheats){
-            if (tempCheat.doCheat(localCont.getGame(), localCont.getCheatString())) break;
-        }
-    }
-
-    @Override
+        @Override
     public String getIdentification(){
         return identifierCheatmanager;
     }
@@ -71,6 +54,26 @@ public class Cheatmanager extends Thread implements Runnable, Cheat {
             syncObj.notifyAll();
         }
         return true;
+    }
+    
+    private void doTasks(){
+        while(cheatQueue.size() > 0){
+            GameCheatstringContainer tempCont;
+            synchronized(syncObj){
+                tempCont = cheatQueue.get(0);
+                cheatQueue.remove(0);
+            }
+            if (!executeCheat(tempCont)){
+                System.out.println("No suitable cheat found");
+            }
+        }
+    }
+    
+    private boolean executeCheat(GameCheatstringContainer localCont){
+        for (Cheat tempCheat : cheats){
+            if (tempCheat.doCheat(localCont.getGame(), localCont.getCheatString())) return true;
+        }
+        return false;
     }
     
     private void loadCheats(){
