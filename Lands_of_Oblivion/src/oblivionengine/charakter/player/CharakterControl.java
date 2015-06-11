@@ -29,6 +29,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     protected boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
     private float moveSpeed = 15;
     private float ratioWalkRun = 2;
+    private boolean isRunning = false;
     private static float mouseSensitivity = 25;
     private Node head = new Node();
     private float yaw;
@@ -132,6 +133,12 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
             forward = isPressed;
             animChannel = animControl.createChannel();
             animChannel.setAnim(ANIM_WALK);
+            
+            //Sprint zurücksetzen
+            if(isRunning){
+                isRunning = false;
+                moveSpeed /= ratioWalkRun;
+            }
         }
         else if(name.equals("MoveBackward")){
             backward = isPressed;
@@ -147,8 +154,12 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         else if(name.equals("Duck"))
             setDucked(isPressed);
         
-        if(name.equals("Run"))
-            moveSpeed *= ratioWalkRun;
+        if(name.equals("Run")){
+            if(!isRunning){
+                moveSpeed *= ratioWalkRun;
+                isRunning = true;
+            }
+        }
     }
 
     @Override

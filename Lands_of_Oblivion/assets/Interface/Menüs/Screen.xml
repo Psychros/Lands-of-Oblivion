@@ -67,7 +67,7 @@
                     <interact onClick="startGame(Sonneninsel)" onMouseOver="mouseOver(sonneninsel. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonSonneninsel2.png. Interface/Menüs/Hauptmenü/Levelauswahl/ButtonSonneninsel.png)"/> 
                 </image>
                 
-                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="7%" y="90%" width="80%" height="8%" visibleToMouse="true"> 
+                <image id="zurück"    filename="Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png"    x="40%" y="90%" height="8%" width="52%" visibleToMouse="true"> 
                     <interact onClick="goToMenu(start)" onMouseOver="mouseOver(zurück. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück2.png. Interface/Menüs/Hauptmenü/Optionen/ButtonZurück.png)"/> 
                 </image>
             </panel>
