@@ -49,7 +49,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Mappings
     public static enum InputMapping{
-        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenu, Pausemenü, Return, Baumenü, Lagermenü, ResetPlayerPosition;
+        RotateLeft, RotateRight, LookUp, LookDown, StrafeLeft, StrafeRight, MoveForward, MoveBackward, Jump, Run, CutTree, Build, DeleteBuilding, CancelDeleteBuilding, Cheatmenu, Escape, Return, Baumenü, Lagermenü, ResetPlayerPosition;
     }
     
     //--------------------------------------------------------------------------
@@ -206,11 +206,11 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //Menümappings
     public void addMenuInputMappings(){
         //Mappings, die auch in einem Menü benutzt werden können
-        inputManager.addMapping(InputMapping.Cheatmenu.name(), new KeyTrigger(KeyInput.KEY_C));
+        inputManager.addMapping(InputMapping.Cheatmenu.name(), new KeyTrigger(KeyInput.KEY_PRIOR));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
         inputManager.addMapping(InputMapping.Lagermenü.name(), new KeyTrigger(KeyInput.KEY_V));
-        inputManager.addMapping(InputMapping.Pausemenü.name(), new KeyTrigger(KeyInput.KEY_ESCAPE));
+        inputManager.addMapping(InputMapping.Escape.name(), new KeyTrigger(KeyInput.KEY_ESCAPE));
         
         //Listener aktivieren
         for(InputMapping i: InputMapping.values()){
@@ -245,7 +245,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
             Game.game.screens.switchToMenu("baumenü"); 
         else if(name.equals(InputMapping.Lagermenü.name()))
             Game.game.screens.switchToMenu("lager"); 
-        else if(name.equals(InputMapping.Pausemenü.name()))
+        else if(name.equals(InputMapping.Escape.name()))
             Game.game.screens.switchToMenu("pause"); 
         
         //Alle anderen Mappings
@@ -432,13 +432,19 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
                 cheatcounter++;
                 if (cheatcounter%2 == 1){
                     System.out.println("cheat");
-                    String cheat = Game.game.getScreens().getNifty()
-                        .getCurrentScreen().findNiftyControl("cheatfield", TextField.class).getDisplayedText();
+                    TextField cheatField = Game.game.getScreens().getNifty()
+                        .getCurrentScreen().findNiftyControl("cheatfield", TextField.class);
+                    String cheat = cheatField.getDisplayedText();
+                    cheatField.setText("");
                     Game.game.cheatmanager.doCheat(Game.game, cheat);
                     returned = true;
                 } else if (cheatcounter%2 == 0){
                     cheatcounter = 0;
                 }
+            }
+        } else if (name.equals(InputMapping.Escape.name())){
+            if (Game.game.getScreens().getNifty().getCurrentScreen().getScreenId().equals("cheatmenu")){
+                Game.game.getScreens().goToGame();
             }
         }
         return returned;
