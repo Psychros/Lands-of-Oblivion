@@ -206,7 +206,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //Menümappings
     public void addMenuInputMappings(){
         //Mappings, die auch in einem Menü benutzt werden können
-        inputManager.addMapping(InputMapping.Cheatmenu.name(), new KeyTrigger(KeyInput.KEY_PRIOR));
+        inputManager.addMapping(InputMapping.Cheatmenu.name(), new KeyTrigger(KeyInput.KEY_F1));
         inputManager.addMapping(InputMapping.Return.name(), new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addMapping(InputMapping.Baumenü.name(), new KeyTrigger(KeyInput.KEY_F));
         inputManager.addMapping(InputMapping.Lagermenü.name(), new KeyTrigger(KeyInput.KEY_V));
