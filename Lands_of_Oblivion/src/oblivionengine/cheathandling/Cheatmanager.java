@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oblivionengine.Game;
-import oblivionengine.cheathandling.Cheats.ChangeGravityCheat;
-import oblivionengine.cheathandling.Cheats.ChangeJumpForceCheat;
-import oblivionengine.cheathandling.Cheats.ChangeMouseSensitivityCheat;
-import oblivionengine.cheathandling.Cheats.ChangeRunningVelocityCheat;
+import oblivionengine.cheathandling.Cheats.SetGravityCheat;
+import oblivionengine.cheathandling.Cheats.SetJumpForceCheat;
+import oblivionengine.cheathandling.Cheats.SetMouseSensitivityCheat;
+import oblivionengine.cheathandling.Cheats.SetPlayerMassCheat;
+import oblivionengine.cheathandling.Cheats.SetMoveSpeedCheat;
 
 /**
  *
  * @author Tobi
  */
-public class Cheatmanager extends Thread implements Runnable, Cheat {
+public class Cheatmanager extends Thread implements Runnable{
     private static final String identifierCheatmanager = "This is Cheatmanager";
     private final Object syncObj;
     private ArrayList<Cheat> cheats;
@@ -42,12 +43,11 @@ public class Cheatmanager extends Thread implements Runnable, Cheat {
         }
     }
     
-        @Override
     public String getIdentification(){
         return identifierCheatmanager;
     }
 
-    @Override
+    
     public boolean doCheat(Game game, String cheatText){
         synchronized(syncObj){
             cheatQueue.add(new GameCheatstringContainer(game, cheatText));
@@ -77,9 +77,10 @@ public class Cheatmanager extends Thread implements Runnable, Cheat {
     }
     
     private void loadCheats(){
-      cheats.add(new ChangeRunningVelocityCheat());
-      cheats.add(new ChangeMouseSensitivityCheat());
-      cheats.add(new ChangeGravityCheat());
-      cheats.add(new ChangeJumpForceCheat());
+      cheats.add(new SetMoveSpeedCheat());
+      cheats.add(new SetMouseSensitivityCheat());
+      cheats.add(new SetGravityCheat());
+      cheats.add(new SetJumpForceCheat());
+      cheats.add(new SetPlayerMassCheat());
     }
 }

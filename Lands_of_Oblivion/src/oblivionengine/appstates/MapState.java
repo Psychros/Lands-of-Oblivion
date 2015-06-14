@@ -220,7 +220,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     
     //Player initialisieren
     public void initPlayer(){
-        Node playerNode = new Node("Player");
+        playerNode = new Node("Player");
         Node node = (Node)(Game.game.getAssetManager().loadModel("Models/Player.j3o"));
         node.scale(2.6f);
         playerNode.attachChild(node);
