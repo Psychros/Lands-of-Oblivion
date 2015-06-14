@@ -4,6 +4,7 @@
  */
 package oblivionengine;
 
+import oblivionengine.maps.Map;
 import com.jme3.app.SimpleApplication;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
@@ -14,8 +15,7 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.TouchInput;
 import com.jme3.renderer.Camera;
 import com.jme3.system.AppSettings;
-import oblivionengine.appstates.MapState;
-import oblivionengine.appstates.Screens;
+import oblivionengine.maps.MapState;
 import oblivionengine.cheathandling.Cheatmanager;
 
 /**

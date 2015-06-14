@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package oblivionengine.appstates;
+package oblivionengine.maps;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -37,9 +37,10 @@ import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
 import de.lessvoid.nifty.controls.TextField;
 import oblivionengine.Game;
-import oblivionengine.Map;
+import oblivionengine.maps.Map;
 import oblivionengine.buildings.waren.BuildingBrunnen;
 import oblivionengine.charakter.player.Player;
+import oblivionengine.maps.missions.MissionQueue;
 
 /**
  *
@@ -78,17 +79,24 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     //Cheatmenu
     private byte cheatcounter;
     
+    //Missionen
+    private MissionQueue missions;
+    
     //--------------------------------------------------------------------------
     //Konstruktoren
     public MapState(String path) {       
         this.cheatcounter = 0;
+        this.mapPath = path;
+        this.missions = new MissionQueue();
+        
         //FilterPostProcessor initialisieren
         effects = new FilterPostProcessor(Game.game.getAssetManager());
         Game.game.getViewPort().addProcessor(effects);
         
         loadClasses();
         
-        this.mapPath = path;
+        
+        
     }
     
     //--------------------------------------------------------------------------
@@ -149,9 +157,10 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         player.warp(new Vector3f(0, map.getTerrain().getHeight(Vector2f.ZERO), 0));
     }
     
+    
+    
     @Override
-    public void update(float tpf){
-        
+    public void update(float tpf){ 
         Camera cam = Game.game.getCam();
         
         //Fokussierung der Kamera auf ein Objekt aktualisieren
@@ -453,5 +462,13 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     public void loadClasses(){
         //Gebäude laden
         BuildingBrunnen.loadModel();
+    }
+    
+    public void pauseGame(){
+        Game.game.getStateManager().detach(this);
+    }
+    
+    public void resumeGame(){
+        Game.game.getStateManager().attach(this);
     }
 }

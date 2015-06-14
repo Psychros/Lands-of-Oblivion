@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package oblivionengine;
+package oblivionengine.maps.tree;
 
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;

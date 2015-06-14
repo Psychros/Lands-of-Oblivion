@@ -5,7 +5,7 @@ import com.jme3.system.AppSettings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oblivionengine.Game;
-import oblivionengine.appstates.Screens;
+import oblivionengine.Screens;
 
 /**
  * test

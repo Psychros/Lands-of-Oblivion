@@ -14,8 +14,8 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import oblivionengine.Game;
-import oblivionengine.TreeCutControl;
-import oblivionengine.TreePlantControl;
+import oblivionengine.maps.tree.TreeCutControl;
+import oblivionengine.maps.tree.TreePlantControl;
 import oblivionengine.buildings.baumaterial.BuildingHolzfäller;
 
 /**
