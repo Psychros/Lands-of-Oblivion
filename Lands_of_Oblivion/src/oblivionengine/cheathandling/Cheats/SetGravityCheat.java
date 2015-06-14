@@ -13,10 +13,11 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetGravityCheat extends Cheat{
-    private static final String identifier = "Set gravity";
+    //private static final String identifier = "Set gravity";
     
     public SetGravityCheat(){
-        //doNothiing();
+        this.paramNumber = 1;
+        this.identifier = "Set gravity";
     }
 
     @Override
@@ -26,16 +27,8 @@ public class SetGravityCheat extends Cheat{
 
     
     @Override
-    public boolean doCheat(Game game, String cheatText) {
-        double[] params = super.checkCheat(identifier, cheatText, 1);
-        boolean returned;
-        if (params != null){
-            game.mapState.getPlayer().setGravity(new Vector3f(0, -(float) params[0], 0));
-            System.out.println("New gravity force: " + params[0]);
-            returned = true;
-        } else {
-            returned = false;
-        }
-        return returned;
+    protected void executeCheat(Game game, double[] params) throws Throwable{
+        game.mapState.getPlayer().setGravity(new Vector3f(0, -(float) params[0], 0));
+        System.out.println("New gravity force: " + params[0]);
     }
 }

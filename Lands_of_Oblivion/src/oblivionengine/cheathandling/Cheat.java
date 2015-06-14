@@ -1,6 +1,8 @@
 
 package oblivionengine.cheathandling;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oblivionengine.Game;
 
 /**
@@ -8,36 +10,39 @@ import oblivionengine.Game;
  * @author Tobi
  */
 public abstract class Cheat {
+    protected int paramNumber;
+    protected String identifier;
     
     public abstract String getIdentification();
-    public abstract boolean doCheat(Game game, String cheatText);
+    protected abstract void executeCheat(Game game, double[] params) throws Throwable;
     
-    protected double[] checkCheat(String identifier, String cheatString, int paramNumber){
-        double[] params = new double[paramNumber];
-        String paramStr;
-        String[] paramStrs;
-        
+    protected final boolean doCheat(Game game, String cheatString){
+        boolean returned = false;
         if (util.StringUtil.startsWithIgnoreCase(cheatString, identifier)){
             System.out.println("Cheat " + identifier + " is to be executed");
-            if (paramNumber > 0){
-                try{
-                    paramStr = cheatString.substring(identifier.length() + 1);
-                    paramStrs = paramStr.split(" ");
-                    
-                    for (int i = 0; i < paramNumber; i++){
-                        params[i] = Double.parseDouble(paramStrs[i]);
-                    }
-                } catch (Throwable t){
-                    System.out.println("Execution failed");
-                    return null;
+            try{
+                if (paramNumber > 0){
+                    executeCheat(game, getParams(cheatString));
+                } else {
+                    executeCheat(game, null);
                 }
-            } else {
-                return new double[]{Double.MIN_VALUE};
+                returned = true;
+            } catch (Throwable t){
+                System.out.println("Execution failed: " + t.getMessage());
             }
-            return params;
-        } else {
-            return null;
         }
+        return returned;
+    }
+    
+    private final double[] getParams(String cheatString) throws Throwable{
+        double[] params = new double[paramNumber];
+        String[] paramStrs;
         
+        paramStrs = cheatString.substring(identifier.length() + 1).split(" ");
+        
+        for (int i = 0; i < paramNumber; i++){
+            params[i] = Double.parseDouble(paramStrs[i]);
+        }
+        return params;
     }
 }

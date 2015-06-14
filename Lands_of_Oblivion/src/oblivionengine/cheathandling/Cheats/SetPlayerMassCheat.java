@@ -23,18 +23,10 @@ public class SetPlayerMassCheat extends Cheat{
     public String getIdentification() {
         return identifier;
     }
-
+    
     @Override
-    public boolean doCheat(Game game, String cheatText) {
-        double[] params = super.checkCheat(identifier, cheatText, 1);
-        boolean returned;
-        if (params != null){
-            game.mapState.getPlayerNode().getControl(RigidBodyControl.class).setMass((float) params[0]);
-            System.out.println("New player mass: " + params[0]);
-            returned = true;
-        } else {
-            returned = false;
-        }
-        return returned;
+    protected void executeCheat(Game game, double[] params) throws Throwable{ //TODO Fehler finden
+        game.mapState.getPlayerNode().getControl(RigidBodyControl.class).setMass((float) params[0]);
+        System.out.println("New player mass: " + params[0]);
     }
 }
