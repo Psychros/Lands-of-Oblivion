@@ -77,10 +77,10 @@ public class Cheatmanager extends Thread implements Runnable{
     }
     
     private void loadCheats(){
-      cheats.add(new SetMoveSpeedCheat());
-      cheats.add(new SetMouseSensitivityCheat());
+      /*cheats.add(new SetMoveSpeedCheat());
+      cheats.add(new SetMouseSensitivityCheat());*/
       cheats.add(new SetGravityCheat());
-      cheats.add(new SetJumpForceCheat());
-      cheats.add(new SetPlayerMassCheat());
+      /*cheats.add(new SetJumpForceCheat());
+      cheats.add(new SetPlayerMassCheat());*/
     }
 }

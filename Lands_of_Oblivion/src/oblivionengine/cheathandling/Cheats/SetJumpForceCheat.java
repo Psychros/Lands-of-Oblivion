@@ -23,18 +23,10 @@ public class SetJumpForceCheat extends Cheat{
     public String getIdentification() {
         return this.identifier;
     }
-
+    
     @Override
-    public boolean doCheat(Game game, String cheatText) {
-        double[] params = super.checkCheat(identifier, cheatText, 1);
-        boolean returned;
-        if (params != null){
-            game.mapState.getPlayer().setJumpForce(new Vector3f(0, (float) params[0], 0));
-            System.out.println("New jumpf force: " + params[0]);
-            returned = true;
-        } else {
-            returned = false;
-        }
-        return returned;
+    protected void executeCheat(Game game, double[] params) throws Throwable{
+        game.mapState.getPlayer().setJumpForce(new Vector3f(0, (float) params[0], 0));
+        System.out.println("New jumpf force: " + params[0]);
     }
 }

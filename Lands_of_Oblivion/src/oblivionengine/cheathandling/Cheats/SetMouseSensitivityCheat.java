@@ -25,16 +25,8 @@ public class SetMouseSensitivityCheat extends Cheat{
     }
     
     @Override
-    public boolean doCheat(Game game, String cheatText) {
-        double[] params = super.checkCheat(identifier, cheatText, 1);
-        boolean returned;
-        if (params != null){
-            Player.setMouseSensitivity((float) params[0]);
-            System.out.println("New mouse sensitivity: " + params[0]);
-            returned = true;
-        } else {
-            returned = false;
-        }
-        return returned;
+    protected void executeCheat(Game game, double[] params) throws Throwable{
+        Player.setMouseSensitivity((float) params[0]);
+        System.out.println("New mouse sensitivity: " + params[0]);
     }
 }
