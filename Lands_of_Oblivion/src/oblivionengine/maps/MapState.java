@@ -80,23 +80,20 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private byte cheatcounter;
     
     //Missionen
-    private MissionQueue missions;
+    private MissionQueue missionQueue;
     
     //--------------------------------------------------------------------------
     //Konstruktoren
     public MapState(String path) {       
         this.cheatcounter = 0;
         this.mapPath = path;
-        this.missions = new MissionQueue();
+        this.missionQueue = new MissionQueue();
         
         //FilterPostProcessor initialisieren
         effects = new FilterPostProcessor(Game.game.getAssetManager());
         Game.game.getViewPort().addProcessor(effects);
         
         loadClasses();
-        
-        
-        
     }
     
     //--------------------------------------------------------------------------
@@ -236,7 +233,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
         playerNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         map.attachChild(playerNode);
         
-        player = new Player(0.5f, 2.5f, 80);
+        player = new Player(0.5f, 2.5f, 1);
         player.setCamera(Game.game.getCamera());
         player.addSpatial(node);
         playerNode.addControl(player);

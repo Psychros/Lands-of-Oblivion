@@ -25,12 +25,14 @@ import oblivionengine.cheathandling.Cheatmanager;
 abstract public class Game extends SimpleApplication{
     
     //Objektvariablen
-    
     private Map activeMap;   
     public static Game game;
     public Screens screens;
     public MapState mapState;
     public Cheatmanager cheatmanager;
+    
+    //Projektpfad
+    public static final String PATH = System.getProperty("user.home") + "Saved Games\\Lands of Oblivion\\";
     
     //--------------------------------------------------------------------------
     //Konstruktoren

@@ -28,7 +28,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
     //Objektvariablen
     protected boolean forward, backward, leftRotate, rightRotate, leftStrafe, rightStrafe;
     private float moveSpeed = 15;
-    private float ratioWalkRun = 2;
+    private float ratioWalkRun = 1.5f;
     private boolean isRunning = false;
     private static float mouseSensitivity = 25;
     private Node head = new Node();
@@ -50,7 +50,7 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         head.setLocalTranslation(0, 1.9f, 0);    
         rigidBody.setFriction(0.5f); 
         rigidBody.setGravity(new Vector3f(0, -9.81f, 0));
-        setJumpForce(new Vector3f(0, 200f, 0));
+        setJumpForce(new Vector3f(0, 2f, 0));
     }
     
 
@@ -104,19 +104,19 @@ public class CharakterControl extends BetterCharacterControl implements ActionLi
         Vector3f modelForwardDir = spatial.getWorldRotation().mult(Vector3f.UNIT_Z);
         Vector3f modelLeftDir = spatial.getWorldRotation().mult(Vector3f.UNIT_X);
         walkDirection.set(0, 0, 0);
-        
+
         //NPC bewegen
         if(forward){
             walkDirection.addLocal(modelForwardDir.mult(moveSpeed));
         }
         else if(backward)
             walkDirection.addLocal(modelForwardDir.negate().multLocal(moveSpeed));
-        
+
         if(leftStrafe)
             walkDirection.addLocal(modelLeftDir.mult(moveSpeed));
         else if(rightStrafe)
             walkDirection.addLocal(modelLeftDir.negate().multLocal(moveSpeed));
-        
+
         setWalkDirection(walkDirection);
     }
     

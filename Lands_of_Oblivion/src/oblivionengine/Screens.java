@@ -16,6 +16,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.Console;
 import de.lessvoid.nifty.controls.scrollbar.ScrollbarControl;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
@@ -23,9 +24,9 @@ import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-import oblivionengine.Game;
 import oblivionengine.charakter.player.CharakterControl;
 import oblivionengine.charakter.player.Player;
+import oblivionengine.maps.levels.Tutorial;
 
 /**
  *
@@ -46,6 +47,7 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     //Ausgewählte Kategorie im Baumenü
     private String category = "";
+    private Console mission;
 
     public NiftyJmeDisplay getNiftyDisplay() {
         return niftyDisplay;
@@ -73,6 +75,7 @@ public class Screens extends AbstractAppState implements ScreenController{
         app.getGuiViewPort().addProcessor(niftyDisplay);
         Game.game.getFlyCam().setEnabled(false);
         
+        //Hauptmenü vorbereiten
         initHauptmenü();
     }
     
@@ -202,10 +205,9 @@ public class Screens extends AbstractAppState implements ScreenController{
         nifty.setIgnoreKeyboardEvents(true);
         nifty.setIgnoreMouseEvents(true);
         
-        //Den MapState initialisieren und Tastendrücke aktivieren
-        MapState mapState = new MapState(map);
+        //Level auswählen und Mapstate initialisieren
+        MapState mapState = selectLevel(map);
         Game.game.initMapState(mapState);
-        
         
         //Kamera kann sich wieder bewegen und der Mauszeiger wird entfernt
         Game.game.getFlyCam().setEnabled(true);
@@ -262,7 +264,24 @@ public class Screens extends AbstractAppState implements ScreenController{
     }
     
     
+    
+    
+    /*
+     * Levelmenü
+     */ 
+    public MapState selectLevel(String level){
+        MapState mapState = null;
         
+        switch(level){
+            case "Tutorial": mapState = new Tutorial(); break;
+            default: mapState = new MapState(level); break;
+        }
+        
+        return mapState;
+    }
+    
+      
+    
     
     /*
      * Pausemenü

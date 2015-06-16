@@ -13,6 +13,10 @@ import oblivionengine.Game;
  */
 public class Mission {
     //Objektvariablen
+    private String[] missinText = {"Ich: Was ist passiert?",
+                                   "     Was mache ich hier?",
+                                   "     Ich erinnere mich nur noch an einen Sturm.",
+                                   ""};
 
     //--------------------------------------------------------------------------
     //Konstruktoren

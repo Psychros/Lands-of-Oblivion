@@ -123,6 +123,20 @@
     
     
     
+    <screen id="missions" controller="oblivionengine.Screens">
+        <layer id="background" childLayout="absolute">
+            <image filename="Interface/Menüs/Mission/Mission.png" height="100%" width="100%"></image>
+        </layer>
+        <layer id="foreground" childLayout="absolute">
+            <panel id="GPanel0" childLayout="absolute" x="0%" y="0%" width="100%" style="nifty-panel-simple" height="100%">
+                <control id="console" name="nifty-console" lines="25" width="80%" heght="80%" align="center" valign="center"/>
+            </panel>
+        </layer>
+    </screen>
+    
+    
+    
+    
     <screen id="baumenü" controller="oblivionengine.Screens">
         <layer id="background" childLayout="absolute">
             <image filename="Interface/Menüs/Baumenü/Baumenü.png" height="100%" width="100%"></image>
