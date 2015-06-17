@@ -23,6 +23,7 @@ import oblivionengine.maps.missions.MissionState;
  */
 public class Tutorial extends MapState{
     //Objektvariablen
+    private boolean initialized = false;
 
     //--------------------------------------------------------------------------
     //Konstruktoren
@@ -39,10 +40,13 @@ public class Tutorial extends MapState{
     //Klasseninterne Methoden
     @Override
     public void initialize(AppStateManager stateManager, Application app){ 
-        super.initialize(stateManager, app);
-        
-        //Kurze Vorgeschichte zeigen
-        pauseGame();
-        MissionState mission = new MissionState(Game.PATH + "Missions\\Tutorial.txt");
+        if(!initialized){
+            super.initialize(stateManager, app);
+
+            //Kurze Vorgeschichte zeigen
+            pauseGame();
+            missionState = new MissionState(Game.PATH + "Missions\\Tutorial.txt");
+            initialized = true;
+        }
     }
 }

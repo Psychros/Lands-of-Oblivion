@@ -37,10 +37,10 @@ import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.ui.Picture;
 import de.lessvoid.nifty.controls.TextField;
 import oblivionengine.Game;
-import oblivionengine.maps.Map;
 import oblivionengine.buildings.waren.BuildingBrunnen;
 import oblivionengine.charakter.player.Player;
 import oblivionengine.maps.missions.MissionQueue;
+import oblivionengine.maps.missions.MissionState;
 
 /**
  *
@@ -80,6 +80,7 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     private byte cheatcounter;
     
     //Missionen
+    protected MissionState missionState;
     private MissionQueue missionQueue;
     
     //--------------------------------------------------------------------------
@@ -116,6 +117,12 @@ public class MapState extends AbstractAppState implements ActionListener, Analog
     public Node getPlayerNode() {
         return playerNode;
     }  
+
+    public MissionState getMissionState() {
+        return missionState;
+    }
+    
+    
     
 
     //--------------------------------------------------------------------------

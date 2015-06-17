@@ -309,6 +309,15 @@ public class Screens extends AbstractAppState implements ScreenController{
     
     
     /*
+     * Missionsmenü
+     */
+    public void nextLine(){
+        Game.game.mapState.getMissionState().nextLine();
+    }
+    
+    
+    
+    /*
      * Cheatmenü
      */  
     public void cheat(String cheat){

@@ -32,7 +32,7 @@ abstract public class Game extends SimpleApplication{
     public Cheatmanager cheatmanager;
     
     //Projektpfad
-    public static final String PATH = System.getProperty("user.home") + "Saved Games\\Lands of Oblivion\\";
+    public static final String PATH = System.getProperty("user.home") + "\\Saved Games\\Lands of Oblivion\\";
     
     //--------------------------------------------------------------------------
     //Konstruktoren

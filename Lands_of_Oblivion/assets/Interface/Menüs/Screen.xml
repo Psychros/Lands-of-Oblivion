@@ -129,7 +129,8 @@
         </layer>
         <layer id="foreground" childLayout="absolute">
             <panel id="GPanel0" childLayout="absolute" x="0%" y="0%" width="100%" style="nifty-panel-simple" height="100%">
-                <control id="console" name="nifty-console" lines="25" width="80%" heght="80%" align="center" valign="center"/>
+                <interact onClick="nextLine()"/>
+                <control id="console" name="nifty-console" lines="60" x="5%" y="10%" width="90%" height="80%" align="center" valign="center"/>
             </panel>
         </layer>
     </screen>

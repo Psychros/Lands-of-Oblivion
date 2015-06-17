@@ -20,12 +20,7 @@ import oblivionengine.Game;
  *
  * @author To
  */
-public class MissionState extends AbstractAppState implements ActionListener{
-
-    public static enum InputMapping{
-        Mouseclick
-    }
-    
+public class MissionState extends AbstractAppState{
     private String path;
     private int index = 0;
     private boolean isMouseclick = false;
@@ -39,11 +34,7 @@ public class MissionState extends AbstractAppState implements ActionListener{
         this.path = path;
         
         Game.game.getStateManager().attach(this);
-        Game.game.screens.getNifty().gotoScreen("missions");
-        
-        //Mausklicks erzeugen eine Aktion
-        Game.game.getInputManager().addMapping(InputMapping.Mouseclick.name(), new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-        Game.game.getInputManager().addListener(this, InputMapping.Mouseclick.name());
+        Game.game.screens.goToMenu("missions");
         
         //Missionskonsole initiieren
         console = Game.game.screens.getNifty().getScreen("missions").findNiftyControl("console", Console.class);
@@ -88,18 +79,6 @@ public class MissionState extends AbstractAppState implements ActionListener{
     @Override
     public void cleanup() {
         super.cleanup();
-    }
-
-    @Override
-    public void onAction(String name, boolean isPressed, float tpf) {
-        if(name.equals(InputMapping.Mouseclick)){
-            if(!firstMouseclick){
-                isMouseclick = true;
-                firstMouseclick = true;
-            } else{
-                firstMouseclick = false;
-            }
-        }
     }
     
     //Nächste Zeile anzeigen
