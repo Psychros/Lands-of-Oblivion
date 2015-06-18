@@ -7,9 +7,6 @@ package oblivionengine.maps.missions;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.MouseButtonTrigger;
 import de.lessvoid.nifty.controls.Console;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,7 +19,7 @@ import oblivionengine.Game;
  */
 public class MissionState extends AbstractAppState{
     private String path;
-    private int index = 0;
+    private int index = -1;
     private boolean isMouseclick = false;
     private boolean firstMouseclick = false; //Handelt es sich ums reindrücken oder loslassen?
     private Console console;
@@ -50,8 +47,9 @@ public class MissionState extends AbstractAppState{
             String t = "";
             do{
                 t = br.readLine();
-                text.add(t);
-            }while(!t.equals(""));
+                if(!t.equals("//"))
+                    text.add(t);
+            }while(!t.equals("//"));
             
             br.close();
         } catch(Exception e){
@@ -64,13 +62,15 @@ public class MissionState extends AbstractAppState{
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
+        
+        nextSide();
     }
     
     @Override
     public void update(float tpf) {
         //Wenn geklickt wurde wird die nächste Zeile angezeigt
         if(isMouseclick){
-            nextLine();
+            nextSide();
         }
         
         isMouseclick = false;
@@ -82,24 +82,31 @@ public class MissionState extends AbstractAppState{
     }
     
     //Nächste Zeile anzeigen
-    public void nextLine(){
-        if(text.size() > index){
-            //Seitenumbruch
-            if(text.equals("/s")){
-                console.clear();
-                nextLine();
-            } else if(text.equals("/n")){
-                console.output("");
-                nextLine();
-            }else {
-                console.output(text.get(index));
+    public void nextSide(){
+        console.clear();
+        
+        //Eine Seite Text anzeigen
+        if(text.size() > index+1){
+            Schleife:
+            while (true) {                
+                index++;
+                
+                //Seitenende
+                if(text.get(index).trim().equals("/s") || index == text.size())
+                    break Schleife;
+                else{
+                    console.output(text.get(index));
+                }
             }
-            index++;
-        } else{
-            //Ins Spiel springen
+            System.out.println(text.get(index));
+        } else
+            goToGame();
+    }
+    
+    public void goToGame(){
+        //Ins Spiel springen
             Game.game.getStateManager().detach(this);
             Game.game.screens.goToGame();
             Game.game.mapState.resumeGame();
-        }
     }
 }
