@@ -12,10 +12,10 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetMoveSpeedCheat extends Cheat{
-    private static final String identifier = "Set move speed";
     
     public SetMoveSpeedCheat(){
-        //doNothing()
+        this.identifier = "Set move speed";
+        this.paramNumber = 1;
     }
 
     @Override

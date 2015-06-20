@@ -15,6 +15,7 @@ public abstract class Cheat {
     protected abstract void executeCheat(Game game, double[] params) throws Throwable;
     
     protected final boolean doCheat(Game game, String cheatString){
+        System.out.println(identifier + paramNumber);
         
         boolean returned = false;
         if (util.StringUtil.startsWithIgnoreCase(cheatString, identifier)){
@@ -33,7 +34,7 @@ public abstract class Cheat {
         return returned;
     }
     
-    private final double[] getParams(String cheatString) throws Throwable{
+    private double[] getParams(String cheatString) throws Throwable{
         double[] params = new double[paramNumber];
         String[] paramStrs;
         
