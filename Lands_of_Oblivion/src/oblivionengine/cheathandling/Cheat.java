@@ -1,12 +1,10 @@
 
 package oblivionengine.cheathandling;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oblivionengine.Game;
 
 /**
- * Please name every Cheat after its task + Cheat so for example HealthCheat
+ * Please name every Cheat after its task + Cheat so for example FullHealthCheat
  * @author Tobi
  */
 public abstract class Cheat {
@@ -17,6 +15,7 @@ public abstract class Cheat {
     protected abstract void executeCheat(Game game, double[] params) throws Throwable;
     
     protected final boolean doCheat(Game game, String cheatString){
+        
         boolean returned = false;
         if (util.StringUtil.startsWithIgnoreCase(cheatString, identifier)){
             System.out.println("Cheat " + identifier + " is to be executed");
