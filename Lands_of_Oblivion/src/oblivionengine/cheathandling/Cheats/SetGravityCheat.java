@@ -16,8 +16,8 @@ public class SetGravityCheat extends Cheat{
     //private static final String identifier = "Set gravity";
     
     public SetGravityCheat(){
-        super.paramNumber = 1;
-        super.identifier = "Set gravity";
+        paramNumber = 1;
+        identifier = "Set gravity";
     }
     
     @Override
