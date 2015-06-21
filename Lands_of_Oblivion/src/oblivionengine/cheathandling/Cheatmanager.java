@@ -71,7 +71,7 @@ public class Cheatmanager extends Thread implements Runnable{
     
     private boolean executeCheat(GameCheatstringContainer localCont){
         for (Cheat tempCheat : cheats){
-            if (tempCheat.doCheat(localCont.getGame(), localCont.getCheatString())) return true;
+            return tempCheat.doCheat(localCont.getGame(), localCont.getCheatString());
         }
         return false;
     }
