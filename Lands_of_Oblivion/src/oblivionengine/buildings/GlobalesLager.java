@@ -52,7 +52,7 @@ public class GlobalesLager {
         this.größe = größe;
         Game.game.screens.setText("inGame", "Lager", größe);
         Game.game.screens.setText("lager", "Lager", größe);
-    } 
+    }
     
     
     //--------------------------------------------------------------------------
