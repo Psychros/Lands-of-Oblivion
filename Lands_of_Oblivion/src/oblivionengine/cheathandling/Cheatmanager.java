@@ -10,6 +10,7 @@ import oblivionengine.cheathandling.Cheats.SetJumpForceCheat;
 import oblivionengine.cheathandling.Cheats.SetMouseSensitivityCheat;
 import oblivionengine.cheathandling.Cheats.SetPlayerMassCheat;
 import oblivionengine.cheathandling.Cheats.SetMoveSpeedCheat;
+import oblivionengine.cheathandling.Cheats.SetStockSizeCheat;
 
 /**
  *
@@ -84,5 +85,6 @@ public class Cheatmanager extends Thread implements Runnable{
       cheats.add(new SetJumpForceCheat());
       cheats.add(new SetPlayerMassCheat());
       cheats.add(new NearlyEndlessRessourcesCheat());
+      cheats.add(new SetStockSizeCheat());
     }
 }
