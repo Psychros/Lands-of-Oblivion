@@ -18,11 +18,6 @@ public class SetMouseSensitivityCheat extends Cheat{
     public SetMouseSensitivityCheat(){
         //doNothing()
     }
-
-    @Override
-    public String getIdentification() {
-        return this.identifier;
-    }
     
     @Override
     protected void executeCheat(Game game, double[] params) throws Throwable{

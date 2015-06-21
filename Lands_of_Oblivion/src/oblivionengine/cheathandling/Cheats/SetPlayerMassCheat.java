@@ -20,11 +20,6 @@ public class SetPlayerMassCheat extends Cheat{
     }
     
     @Override
-    public String getIdentification() {
-        return identifier;
-    }
-    
-    @Override
     protected void executeCheat(Game game, double[] params) throws Throwable{ //TODO Fehler finden
         game.mapState.getPlayerNode().getControl(RigidBodyControl.class).setMass((float) params[0]);
         System.out.println("New player mass: " + params[0]);

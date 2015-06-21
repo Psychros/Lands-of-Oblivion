@@ -11,7 +11,6 @@ public abstract class Cheat {
     protected int paramNumber;
     protected String identifier;
     
-    public abstract String getIdentification();
     protected abstract void executeCheat(Game game, double[] params) throws Throwable;
     
     protected final boolean doCheat(Game game, String cheatString){
@@ -32,6 +31,10 @@ public abstract class Cheat {
             }
         }
         return returned;
+    }
+    
+    public String getIdentification() {
+        return identifier;
     }
     
     private double[] getParams(String cheatString) throws Throwable{

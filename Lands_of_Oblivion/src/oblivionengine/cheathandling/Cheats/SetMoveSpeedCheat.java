@@ -17,11 +17,6 @@ public class SetMoveSpeedCheat extends Cheat{
         this.identifier = "Set move speed";
         this.paramNumber = 1;
     }
-
-    @Override
-    public String getIdentification() {
-        return identifier;
-    }
     
     @Override
     protected void executeCheat(Game game, double params[]) throws Throwable{

@@ -18,11 +18,6 @@ public class SetJumpForceCheat extends Cheat{
     public SetJumpForceCheat(){
         //doNothing();
     }
-
-    @Override
-    public String getIdentification() {
-        return this.identifier;
-    }
     
     @Override
     protected void executeCheat(Game game, double[] params) throws Throwable{

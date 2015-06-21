@@ -19,12 +19,6 @@ public class SetGravityCheat extends Cheat{
         super.paramNumber = 1;
         super.identifier = "Set gravity";
     }
-
-    @Override
-    public String getIdentification() {
-        return identifier;
-    }
-
     
     @Override
     protected void executeCheat(Game game, double[] params) throws Throwable{
