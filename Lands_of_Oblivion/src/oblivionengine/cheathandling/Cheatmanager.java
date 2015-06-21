@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oblivionengine.Game;
+import oblivionengine.cheathandling.Cheats.NearlyEndlessRessourcesCheat;
 import oblivionengine.cheathandling.Cheats.SetGravityCheat;
 import oblivionengine.cheathandling.Cheats.SetJumpForceCheat;
 import oblivionengine.cheathandling.Cheats.SetMouseSensitivityCheat;
@@ -71,7 +72,7 @@ public class Cheatmanager extends Thread implements Runnable{
     
     private boolean executeCheat(GameCheatstringContainer localCont){
         for (Cheat tempCheat : cheats){
-            return tempCheat.doCheat(localCont.getGame(), localCont.getCheatString());
+            if (tempCheat.doCheat(localCont.getGame(), localCont.getCheatString())) return true;
         }
         return false;
     }
@@ -82,5 +83,6 @@ public class Cheatmanager extends Thread implements Runnable{
       cheats.add(new SetGravityCheat());
       cheats.add(new SetJumpForceCheat());
       cheats.add(new SetPlayerMassCheat());
+      cheats.add(new NearlyEndlessRessourcesCheat());
     }
 }
