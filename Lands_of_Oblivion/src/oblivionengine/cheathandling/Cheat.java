@@ -14,9 +14,6 @@ public abstract class Cheat {
     protected abstract void executeCheat(Game game, double[] params) throws Throwable;
     
     protected final boolean doCheat(Game game, String cheatString){
-        System.out.println("Param: " + paramNumber + " Identi: " + identifier);
-        System.out.println("cheatText: " + cheatString);
-        
         boolean returned = false;
         if (util.StringUtil.startsWithIgnoreCase(cheatString, identifier)){
             System.out.println("Cheat " + identifier + " is to be executed");
