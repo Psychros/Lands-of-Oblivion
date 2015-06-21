@@ -13,10 +13,10 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetPlayerMassCheat extends Cheat{
-    private static final String identifier = "Set player mass";
     
     public SetPlayerMassCheat(){
-        //doNothing();
+        super.paramNumber = 1;
+        super.identifier = "Set player mass";
     }
     
     @Override

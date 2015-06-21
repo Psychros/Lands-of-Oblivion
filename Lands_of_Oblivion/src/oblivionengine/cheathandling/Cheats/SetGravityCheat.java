@@ -13,11 +13,10 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetGravityCheat extends Cheat{
-    //private static final String identifier = "Set gravity";
     
     public SetGravityCheat(){
-        paramNumber = 1;
-        identifier = "Set gravity";
+        super.paramNumber = 1;
+        super.identifier = "Set gravity";
     }
     
     @Override

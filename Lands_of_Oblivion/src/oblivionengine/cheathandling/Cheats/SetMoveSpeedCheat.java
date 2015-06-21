@@ -7,6 +7,7 @@ package oblivionengine.cheathandling.Cheats;
 import oblivionengine.Game;
 import oblivionengine.cheathandling.Cheat;
 
+
 /**
  *
  * @author Tobi
@@ -14,8 +15,8 @@ import oblivionengine.cheathandling.Cheat;
 public class SetMoveSpeedCheat extends Cheat{
     
     public SetMoveSpeedCheat(){
-        this.identifier = "Set move speed";
-        this.paramNumber = 1;
+        super.identifier = "Set move speed";
+        super.paramNumber = 1;
     }
     
     @Override

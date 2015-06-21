@@ -13,10 +13,10 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetMouseSensitivityCheat extends Cheat{
-    private static final String identifier = "Set mouse sensitivity";
     
     public SetMouseSensitivityCheat(){
-        //doNothing()
+        super.paramNumber = 1;
+        super.identifier = "Set mouse sensitivity";
     }
     
     @Override

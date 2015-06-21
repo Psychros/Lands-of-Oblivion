@@ -13,10 +13,10 @@ import oblivionengine.cheathandling.Cheat;
  * @author Tobi
  */
 public class SetJumpForceCheat extends Cheat{
-    private static final String identifier = "Set jump force";
     
     public SetJumpForceCheat(){
-        //doNothing();
+        super.paramNumber = 1;
+        super.identifier = "Set jump force";
     }
     
     @Override
