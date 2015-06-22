@@ -23,6 +23,7 @@ public class NPCManager {
     private static ArrayList<NPCControl> freeNPCs = new ArrayList<NPCControl>();    //Nicht arbeitende NPCs
     private static ArrayList<WorkerControl> workingNPCs = new ArrayList<WorkerControl>(); //Arbeitende NPCs
     public static int numberNPCs = 0;
+    private static boolean moralDecrementForbidden = false;
     
     //Gebäude
     private static ArrayList<WorkBuilding> freeBuildings = new ArrayList<WorkBuilding>();   //Gebäude, die noch eine Arbeitskraft brauchen
@@ -54,6 +55,11 @@ public class NPCManager {
     
     //--------------------------------------------------------------------------
     //Getter und Setter
+    
+    public static void switchMoralDecrementAllowed(){
+        moralDecrementForbidden = !moralDecrementForbidden;
+    }
+    
     public static void addFreeNPC(NPCControl npc) {
          freeNPCs.add(npc);
          
@@ -95,7 +101,7 @@ public class NPCManager {
         freeBuildings.remove(building);
     }
     
-    public static void removeWorkingBuildings(Building building) {
+    public static void removeWorkingBuildings(WorkBuilding building) {
         workingBuildings.remove(building);
         workingBuildings.trimToSize();
     }
@@ -106,6 +112,9 @@ public class NPCManager {
 
     //Moral kann nur einen Wert zwischen 0 und 1.5 einnehmen
     public static void addMoral(float moral) {
+        if (moralDecrementForbidden && moral < 0){
+            return;
+        }
         NPCManager.moral += moral;
         
         if(NPCManager.moral > maxMoral)
