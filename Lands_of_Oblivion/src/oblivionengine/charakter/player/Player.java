@@ -67,6 +67,10 @@ public class Player extends CharakterControl{
         return spatial;
     }
     
+    public void setMass(float mass){
+        this.rigidBody.setMass(mass);
+    }
+    
 
     //--------------------------------------------------------------------------
     //Klasseninterne Methoden

@@ -25,7 +25,7 @@ public abstract class Cheat {
                 }
                 returned = true;
             } catch (Throwable t){
-                System.out.println("Execution failed: " + t.getMessage());
+                System.out.println("Execution failed: " + t.toString() + " " + t.getLocalizedMessage());
             }
         }
         return returned;
