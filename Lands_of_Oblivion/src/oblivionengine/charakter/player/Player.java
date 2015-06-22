@@ -205,7 +205,7 @@ public class Player extends CharakterControl{
                         WorkBuilding wB = (WorkBuilding)b;
 
                         //Gebäude entfernen
-                        NPCManager.removeWorkingBuildings(b);
+                        NPCManager.removeWorkingBuildings(wB);
                         
                         //NPC zum Arbeitslosen machensssss
                         if(wB.getWorker() != null)
