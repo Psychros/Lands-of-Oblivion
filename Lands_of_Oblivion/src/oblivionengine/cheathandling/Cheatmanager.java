@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oblivionengine.Game;
+import oblivionengine.cheathandling.Cheats.ForbidMoralDecrementCheat;
 import oblivionengine.cheathandling.Cheats.NearlyEndlessRessourcesCheat;
 import oblivionengine.cheathandling.Cheats.SetGravityCheat;
 import oblivionengine.cheathandling.Cheats.SetJumpForceCheat;
@@ -86,5 +87,6 @@ public class Cheatmanager extends Thread implements Runnable{
       cheats.add(new SetPlayerMassCheat());
       cheats.add(new NearlyEndlessRessourcesCheat());
       cheats.add(new SetStockSizeCheat());
+      cheats.add(new ForbidMoralDecrementCheat());
     }
 }
