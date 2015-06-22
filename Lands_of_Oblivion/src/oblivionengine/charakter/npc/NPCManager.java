@@ -60,6 +60,10 @@ public class NPCManager {
         moralDecrementForbidden = !moralDecrementForbidden;
     }
     
+    public static boolean getMoralDecrementForbidden(){
+        return moralDecrementForbidden;
+    }
+    
     public static void addFreeNPC(NPCControl npc) {
          freeNPCs.add(npc);
          
