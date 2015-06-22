@@ -56,7 +56,7 @@ public class NPCManager {
     //--------------------------------------------------------------------------
     //Getter und Setter
     
-    public static void switchMoralDecrementAllowed(){
+    public static void switchMoralDecrementForbidden(){
         moralDecrementForbidden = !moralDecrementForbidden;
     }
     
