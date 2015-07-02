@@ -105,8 +105,8 @@ public class MissionState extends AbstractAppState{
     
     public void goToGame(){
         //Ins Spiel springen
-            Game.game.getStateManager().detach(this);
-            Game.game.screens.goToGame();
-            Game.game.mapState.resumeGame();
+        Game.game.getStateManager().detach(this);
+        Game.game.screens.goToGame();
+        Game.game.mapState.resumeGame();
     }
 }
